@@ -1,0 +1,140 @@
+.main {
+  flex: 1;
+  padding: 4rem 2rem 6rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.lead {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--white-dim);
+  border-left: 2px solid var(--orange);
+  padding-left: 1.5rem;
+  align-self: start;
+  position: sticky;
+  top: 5rem;
+}
+
+.body {}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+
+.section p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--white-muted);
+  margin-bottom: 1rem;
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.link {
+  color: var(--orange);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.link:hover {
+  border-color: var(--orange);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 3rem;
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  background: var(--black-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.stat:hover {
+  border-color: var(--border-active);
+}
+
+.statNumber {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--white-muted);
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lead {
+    position: static;
+  }
+
+  .statRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .statRow {
+    grid-template-columns: 1fr;
+  }
+}

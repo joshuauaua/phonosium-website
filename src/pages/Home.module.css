@@ -1,0 +1,46 @@
+.main {
+  flex: 1;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  height: 100%;
+}
+
+.detailPane {
+  overflow-y: auto;
+  background: var(--black);
+}
+
+.listPane {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .main {
+    height: auto;
+    overflow: visible;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+  }
+
+  .detailPane {
+    overflow: visible;
+  }
+
+  .listPane {
+    height: auto;
+    min-height: 300px;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}
