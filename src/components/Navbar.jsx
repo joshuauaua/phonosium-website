@@ -27,6 +27,14 @@ export default function Navbar() {
           >
             About
           </NavLink>
+          <NavLink
+            to="/docs"
+            className={({ isActive }) =>
+              isActive ? `${styles.link} ${styles.active}` : styles.link
+            }
+          >
+            Docs
+          </NavLink>
         </div>
       </nav>
     </header>
