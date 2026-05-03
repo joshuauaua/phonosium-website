@@ -1,20 +1,38 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleMenu = () => setIsOpen(!isOpen)
+  const closeMenu = () => setIsOpen(false)
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <NavLink to="/" className={styles.logo}>
+        <NavLink to="/" className={styles.logo} onClick={closeMenu}>
           <span className={styles.logoMark}>◉</span>
           <span className={styles.logoText}>PHONOSIUM</span>
         </NavLink>
-        <div className={styles.links}>
+
+        <button 
+          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`} 
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div className={`${styles.links} ${isOpen ? styles.mobileOpen : ''}`}>
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
+            onClick={closeMenu}
             end
           >
             Listen
@@ -24,6 +42,7 @@ export default function Navbar() {
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
+            onClick={closeMenu}
           >
             About
           </NavLink>
@@ -32,6 +51,7 @@ export default function Navbar() {
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
+            onClick={closeMenu}
           >
             Docs
           </NavLink>
