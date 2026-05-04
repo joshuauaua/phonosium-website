@@ -6,9 +6,9 @@ export default function ContributionForm({ onClose }) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    aboutArtist: '',
-    link: '',
     location: '',
+    artistName: '',
+    artistEmail: '',
     loopAudio: null,
     samples: []
   })
@@ -69,6 +69,8 @@ export default function ContributionForm({ onClose }) {
                   aboutArtist: '',
                   link: '',
                   location: '',
+                  artistName: '',
+                  artistEmail: '',
                   loopAudio: null,
                   samples: []
                 })
@@ -138,9 +140,33 @@ export default function ContributionForm({ onClose }) {
 
           {step === 2 && (
             <div className={styles.stepContent}>
-              <h2 className={styles.stepTitle}>The Artist</h2>
-              <div className={styles.field}>
-                <label className={styles.label}>About Artist</label>
+               <h2 className={styles.stepTitle}>The Artist</h2>
+               <div className={styles.field}>
+                 <label className={styles.label}>Full Name</label>
+                 <input 
+                   type="text" 
+                   name="artistName"
+                   className={styles.input} 
+                   placeholder="Your name or alias"
+                   value={formData.artistName}
+                   onChange={handleInputChange}
+                   required
+                 />
+               </div>
+               <div className={styles.field}>
+                 <label className={styles.label}>Contact Email</label>
+                 <input 
+                   type="email" 
+                   name="artistEmail"
+                   className={styles.input} 
+                   placeholder="email@example.com"
+                   value={formData.artistEmail}
+                   onChange={handleInputChange}
+                   required
+                 />
+               </div>
+               <div className={styles.field}>
+                 <label className={styles.label}>About Artist</label>
                 <textarea 
                   name="aboutArtist"
                   className={styles.textarea} 
@@ -258,10 +284,14 @@ export default function ContributionForm({ onClose }) {
                   <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Piece</span>
                   <span style={{ color: 'var(--white)' }}>{formData.title || 'Untitled'}</span>
                 </div>
-                <div style={{ marginBottom: '1rem' }}>
-                  <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Artist</span>
-                  <span style={{ color: 'var(--white)' }}>{formData.location || 'Unknown Location'}</span>
-                </div>
+                 <div style={{ marginBottom: '1rem' }}>
+                   <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Artist</span>
+                   <span style={{ color: 'var(--white)' }}>{formData.artistName || 'Anonymous'} ({formData.location || 'Unknown Location'})</span>
+                 </div>
+                 <div style={{ marginBottom: '1rem' }}>
+                   <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Contact</span>
+                   <span style={{ color: 'var(--white)' }}>{formData.artistEmail || 'No email provided'}</span>
+                 </div>
                 <div>
                   <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Assets</span>
                   <span style={{ color: 'var(--white)' }}>
