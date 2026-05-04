@@ -47,13 +47,13 @@ export default function Navbar() {
             About
           </NavLink>
           <NavLink
-            to="/docs"
+            to="/contributor"
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
             onClick={closeMenu}
           >
-            Docs
+            Contributor
           </NavLink>
         </div>
       </nav>

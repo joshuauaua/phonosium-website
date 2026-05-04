@@ -1,10 +1,10 @@
-import styles from './Docs.module.css'
+import styles from './Contributor.module.css'
 
-export default function Docs() {
+export default function Contributor() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <div className={styles.eyebrow}>Documentation</div>
+        <div className={styles.eyebrow}>Contributor</div>
         <h1 className={styles.title}>Contributor Guide</h1>
 
         <div className={styles.grid}>

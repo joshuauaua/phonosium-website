@@ -68,9 +68,9 @@ export default function About() {
                 <strong>Contribute:</strong> Submit your own audio material or code to influence the installation’s behavior.
               </p>
               <p>
-                <strong>Documentation:</strong> Visit our{' '}
+                <strong>Contributor:</strong> Visit our{' '}
                 <a href="https://docs.phonosium.org" target="_blank" rel="noopener noreferrer" className={styles.link}>
-                  dedicated documentation site
+                  dedicated portal
                 </a>{' '}
                 for step-by-step instructions on how to format your samples and submit your work.
               </p>

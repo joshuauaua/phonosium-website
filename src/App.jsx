@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
-import Docs from './pages/Docs'
+import Contributor from './pages/Contributor'
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/docs" element={<Docs />} />
+        <Route path="/contributor" element={<Contributor />} />
       </Routes>
       <Footer />
     </div>
