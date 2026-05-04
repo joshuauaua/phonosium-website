@@ -22,6 +22,22 @@ export default function About() {
 
           <div className={styles.body}>
             <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>A Crowdsourced Sonic Canvas</h2>
+              <p>
+                At its heart, Phonosium is a collaborative experiment. We believe that public art should be shaped by the public.
+              </p>
+              <p>
+                While the "default" state of the installation provides a continuous sonic backdrop, the platform is 
+                designed to be crowdsourced. We invite sound artists, coders, and enthusiasts to contribute their own 
+                samples and installation logic.
+              </p>
+              <p>
+                <strong>Listen Live:</strong> Our website acts as a digital mirror to the physical site. Much like a 
+                web radio station, you can check in at any time to hear what is currently playing at Frihamnstorget.
+              </p>
+            </section>
+
+            <section className={styles.section}>
               <h2 className={styles.sectionTitle}>How It Works</h2>
               <p>
                 The installation is powered by a Bela.io microcontroller, known for its ultra-low latency and 
@@ -39,22 +55,6 @@ export default function About() {
                 <strong>The Experience:</strong> By default, the system runs a generative background loop that 
                 reacts in real-time to input from the physical sensors, creating an ever-evolving dialogue between 
                 the structure and its surroundings.
-              </p>
-            </section>
-
-            <section className={styles.section}>
-              <h2 className={styles.sectionTitle}>A Crowdsourced Sonic Canvas</h2>
-              <p>
-                At its heart, Phonosium is a collaborative experiment. We believe that public art should be shaped by the public.
-              </p>
-              <p>
-                While the "default" state of the installation provides a continuous sonic backdrop, the platform is 
-                designed to be crowdsourced. We invite sound artists, coders, and enthusiasts to contribute their own 
-                samples and installation logic.
-              </p>
-              <p>
-                <strong>Listen Live:</strong> Our website acts as a digital mirror to the physical site. Much like a 
-                web radio station, you can check in at any time to hear what is currently playing at Frihamnstorget.
               </p>
             </section>
 
@@ -93,20 +93,20 @@ export default function About() {
 
         <div className={styles.statRow}>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>4</span>
-            <span className={styles.statLabel}>Sensors</span>
+            <span className={styles.statNumber}>12+</span>
+            <span className={styles.statLabel}>Artists</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>4</span>
-            <span className={styles.statLabel}>Output Channels</span>
+            <span className={styles.statNumber}>380</span>
+            <span className={styles.statLabel}>Sound Files</span>
           </div>
           <div className={styles.stat}>
             <span className={styles.statNumber}>2026</span>
-            <span className={styles.statLabel}>Launched</span>
+            <span className={styles.statLabel}>Year Launched</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>∞</span>
-            <span className={styles.statLabel}>Sonic Dialogue</span>
+            <span className={styles.statNumber}>14,400+</span>
+            <span className={styles.statLabel}>Minutes Played</span>
           </div>
         </div>
       </div>
