@@ -4,7 +4,7 @@ export default function InstallationList({ installations, selectedId, onSelect }
   return (
     <aside className={styles.aside}>
       <div className={styles.header}>
-        <h2 className={styles.heading}>Sound Installations</h2>
+        <h2 className={styles.heading}>Library</h2>
         <span className={styles.count}>{installations.length}</span>
       </div>
       <ul className={styles.list}>

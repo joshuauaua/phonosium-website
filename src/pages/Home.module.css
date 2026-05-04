@@ -16,6 +16,7 @@
 }
 
 .detailPane {
+  position: relative;
   overflow-y: auto;
   background: var(--black);
 }

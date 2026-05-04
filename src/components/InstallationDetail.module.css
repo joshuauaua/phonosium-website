@@ -1,4 +1,6 @@
 .wrapper {
+  position: relative;
+  z-index: 1;
   padding: 2.5rem 5rem 3rem;
   height: 100%;
   overflow-y: auto;

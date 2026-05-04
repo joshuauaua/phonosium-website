@@ -1,6 +1,10 @@
+import { useState } from 'react'
+import ContributionForm from '../components/ContributionForm'
 import styles from './Contributor.module.css'
 
 export default function Contributor() {
+  const [showForm, setShowForm] = useState(false)
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
@@ -15,10 +19,28 @@ export default function Contributor() {
               <li><a href="#audio-format" className={styles.sidebarLink}>Audio Formats</a></li>
               <li><a href="#submitting" className={styles.sidebarLink}>Submitting via GitHub</a></li>
               <li><a href="#logic" className={styles.sidebarLink}>Installation Logic</a></li>
+              <li>
+                <button 
+                  onClick={() => setShowForm(!showForm)} 
+                  className={styles.sidebarLink}
+                  style={{ background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
+                >
+                  {showForm ? 'Close Form' : 'Contribute Now'}
+                </button>
+              </li>
             </ul>
           </aside>
 
           <div className={styles.content}>
+            <button 
+              className={`${styles.contributeBtn} ${showForm ? styles.active : ''}`}
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? 'Cancel Contribution' : 'Contribute Here'}
+            </button>
+
+            {showForm && <ContributionForm onClose={() => setShowForm(false)} />}
+
             <section id="overview" className={styles.section}>
               <span className={styles.sectionTitle}>01 / Overview</span>
               <h2>Welcome to the Collective</h2>
