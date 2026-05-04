@@ -9,7 +9,8 @@ export default function ContributionForm({ onClose }) {
     aboutArtist: '',
     link: '',
     location: '',
-    file: null
+    loopAudio: null,
+    samples: []
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -18,11 +19,23 @@ export default function ContributionForm({ onClose }) {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleFileChange = (e) => {
-    setFormData(prev => ({ ...prev, file: e.target.files[0] }))
+  const handleLoopAudioChange = (e) => {
+    setFormData(prev => ({ ...prev, loopAudio: e.target.files[0] }))
   }
 
-  const nextStep = () => setStep(prev => Math.min(prev + 1, 3))
+  const handleSamplesChange = (e) => {
+    const files = Array.from(e.target.files)
+    setFormData(prev => ({ ...prev, samples: [...prev.samples, ...files] }))
+  }
+
+  const removeSample = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      samples: prev.samples.filter((_, i) => i !== index)
+    }))
+  }
+
+  const nextStep = () => setStep(prev => Math.min(prev + 1, 4))
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1))
 
   const handleSubmit = (e) => {
@@ -56,7 +69,8 @@ export default function ContributionForm({ onClose }) {
                   aboutArtist: '',
                   link: '',
                   location: '',
-                  file: null
+                  loopAudio: null,
+                  samples: []
                 })
               }}
             >
@@ -73,14 +87,14 @@ export default function ContributionForm({ onClose }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.formWrapper} onClick={e => e.stopPropagation()}>
         <div className={styles.header}>
-          <span className={styles.stepIndicator}>Step {step} of 3</span>
+          <span className={styles.stepIndicator}>Step {step} of 4</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <div style={{ display: 'flex', gap: '4px' }}>
-              {[1, 2, 3].map(s => (
+              {[1, 2, 3, 4].map(s => (
                 <div 
                   key={s} 
                   style={{ 
-                    width: '20px', 
+                    width: '16px', 
                     height: '2px', 
                     background: s <= step ? 'var(--orange)' : 'var(--border)' 
                   }} 
@@ -163,25 +177,96 @@ export default function ContributionForm({ onClose }) {
 
           {step === 3 && (
             <div className={styles.stepContent}>
-              <h2 className={styles.stepTitle}>Submission</h2>
+              <h2 className={styles.stepTitle}>Audio Assets</h2>
+              
               <div className={styles.field}>
-                <label className={styles.label}>Audio or Logic Files</label>
-                <div className={styles.fileInputWrapper}>
+                <label className={styles.label}>Main Loop Audio</label>
+                <div className={styles.fileInputWrapper} style={{ padding: '1.5rem' }}>
                   <input 
                     type="file" 
                     className={styles.fileInput} 
-                    onChange={handleFileChange}
-                    accept=".wav,.mp3,.pd,.cpp,.zip"
+                    onChange={handleLoopAudioChange}
+                    accept=".wav,.mp3"
                   />
                   <div className={styles.fileHint}>
-                    <strong>Click to upload</strong> or drag and drop<br />
-                    WAV, MP3, PD, CPP, or ZIP
+                    {formData.loopAudio ? (
+                      <span style={{ color: 'var(--orange)' }}>Selected: {formData.loopAudio.name}</span>
+                    ) : (
+                      <><strong>Upload Loop</strong> (WAV/MP3)</>
+                    )}
                   </div>
-                  {formData.file && (
-                    <div className={styles.fileName}>
-                      Selected: {formData.file.name}
-                    </div>
-                  )}
+                </div>
+              </div>
+
+              <div className={styles.field}>
+                <label className={styles.label}>Additional Samples</label>
+                <div className={styles.fileInputWrapper} style={{ padding: '1.5rem' }}>
+                  <input 
+                    type="file" 
+                    className={styles.fileInput} 
+                    onChange={handleSamplesChange}
+                    multiple
+                    accept=".wav,.mp3"
+                  />
+                  <div className={styles.fileHint}>
+                    <strong>Add Samples</strong> (Multiple)
+                  </div>
+                </div>
+                
+                {formData.samples.length > 0 && (
+                  <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {formData.samples.map((file, idx) => (
+                      <div key={idx} style={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center',
+                        fontSize: '0.8rem',
+                        background: 'rgba(255,255,255,0.03)',
+                        padding: '6px 10px',
+                        borderRadius: '4px'
+                      }}>
+                        <span style={{ color: 'var(--white-dim)' }}>{file.name}</span>
+                        <button 
+                          type="button" 
+                          onClick={() => removeSample(idx)}
+                          style={{ background: 'none', border: 'none', color: 'var(--orange)', cursor: 'pointer' }}
+                        >
+                          remove
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className={styles.stepContent}>
+              <h2 className={styles.stepTitle}>Finalize</h2>
+              <p style={{ color: 'var(--white-muted)', marginBottom: '2rem' }}>
+                Please review your submission details. By clicking submit, your work will be 
+                sent to the Phonosium collective for review.
+              </p>
+              <div style={{ 
+                background: 'rgba(0,0,0,0.2)', 
+                padding: '1.5rem', 
+                borderRadius: '8px',
+                fontSize: '0.9rem'
+              }}>
+                <div style={{ marginBottom: '1rem' }}>
+                  <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Piece</span>
+                  <span style={{ color: 'var(--white)' }}>{formData.title || 'Untitled'}</span>
+                </div>
+                <div style={{ marginBottom: '1rem' }}>
+                  <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Artist</span>
+                  <span style={{ color: 'var(--white)' }}>{formData.location || 'Unknown Location'}</span>
+                </div>
+                <div>
+                  <span style={{ color: 'var(--orange)', fontSize: '0.7rem', display: 'block', textTransform: 'uppercase' }}>Assets</span>
+                  <span style={{ color: 'var(--white)' }}>
+                    {formData.loopAudio ? '1 Loop' : 'No Loop'}, {formData.samples.length} Samples
+                  </span>
                 </div>
               </div>
             </div>
@@ -195,7 +280,7 @@ export default function ContributionForm({ onClose }) {
             </button>
           ) : <div />}
           
-          {step < 3 ? (
+          {step < 4 ? (
             <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={nextStep}>
               Next Step
             </button>
