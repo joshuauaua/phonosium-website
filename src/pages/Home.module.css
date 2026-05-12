@@ -1,7 +1,9 @@
 .main {
   flex: 1;
   height: calc(100vh - 72px);
+  height: calc(100dvh - 72px);
   overflow: hidden;
+  contain: layout style paint;
 }
 
 .layout {
@@ -9,6 +11,7 @@
   grid-template-columns: 1fr 360px;
   height: 100%;
   transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: grid-template-columns;
 }
 
 .layout.sidebarClosed {
@@ -18,7 +21,10 @@
 .detailPane {
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
   background: var(--black);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 .listPane {
@@ -28,6 +34,7 @@
   flex-direction: column;
   border-left: 1px solid var(--border);
   background: var(--black-soft);
+  contain: layout style;
 }
 
 .sidebarToggle {
@@ -37,6 +44,7 @@
   transform: translateY(-50%);
   width: 32px;
   height: 180px;
+  min-height: var(--touch-target-min);
   background: var(--black-soft);
   border: 1px solid var(--border);
   border-right: none;
@@ -49,8 +57,9 @@
   gap: 12px;
   z-index: 10;
   border-radius: 4px 0 0 4px;
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
   padding: 10px 0;
+  will-change: transform;
 }
 
 .toggleText {
@@ -73,10 +82,16 @@
   background: var(--black);
 }
 
+.sidebarToggle:active {
+  transform: translateY(-50%) scale(0.97);
+}
+
 .listContent {
   width: 360px;
   height: 100%;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
   transition: opacity 0.3s ease;
 }
 
@@ -85,9 +100,12 @@
   pointer-events: none;
 }
 
+/* Mobile-first responsive design */
 @media (max-width: 900px) {
   .main {
     height: auto;
+    min-height: calc(100vh - 72px);
+    min-height: calc(100dvh - 72px);
     overflow: visible;
   }
 
@@ -95,6 +113,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     height: auto;
+    min-height: calc(100dvh - 72px);
   }
 
   .sidebarToggle {
@@ -107,12 +126,26 @@
 
   .detailPane {
     overflow: visible;
+    min-height: 60vh;
+    min-height: 60dvh;
   }
 
   .listPane {
     height: auto;
-    min-height: 300px;
+    min-height: 40vh;
+    min-height: 40dvh;
     border-left: none;
     border-top: 1px solid var(--border);
+  }
+}
+
+/* Tablet optimization */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 1fr 300px;
+  }
+
+  .listContent {
+    width: 300px;
   }
 }

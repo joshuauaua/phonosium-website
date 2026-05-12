@@ -4,12 +4,13 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  contain: layout style paint;
 }
 
 .nav {
   max-width: 1800px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1rem, 4vw, 2rem);
   height: 72px;
   display: flex;
   align-items: center;
@@ -23,8 +24,17 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 12px;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  align-items: center;
+  justify-content: center;
   z-index: 1001;
+  transition: transform 0.15s;
+}
+
+.hamburger:active {
+  transform: scale(0.95);
 }
 
 .hamburger span {
@@ -32,7 +42,8 @@
   width: 24px;
   height: 2px;
   background-color: var(--white);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 .hamburger.open span:nth-child(1) {
@@ -58,11 +69,18 @@
   color: var(--orange);
   font-size: 1.4rem;
   animation: pulse 3s ease-in-out infinite;
+  will-change: opacity;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
 }
 
 .logoText {
@@ -93,10 +111,13 @@
     background: var(--black);
     flex-direction: column;
     justify-content: center;
-    gap: 3rem;
+    align-items: center;
+    gap: 2rem;
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
+    will-change: transform;
+    overscroll-behavior: contain;
   }
 
   .links.mobileOpen {
@@ -104,7 +125,11 @@
   }
 
   .link {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    padding: var(--spacing-md) var(--spacing-xl);
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -115,7 +140,7 @@
   text-transform: uppercase;
   color: var(--white-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.15s;
   position: relative;
   padding-bottom: 4px;
 }
@@ -128,7 +153,8 @@
   width: 0;
   height: 1px;
   background: var(--orange);
-  transition: width 0.25s ease;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width;
 }
 
 .link:hover {
@@ -137,6 +163,10 @@
 
 .link:hover::after {
   width: 100%;
+}
+
+.link:active {
+  transform: translateY(1px);
 }
 
 .active {

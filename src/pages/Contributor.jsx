@@ -1,9 +1,17 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import ContributionForm from '../components/ContributionForm'
 import styles from './Contributor.module.css'
 
 export default function Contributor() {
   const [showForm, setShowForm] = useState(false)
+
+  const toggleForm = useCallback(() => {
+    setShowForm(prev => !prev)
+  }, [])
+
+  const closeForm = useCallback(() => {
+    setShowForm(false)
+  }, [])
 
   return (
     <main className={styles.main}>
@@ -20,8 +28,8 @@ export default function Contributor() {
               <li><a href="#submitting" className={styles.sidebarLink}>Submitting via GitHub</a></li>
               <li><a href="#logic" className={styles.sidebarLink}>Installation Logic</a></li>
               <li>
-                <button 
-                  onClick={() => setShowForm(!showForm)} 
+                <button
+                  onClick={toggleForm}
                   className={styles.sidebarLink}
                   style={{ background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
                 >
@@ -32,14 +40,14 @@ export default function Contributor() {
           </aside>
 
           <div className={styles.content}>
-            <button 
+            <button
               className={`${styles.contributeBtn} ${showForm ? styles.active : ''}`}
-              onClick={() => setShowForm(!showForm)}
+              onClick={toggleForm}
             >
               {showForm ? 'Cancel Contribution' : 'Contribute Here'}
             </button>
 
-            {showForm && <ContributionForm onClose={() => setShowForm(false)} />}
+            {showForm && <ContributionForm onClose={closeForm} />}
 
             <section id="overview" className={styles.section}>
               <span className={styles.sectionTitle}>01 / Overview</span>

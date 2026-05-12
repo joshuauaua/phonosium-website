@@ -1,8 +1,30 @@
+import { useMemo } from 'react'
 import styles from './InstallationDetail.module.css'
+
+const generateWaveformBars = (installationId) => {
+  const bars = []
+  for (let i = 0; i < 48; i++) {
+    const seed = installationId * 1000 + i
+    const pseudoRandom = Math.sin(seed) * 10000
+    const randomValue = (pseudoRandom - Math.floor(pseudoRandom)) * 20
+
+    bars.push({
+      delay: (i * 0.07).toFixed(2),
+      height: 20 + Math.sin(i * 0.6) * 60 + randomValue
+    })
+  }
+  return bars
+}
 
 export default function InstallationDetail({ installation }) {
   if (!installation) return null
-  const { title, subtitle, year, duration, artist, description, medium, tags } = installation
+  const { title, subtitle, year, duration, artist, description, medium, tags, id } = installation
+
+  const waveformBars = useMemo(() => generateWaveformBars(id), [id])
+  const artistInitials = useMemo(
+    () => artist.name.split(' ').map(n => n[0]).join(''),
+    [artist.name]
+  )
 
   return (
     <article className={styles.wrapper}>
@@ -32,11 +54,11 @@ export default function InstallationDetail({ installation }) {
       </div>
 
       <div className={styles.waveform} aria-hidden="true">
-        {Array.from({ length: 48 }).map((_, i) => (
+        {waveformBars.map((bar, i) => (
           <div
             key={i}
             className={styles.bar}
-            style={{ '--delay': `${(i * 0.07).toFixed(2)}s`, '--height': `${20 + Math.sin(i * 0.6) * 60 + Math.random() * 20}%` }}
+            style={{ '--delay': `${bar.delay}s`, '--height': `${bar.height}%` }}
           />
         ))}
       </div>
@@ -57,7 +79,7 @@ export default function InstallationDetail({ installation }) {
         <h2 className={styles.artistHeading}>Artist</h2>
         <div className={styles.artistCard}>
           <div className={styles.artistAvatar}>
-            {artist.name.split(' ').map(n => n[0]).join('')}
+            {artistInitials}
           </div>
           <div className={styles.artistInfo}>
             <h3 className={styles.artistName}>{artist.name}</h3>

@@ -1,5 +1,5 @@
 .footer {
-  padding: 2rem 2rem;
+  padding: clamp(1.5rem, 4vw, 2rem);
   border-top: 1px solid var(--border);
   background: var(--black-soft);
 }
@@ -7,18 +7,19 @@
 .container {
   max-width: 1800px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(1.5rem, 4vw, 2rem);
 }
 
 .description {
-  max-width: none;
-  font-size: 0.9rem;
+  max-width: 60ch;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   line-height: 1.6;
   color: var(--white-dim);
   margin: 0;
@@ -38,15 +39,23 @@
 
 .socialLink {
   color: var(--white-muted);
-  transition: color 0.2s, transform 0.2s;
+  transition: color 0.2s, transform 0.15s;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 12px;
+  will-change: transform;
 }
 
 .socialLink:hover {
   color: var(--orange);
   transform: translateY(-2px);
+}
+
+.socialLink:active {
+  transform: translateY(0);
 }
 
 .credits {
@@ -60,11 +69,17 @@
   color: var(--white-dim);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .credits a:hover {
   border-color: var(--white-dim);
+  color: var(--white);
+}
+
+.credits a:active {
+  color: var(--orange);
 }
 
 @media (max-width: 900px) {

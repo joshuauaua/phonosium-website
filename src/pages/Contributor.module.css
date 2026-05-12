@@ -1,11 +1,14 @@
 .main {
   flex: 1;
-  padding: 4rem 4rem 6rem;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 8vw, 6rem);
+  min-height: calc(100vh - 72px);
+  min-height: calc(100dvh - 72px);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .eyebrow {
@@ -18,18 +21,19 @@
 }
 
 .title {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 7vw, 3.5rem);
   font-weight: 700;
   line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--white);
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1.8fr;
-  gap: 3rem;
-  margin-bottom: 4rem;
+  gap: clamp(2rem, 5vw, 3rem);
+  margin-bottom: clamp(3rem, 6vw, 4rem);
 }
 
 .sidebar {
@@ -89,29 +93,33 @@
 }
 
 .section h2 {
-  font-size: 1.8rem;
+  font-size: clamp(1.5rem, 4vw, 1.8rem);
   font-weight: 600;
   color: var(--white);
   margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
 }
 
 .section p {
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
   line-height: 1.8;
   color: var(--white-muted);
   margin-bottom: 1.5rem;
+  max-width: 70ch;
 }
 
 .codeBlock {
   background: var(--black-mid);
-  padding: 1.5rem;
-  border-radius: 4px;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 6px;
   border: 1px solid var(--border);
   margin-bottom: 1.5rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  line-height: 1.6;
   color: var(--white-dim);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .link {
@@ -130,15 +138,17 @@
   color: var(--black);
   border: 1px solid var(--orange);
   padding: 1rem 2.5rem;
+  min-height: var(--touch-target-min);
   font-family: 'Space Mono', monospace;
-  font-size: 0.85rem;
+  font-size: clamp(0.8rem, 2vw, 0.85rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin: 1rem 0 3rem;
-  border-radius: 4px;
+  border-radius: 6px;
+  will-change: transform;
 }
 
 .contributeBtn:hover {
@@ -146,6 +156,10 @@
   border-color: var(--white);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.contributeBtn:active {
+  transform: translateY(0);
 }
 
 .contributeBtn.active {
@@ -157,10 +171,36 @@
 @media (max-width: 800px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .sidebar {
     position: static;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .sidebarList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .sidebarLink {
+    padding: 0.5rem 1rem;
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .contributeBtn {
+    width: 100%;
+    padding: 1rem 1.5rem;
   }
 }

@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
-  const toggleMenu = () => setIsOpen(!isOpen)
-  const closeMenu = () => setIsOpen(false)
+  const toggleMenu = useCallback(() => {
+    setIsOpen(prev => !prev)
+  }, [])
+
+  const closeMenu = useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
   return (
     <header className={styles.header}>
@@ -16,10 +21,11 @@ export default function Navbar() {
           <span className={styles.logoText}>PHONOSIUM</span>
         </NavLink>
 
-        <button 
-          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`} 
+        <button
+          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           <span></span>
           <span></span>
