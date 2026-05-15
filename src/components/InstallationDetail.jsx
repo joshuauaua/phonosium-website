@@ -102,7 +102,6 @@ export default function InstallationDetail({ installation }) {
           <div className={styles.artistInfo}>
             <h3 className={styles.artistName}>{artist.name}</h3>
             <p className={styles.artistOrigin}>{artist.origin}</p>
-            <p className={styles.artistActive}>{artist.active}</p>
           </div>
         </div>
         <p className={styles.artistBio}>{artist.bio}</p>

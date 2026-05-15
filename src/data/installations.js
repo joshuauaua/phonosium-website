@@ -1,11 +1,30 @@
 export const installations = [
   {
     id: 1,
+    title: 'Birds!',
+    subtitle: 'Algorithmic avian composition',
+    year: 2025,
+    duration: '35:42',
+    isActive: true,
+    artist: {
+      name: 'Joshua Ng',
+      bio: 'Joshua Ng is a creative technologist and technical creative with a focus on sound and software.',
+      origin: 'Stockholm/Sheffield',
+      website: 'joshuauaua.github.io',
+      instagram: 'http://instagram.com/joshuauaua',
+    },
+    description:
+      'Birds! is an algorithmic composition exploring the intersection of natural birdsong and generative audio processes. Ng combines field recordings of avian vocalizations with custom software that analyzes and reinterprets their sonic patterns, creating an evolving soundscape that sits between documentation and invention — nature observed, nature reimagined.',
+    medium: 'Algorithmic composition, field recording',
+    tags: ['generative', 'birdsong', 'algorithm', 'field recording'],
+  },
+  {
+    id: 2,
     title: 'Resonant Frequencies',
     subtitle: 'A study in spatial acoustics',
     year: 2025,
     duration: '42:17',
-    isActive: true,
+    isActive: false,
     artist: {
       name: 'Mara Okafor',
       bio: 'Mara Okafor is a Lagos-born, Berlin-based sound artist whose practice spans field recording, algorithmic composition, and immersive audio environments. Her work explores the sonic architecture of everyday spaces — the hum of infrastructure, the rhythm of crowds, the silence between words.',
@@ -19,7 +38,7 @@ export const installations = [
     tags: ['field recording', 'spatial audio', 'industrial', 'drone'],
   },
   {
-    id: 2,
+    id: 3,
     title: 'Hydrophonic Drift',
     subtitle: 'Submerged listening',
     year: 2024,
@@ -38,7 +57,7 @@ export const installations = [
     tags: ['hydrophone', 'underwater', 'ambient', 'field recording'],
   },
   {
-    id: 3,
+    id: 4,
     title: 'Cicatrix',
     subtitle: 'Scar tissue and signal',
     year: 2025,
@@ -57,7 +76,7 @@ export const installations = [
     tags: ['feedback', 'noise', 'electronics', 'live'],
   },
   {
-    id: 4,
+    id: 5,
     title: 'Night Soil',
     subtitle: 'Decomposition as composition',
     year: 2023,
@@ -76,7 +95,7 @@ export const installations = [
     tags: ['contact mic', 'ecology', 'slow listening', 'nature'],
   },
   {
-    id: 5,
+    id: 6,
     title: 'Phantom Limb Radio',
     subtitle: 'Intercepted transmissions',
     year: 2024,
