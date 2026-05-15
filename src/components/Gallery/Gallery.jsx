@@ -44,13 +44,13 @@ export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === 0 ? GALLERY_IMAGES.length - 1 : prevIndex - 1
     )
   }
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === GALLERY_IMAGES.length - 1 ? 0 : prevIndex + 1
     )
   }
