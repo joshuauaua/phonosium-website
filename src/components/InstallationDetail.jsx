@@ -17,14 +17,19 @@ const generateWaveformBars = (installationId) => {
 }
 
 export default function InstallationDetail({ installation }) {
-  if (!installation) return null
-  const { title, subtitle, year, duration, artist, description, medium, tags, id } = installation
+  const { title, subtitle, year, duration, artist, description, medium, tags, id } = installation || {}
 
-  const waveformBars = useMemo(() => generateWaveformBars(id), [id])
-  const artistInitials = useMemo(
-    () => artist.name.split(' ').map(n => n[0]).join(''),
-    [artist.name]
-  )
+  const waveformBars = useMemo(() => {
+    if (!id) return []
+    return generateWaveformBars(id)
+  }, [id])
+
+  const artistInitials = useMemo(() => {
+    if (!artist?.name) return ''
+    return artist.name.split(' ').map(n => n[0]).join('')
+  }, [artist])
+
+  if (!installation) return null
 
   return (
     <article className={styles.wrapper}>
