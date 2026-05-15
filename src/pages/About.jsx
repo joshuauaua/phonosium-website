@@ -27,20 +27,19 @@ export default function About() {
             to the environment.
           </p>
           <p>
-            Whether you’re standing in front of the installation in Stockholm or tuning in online,
-            you can listen live and experience what’s currently playing at Frihamnstorget.
+            Whether you're standing in front of the installation in Stockholm or tuning in online,
+            you can listen live and experience what's currently playing at Frihamnstorget.
           </p>
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Contribute</h2>
           <p>
-            Want to hear your sounds echoing through the pipes? Submit your own audio material or
-            code via our{‘ ‘}
+            Want to hear your sounds echoing through the pipes? Submit your own audio material or code via our{' '}
             <a href="https://docs.phonosium.org" target="_blank" rel="noopener noreferrer" className={styles.link}>
               contributor portal
-            </a>
-            {‘ ‘}to influence the installation’s behavior.
+            </a>{' '}
+            to influence the installation&apos;s behavior.
           </p>
         </section>
 
@@ -49,7 +48,7 @@ export default function About() {
           <p>
             Phonosium is a project by <strong>Joshua Ng</strong> of <strong>Sonic Assembly</strong>,
             made possible with support from <strong>FRIHAMNSTORGETS KULTURFÖRENING</strong> in
-            Stockholm’s Frihamnen district.
+            Stockholm's Frihamnen district.
           </p>
         </section>
 
