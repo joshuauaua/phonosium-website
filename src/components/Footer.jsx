@@ -6,8 +6,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.content}>
           <p className={styles.description}>
-            Phonosium is an interactive sound installation and digital platform 
-            bridging physical presence with global sonic exploration.
+            Phonosium is a crowdsourced interactive sound installation physically located in Stockholm
           </p>
           
           <div className={styles.rightSection}>
