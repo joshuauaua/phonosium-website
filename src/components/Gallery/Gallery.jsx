@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styles from './Gallery.module.css'
 
 const GALLERY_IMAGES = [
@@ -42,6 +42,9 @@ const GALLERY_IMAGES = [
 
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+  const SWIPE_THRESHOLD = 50 // minimum distance in pixels to trigger swipe
 
   const goToPrevious = () => {
     setCurrentIndex(prevIndex =>
@@ -53,6 +56,32 @@ export default function Gallery() {
     setCurrentIndex(prevIndex =>
       prevIndex === GALLERY_IMAGES.length - 1 ? 0 : prevIndex + 1
     )
+  }
+
+  const handleTouchStart = e => {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleTouchMove = e => {
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    const swipeDistance = touchStartX.current - touchEndX.current
+
+    if (Math.abs(swipeDistance) >= SWIPE_THRESHOLD) {
+      if (swipeDistance > 0) {
+        // Swiped left - go to next
+        goToNext()
+      } else {
+        // Swiped right - go to previous
+        goToPrevious()
+      }
+    }
+
+    // Reset values
+    touchStartX.current = 0
+    touchEndX.current = 0
   }
 
   const currentImage = GALLERY_IMAGES[currentIndex]
@@ -67,7 +96,12 @@ export default function Gallery() {
         ‹
       </button>
 
-      <div className={styles.imageContainer}>
+      <div
+        className={styles.imageContainer}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <img
           src={currentImage.src}
           alt={currentImage.alt}
