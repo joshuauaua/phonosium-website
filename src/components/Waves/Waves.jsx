@@ -285,11 +285,13 @@ const Waves = ({
     }
 
     function drawLines() {
-      const { width, height } = boundingRef.current
       const ctx = ctxRef.current
 
       // Guard: Skip drawing if context is not available (test environment)
-      if (!ctx || !width || !height) return
+      if (!ctx || !boundingRef.current) return
+
+      const { width, height } = boundingRef.current
+      if (!width || !height) return
 
       ctx.clearRect(0, 0, width, height)
       ctx.beginPath()
