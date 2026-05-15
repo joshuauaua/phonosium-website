@@ -287,6 +287,10 @@ const Waves = ({
     function drawLines() {
       const { width, height } = boundingRef.current
       const ctx = ctxRef.current
+
+      // Guard: Skip drawing if context is not available (test environment)
+      if (!ctx || !width || !height) return
+
       ctx.clearRect(0, 0, width, height)
       ctx.beginPath()
       ctx.strokeStyle = configRef.current.lineColor
@@ -324,7 +328,12 @@ const Waves = ({
       container.style.setProperty('--y', `${mouse.sy}px`)
 
       movePoints(t)
-      drawLines()
+
+      // Guard: Only draw if context is available
+      if (ctxRef.current) {
+        drawLines()
+      }
+
       frameIdRef.current = requestAnimationFrame(tick)
     }
 
