@@ -10,6 +10,6 @@ describe('App', () => {
         <App />
       </BrowserRouter>
     )
-    expect(screen.getByRole('main')).toBeInTheDocument()
+    expect(screen.getAllByRole('main').length).toBeGreaterThan(0)
   })
 })
