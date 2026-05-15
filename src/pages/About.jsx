@@ -1,4 +1,5 @@
 import styles from './About.module.css'
+import Gallery from '../components/Gallery/Gallery'
 
 export default function About() {
   return (
@@ -14,8 +15,8 @@ export default function About() {
         </p>
 
         <img
-          src="/images/gallery/materials-roof.jpg"
-          alt="PVC pipes and construction materials laid out on rooftop"
+          src="/images/phonosium-pipes-angle.jpg"
+          alt="Phonosium installation PVC pipes from below showing construction details"
           className={styles.heroImage}
         />
 
@@ -29,48 +30,9 @@ export default function About() {
           </p>
         </section>
 
-        <img
-          src="/images/gallery/workspace-overhead.jpg"
-          alt="Overhead view of workbench with electronics, laptop and tools"
-          className={styles.largeImage}
-          loading="lazy"
-        />
-
         <section className={styles.section}>
-          <h3 className={styles.sectionTitle}>Site Context</h3>
-          <div className={styles.imageRow}>
-            <img
-              src="/images/gallery/container-exterior.jpg"
-              alt="Red shipping container at Frihamnstorget construction site"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/frihamnstorget-containers.jpg"
-              alt="Multiple containers at Frihamnstorget waterfront location"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/site-view-deck.jpg"
-              alt="Wide view of installation site with wooden deck and water"
-              loading="lazy"
-            />
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <h3 className={styles.sectionTitle}>Building Process</h3>
-          <div className={styles.imageRow}>
-            <img
-              src="/images/gallery/workbench-electronics.jpg"
-              alt="Electronics workbench with circuit boards and testing equipment"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/equipment-foam-box.jpg"
-              alt="Equipment storage with foam-lined protective case"
-              loading="lazy"
-            />
-          </div>
+          <h2 className={styles.sectionTitle}>Behind the Scenes</h2>
+          <Gallery />
         </section>
 
         <section className={styles.section}>
@@ -88,19 +50,6 @@ export default function About() {
             to influence the installation.
           </p>
         </section>
-
-        <div className={styles.imageRow}>
-          <img
-            src="/images/gallery/workbench-fabrication.jpg"
-            alt="Fabrication workbench with tools and materials"
-            loading="lazy"
-          />
-          <img
-            src="/images/gallery/fabrication-tool.jpg"
-            alt="Detail of fabrication process with precision equipment"
-            loading="lazy"
-          />
-        </div>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Credits</h2>
