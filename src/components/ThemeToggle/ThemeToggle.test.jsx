@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { testAccessibility } from '../../test/axe-utils'
 import ThemeToggle from './ThemeToggle'
 
 describe('ThemeToggle', () => {
@@ -119,5 +120,17 @@ describe('ThemeToggle', () => {
 
     expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
     removeEventListenerSpy.mockRestore()
+  })
+
+  it('has no accessibility violations in light mode', async () => {
+    localStorage.setItem('theme', 'light')
+    const { container } = render(<ThemeToggle />)
+    await testAccessibility(container)
+  })
+
+  it('has no accessibility violations in dark mode', async () => {
+    localStorage.setItem('theme', 'dark')
+    const { container } = render(<ThemeToggle />)
+    await testAccessibility(container)
   })
 })
