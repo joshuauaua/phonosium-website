@@ -9,13 +9,11 @@ export default function App() {
   return (
     <div>
       <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contributor" element={<Contributor />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contributor" element={<Contributor />} />
+      </Routes>
       <Footer />
     </div>
   )

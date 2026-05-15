@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { testAccessibility } from '../test/axe-utils'
 import Footer from './Footer'
 
 describe('Footer', () => {
@@ -58,5 +59,10 @@ describe('Footer', () => {
     render(<Footer />)
     const credits = screen.getByText(/Project by/i)
     expect(credits).toBeInTheDocument()
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Footer />)
+    await testAccessibility(container)
   })
 })

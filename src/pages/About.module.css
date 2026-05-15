@@ -6,9 +6,10 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  text-align: center;
 }
 
 .eyebrow {
@@ -29,29 +30,29 @@
   margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1.8fr;
-  gap: clamp(2rem, 5vw, 3rem);
-  margin-bottom: clamp(3rem, 6vw, 4rem);
-}
-
-.lead {
+.subtitle {
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   line-height: 1.75;
-  color: var(--text-soft);
-  border-left: 2px solid var(--orange);
-  padding-left: clamp(1rem, 3vw, 1.5rem);
-  align-self: start;
-  position: sticky;
-  top: 5rem;
+  color: var(--text-mid);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
   max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroImage {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: clamp(3rem, 6vw, 4rem);
+  display: block;
 }
 
 .body {}
 
 .section {
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3rem);
+  text-align: center;
 }
 
 .sectionTitle {
@@ -68,7 +69,9 @@
   line-height: 1.8;
   color: var(--text-mid);
   margin-bottom: 1rem;
-  max-width: 70ch;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section p:last-child {
@@ -141,16 +144,6 @@
 
 /* Mobile-first responsive */
 @media (max-width: 800px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .lead {
-    position: static;
-    border-left-width: 3px;
-  }
-
   .statRow {
     grid-template-columns: repeat(2, 1fr);
   }

@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { testAccessibility } from '../../test/axe-utils'
 import ThemeToggle from './ThemeToggle'
 
 describe('ThemeToggle', () => {
@@ -152,5 +153,104 @@ describe('ThemeToggle', () => {
     const button = screen.getByRole('button')
     expect(button).toHaveAttribute('aria-label')
     expect(button.getAttribute('aria-label')).toMatch(/Theme:.*Click to cycle themes/)
+  })
+
+  it('toggles theme with Ctrl+Shift+T keyboard shortcut', () => {
+    render(<ThemeToggle />)
+
+    expect(screen.getByText('System')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'T' })
+    expect(screen.getByText('Light')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'T' })
+    expect(screen.getByText('Dark')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'T' })
+    expect(screen.getByText('System')).toBeInTheDocument()
+  })
+
+  it('toggles theme with Cmd+Shift+T keyboard shortcut (macOS)', () => {
+    render(<ThemeToggle />)
+
+    expect(screen.getByText('System')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { metaKey: true, shiftKey: true, key: 'T' })
+    expect(screen.getByText('Light')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { metaKey: true, shiftKey: true, key: 'T' })
+    expect(screen.getByText('Dark')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { metaKey: true, shiftKey: true, key: 'T' })
+    expect(screen.getByText('System')).toBeInTheDocument()
+  })
+
+  it('does not toggle theme with incorrect key combinations', () => {
+    render(<ThemeToggle />)
+
+    expect(screen.getByText('System')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { ctrlKey: true, key: 'T' })
+    expect(screen.getByText('System')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { shiftKey: true, key: 'T' })
+    expect(screen.getByText('System')).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'A' })
+    expect(screen.getByText('System')).toBeInTheDocument()
+  })
+
+  it('prevents default browser behavior on keyboard shortcut', () => {
+    render(<ThemeToggle />)
+
+    const event = new KeyboardEvent('keydown', {
+      ctrlKey: true,
+      shiftKey: true,
+      key: 'T',
+      bubbles: true,
+      cancelable: true
+    })
+    const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+    window.dispatchEvent(event)
+
+    expect(preventDefaultSpy).toHaveBeenCalled()
+  })
+
+  it('updates localStorage when theme changes via keyboard', () => {
+    render(<ThemeToggle />)
+
+    expect(localStorage.getItem('theme')).toBeNull()
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'T' })
+    expect(localStorage.getItem('theme')).toBe('light')
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'T' })
+    expect(localStorage.getItem('theme')).toBe('dark')
+
+    fireEvent.keyDown(window, { ctrlKey: true, shiftKey: true, key: 'T' })
+    expect(localStorage.getItem('theme')).toBeNull()
+  })
+
+  it('removes event listener on component unmount', () => {
+    const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
+    const { unmount } = render(<ThemeToggle />)
+
+    unmount()
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    removeEventListenerSpy.mockRestore()
+  })
+
+  it('has no accessibility violations in light mode', async () => {
+    localStorage.setItem('theme', 'light')
+    const { container } = render(<ThemeToggle />)
+    await testAccessibility(container)
+  })
+
+  it('has no accessibility violations in dark mode', async () => {
+    localStorage.setItem('theme', 'dark')
+    const { container } = render(<ThemeToggle />)
+    await testAccessibility(container)
   })
 })
