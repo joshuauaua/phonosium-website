@@ -20,10 +20,12 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={`${styles.layout} ${!isSidebarOpen ? styles.sidebarClosed : ''}`}>
+      <div
+        className={`${styles.layout} ${!isSidebarOpen ? styles.sidebarClosed : ''}`}
+      >
         <section className={styles.detailPane}>
           <Waves
-            lineColor="rgba(255, 120, 0, 0.15)"
+            lineColor="rgba(214, 90, 0, 0.08)"
             backgroundColor="transparent"
             waveSpeedX={0.015}
             waveSpeedY={0.008}
@@ -41,10 +43,12 @@ export default function Home() {
           <button
             className={styles.sidebarToggle}
             onClick={toggleSidebar}
-            aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+            aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
           >
             <span className={styles.toggleText}>Library</span>
-            <span className={styles.toggleIcon}>{isSidebarOpen ? '›' : '‹'}</span>
+            <span className={styles.toggleIcon}>
+              {isSidebarOpen ? '›' : '‹'}
+            </span>
           </button>
 
           <div className={styles.listContent}>

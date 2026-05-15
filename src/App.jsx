@@ -7,21 +7,13 @@ import Contributor from './pages/Contributor'
 
 export default function App() {
   return (
-    <div style={{
-      height: '100vh',
-      height: '100dvh',
-      display: 'grid',
-      gridTemplateRows: 'auto 1fr auto',
-      overflow: 'hidden'
-    }}>
+    <div>
       <Navbar />
-      <main style={{ overflowY: 'auto', overflowX: 'hidden' }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contributor" element={<Contributor />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contributor" element={<Contributor />} />
+      </Routes>
       <Footer />
     </div>
   )

@@ -1,14 +1,16 @@
 .main {
   flex: 1;
-  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 8vw, 6rem);
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem)
+    clamp(3rem, 8vw, 6rem);
   min-height: calc(100vh - 72px);
   min-height: calc(100dvh - 72px);
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  text-align: center;
 }
 
 .eyebrow {
@@ -25,33 +27,34 @@
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--text-primary);
   margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1.8fr;
-  gap: clamp(2rem, 5vw, 3rem);
-  margin-bottom: clamp(3rem, 6vw, 4rem);
-}
-
-.lead {
+.subtitle {
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   line-height: 1.75;
-  color: var(--white-dim);
-  border-left: 2px solid var(--orange);
-  padding-left: clamp(1rem, 3vw, 1.5rem);
-  align-self: start;
-  position: sticky;
-  top: 5rem;
+  color: var(--text-mid);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
   max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.body {}
+.heroImage {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: clamp(3rem, 6vw, 4rem);
+  display: block;
+}
+
+.body {
+}
 
 .section {
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3rem);
+  text-align: center;
 }
 
 .sectionTitle {
@@ -66,9 +69,11 @@
 .section p {
   font-size: clamp(0.95rem, 2.5vw, 1.05rem);
   line-height: 1.8;
-  color: var(--white-muted);
+  color: var(--text-mid);
   margin-bottom: 1rem;
-  max-width: 70ch;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section p:last-child {
@@ -79,7 +84,9 @@
   color: var(--orange);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -109,10 +116,12 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: clamp(1.25rem, 3vw, 1.5rem);
-  background: var(--black-card);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  transition: border-color 0.2s, transform 0.15s;
+  transition:
+    border-color 0.2s,
+    transform 0.15s;
   contain: layout style paint;
 }
 
@@ -135,22 +144,12 @@
 
 .statLabel {
   font-size: clamp(0.75rem, 2vw, 0.85rem);
-  color: var(--white-muted);
+  color: var(--text-mid);
   line-height: 1.4;
 }
 
 /* Mobile-first responsive */
 @media (max-width: 800px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .lead {
-    position: static;
-    border-left-width: 3px;
-  }
-
   .statRow {
     grid-template-columns: repeat(2, 1fr);
   }

@@ -1,22 +1,29 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --orange: #FF6B1A;
-  --orange-light: #FF8C42;
-  --orange-dim: #cc5500;
-  --black: #0A0A0A;
-  --black-soft: #111111;
-  --black-mid: #1A1A1A;
-  --black-card: #1E1E1E;
-  --white: #F5F5F0;
-  --white-dim: #CCCCCC;
-  --white-muted: #888888;
-  --border: rgba(255, 107, 26, 0.2);
-  --border-active: rgba(255, 107, 26, 0.6);
+  /* Light theme colors (default) */
+  --orange: #d65a00;
+  --orange-light: #e87020;
+  --orange-dim: #b44a00;
+
+  --bg-primary: #ffffff;
+  --bg-soft: #f9f9f9;
+  --bg-mid: #f0f0f0;
+  --bg-card: #fafafa;
+
+  --text-primary: #0a0a0a;
+  --text-soft: #333333;
+  --text-mid: #666666;
+  --text-muted: #999999;
+
+  --border: rgba(214, 90, 0, 0.2);
+  --border-active: rgba(214, 90, 0, 0.6);
 
   /* Premium spacing scale */
   --spacing-xs: 0.25rem;
@@ -31,6 +38,48 @@
   --touch-target-min: 44px;
 }
 
+/* Dark theme override */
+[data-theme='dark'] {
+  --orange: #ff6b1a;
+  --orange-light: #ff8c42;
+  --orange-dim: #cc5500;
+
+  --bg-primary: #0a0a0a;
+  --bg-soft: #111111;
+  --bg-mid: #1a1a1a;
+  --bg-card: #1e1e1e;
+
+  --text-primary: #f5f5f0;
+  --text-soft: #cccccc;
+  --text-mid: #888888;
+  --text-muted: #666666;
+
+  --border: rgba(255, 107, 26, 0.2);
+  --border-active: rgba(255, 107, 26, 0.6);
+}
+
+/* System preference support (when no explicit theme set) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --orange: #ff6b1a;
+    --orange-light: #ff8c42;
+    --orange-dim: #cc5500;
+
+    --bg-primary: #0a0a0a;
+    --bg-soft: #111111;
+    --bg-mid: #1a1a1a;
+    --bg-card: #1e1e1e;
+
+    --text-primary: #f5f5f0;
+    --text-soft: #cccccc;
+    --text-mid: #888888;
+    --text-muted: #666666;
+
+    --border: rgba(255, 107, 26, 0.2);
+    --border-active: rgba(255, 107, 26, 0.6);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -39,9 +88,13 @@ html {
 }
 
 body {
-  background-color: var(--black);
-  color: var(--white);
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family:
+    'Space Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   line-height: 1.6;
   min-height: 100vh;
   min-height: 100dvh;
@@ -70,7 +123,7 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--black-mid);
+  background: var(--bg-mid);
 }
 
 ::-webkit-scrollbar-thumb {
