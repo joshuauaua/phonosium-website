@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styles from './ThemeToggle.module.css'
 
 export default function ThemeToggle() {
@@ -8,6 +8,14 @@ export default function ThemeToggle() {
     if (stored === 'light' || stored === 'dark') return stored
     return 'system'
   })
+
+  const cycleTheme = useCallback(() => {
+    setTheme(current => {
+      if (current === 'light') return 'dark'
+      if (current === 'dark') return 'system'
+      return 'light'
+    })
+  }, [])
 
   useEffect(() => {
     const root = document.documentElement
@@ -21,13 +29,21 @@ export default function ThemeToggle() {
     }
   }, [theme])
 
-  const cycleTheme = () => {
-    setTheme(current => {
-      if (current === 'light') return 'dark'
-      if (current === 'dark') return 'system'
-      return 'light'
-    })
-  }
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.shiftKey &&
+        event.key === 'T'
+      ) {
+        event.preventDefault()
+        cycleTheme()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [cycleTheme])
 
   const getIcon = () => {
     if (theme === 'light') return '☀️'
@@ -45,8 +61,8 @@ export default function ThemeToggle() {
     <button
       onClick={cycleTheme}
       className={styles.toggle}
-      aria-label={`Theme: ${getLabel()}. Click to cycle themes.`}
-      title={`Current: ${getLabel()}`}
+      aria-label={`Theme: ${getLabel()}. Click or press Ctrl+Shift+T to cycle themes.`}
+      title={`Current: ${getLabel()} (Ctrl+Shift+T)`}
     >
       <span className={styles.icon} aria-hidden="true">
         {getIcon()}
