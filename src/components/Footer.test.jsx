@@ -27,7 +27,7 @@ describe('Footer', () => {
     expect(instagramLink).toBeInTheDocument()
     expect(instagramLink).toHaveAttribute(
       'href',
-      'https://instagram.com/phonosium'
+      'https://ig.com/sonicassembly'
     )
     expect(instagramLink).toHaveAttribute('target', '_blank')
     expect(instagramLink).toHaveAttribute('rel', 'noopener noreferrer')
@@ -37,7 +37,10 @@ describe('Footer', () => {
     render(<Footer />)
     const githubLink = screen.getByLabelText('GitHub')
     expect(githubLink).toBeInTheDocument()
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/phonosium')
+    expect(githubLink).toHaveAttribute(
+      'href',
+      'https://github.com/joshuauaua/phonosium'
+    )
     expect(githubLink).toHaveAttribute('target', '_blank')
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
   })
@@ -58,7 +61,7 @@ describe('Footer', () => {
     render(<Footer />)
     const creditLink = screen.getByRole('link', { name: /Sonic Assembly/i })
     expect(creditLink).toBeInTheDocument()
-    expect(creditLink).toHaveAttribute('href', 'https://sonicassembly.com')
+    expect(creditLink).toHaveAttribute('href', 'https://sonicassembly.se')
     expect(creditLink).toHaveAttribute('target', '_blank')
     expect(creditLink).toHaveAttribute('rel', 'noopener noreferrer')
   })

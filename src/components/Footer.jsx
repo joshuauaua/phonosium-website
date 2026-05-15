@@ -13,7 +13,7 @@ export default function Footer() {
           <div className={styles.rightSection}>
             <div className={styles.socials}>
               <a
-                href="https://instagram.com/phonosium"
+                href="https://ig.com/sonicassembly"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
@@ -35,7 +35,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://github.com/phonosium"
+                href="https://github.com/joshuauaua/phonosium"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
@@ -83,7 +83,7 @@ export default function Footer() {
             <span className={styles.credits}>
               Project by{' '}
               <a
-                href="https://sonicassembly.com"
+                href="https://sonicassembly.se"
                 target="_blank"
                 rel="noopener noreferrer"
               >

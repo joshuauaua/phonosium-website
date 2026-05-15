@@ -9,9 +9,17 @@ export default function About() {
         <h1 className={styles.title}>About Phonosium</h1>
         <p className={styles.subtitle}>
           A living, breathing sound installation that bridges the physical and
-          digital. Wrapped around a shipping container at Frihamnstorget, this
-          network of PVC pipes serves as an interactive interface for sonic
-          exploration.
+          digital. Wrapped around a shipping container at{' '}
+          <a
+            href="https://www.frihamnstorget.se/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Frihamnstorget
+          </a>
+          , this network of PVC pipes serves as an interactive interface for
+          sonic exploration.
         </p>
 
         <img
@@ -23,8 +31,16 @@ export default function About() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>About the Installation</h2>
           <p>
-            Phonosium is a collaborative sonic experiment at Frihamnstorget in
-            Stockholm. Powered by Bela.io, four microphones capture local
+            Phonosium is a collaborative sonic experiment at{' '}
+            <a
+              href="https://www.frihamnstorget.se/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              Frihamnstorget
+            </a>{' '}
+            in Stockholm. Powered by Bela.io, four microphones capture local
             interactions while four speakers broadcast generative soundscapes.
             Listen live online or experience it in person.
           </p>
