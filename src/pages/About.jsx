@@ -14,56 +14,10 @@ export default function About() {
         </p>
 
         <img
-          src="/images/phonosium-pipes-angle.jpg"
-          alt="Phonosium installation PVC pipes from below showing construction details"
+          src="/images/gallery/materials-roof.jpg"
+          alt="PVC pipes and construction materials laid out on rooftop"
           className={styles.heroImage}
         />
-
-        <section className={styles.gallerySection}>
-          <h2 className={styles.sectionTitle}>Building Process</h2>
-          <div className={styles.gallery}>
-            <img
-              src="/images/gallery/aerial-view-1.jpg"
-              alt="Aerial view of Phonosium installation construction"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/aerial-view-2.jpg"
-              alt="Aerial view of PVC pipe structure"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/detail-1.jpg"
-              alt="Detail of pipe connections and mounting"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/detail-2.jpg"
-              alt="Close-up of installation structure"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/detail-3.jpg"
-              alt="Construction detail showing pipe assembly"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/construction-1.jpg"
-              alt="Installation construction progress"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/construction-2.jpg"
-              alt="Behind-the-scenes construction work"
-              loading="lazy"
-            />
-            <img
-              src="/images/gallery/construction-3.jpg"
-              alt="Final construction details"
-              loading="lazy"
-            />
-          </div>
-        </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>About the Installation</h2>
@@ -73,6 +27,50 @@ export default function About() {
             interactions while four speakers broadcast generative soundscapes.
             Listen live online or experience it in person.
           </p>
+        </section>
+
+        <img
+          src="/images/gallery/workspace-overhead.jpg"
+          alt="Overhead view of workbench with electronics, laptop and tools"
+          className={styles.largeImage}
+          loading="lazy"
+        />
+
+        <section className={styles.section}>
+          <h3 className={styles.sectionTitle}>Site Context</h3>
+          <div className={styles.imageRow}>
+            <img
+              src="/images/gallery/container-exterior.jpg"
+              alt="Red shipping container at Frihamnstorget construction site"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/frihamnstorget-containers.jpg"
+              alt="Multiple containers at Frihamnstorget waterfront location"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/site-view-deck.jpg"
+              alt="Wide view of installation site with wooden deck and water"
+              loading="lazy"
+            />
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <h3 className={styles.sectionTitle}>Building Process</h3>
+          <div className={styles.imageRow}>
+            <img
+              src="/images/gallery/workbench-electronics.jpg"
+              alt="Electronics workbench with circuit boards and testing equipment"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/equipment-foam-box.jpg"
+              alt="Equipment storage with foam-lined protective case"
+              loading="lazy"
+            />
+          </div>
         </section>
 
         <section className={styles.section}>
@@ -90,6 +88,19 @@ export default function About() {
             to influence the installation.
           </p>
         </section>
+
+        <div className={styles.imageRow}>
+          <img
+            src="/images/gallery/workbench-fabrication.jpg"
+            alt="Fabrication workbench with tools and materials"
+            loading="lazy"
+          />
+          <img
+            src="/images/gallery/fabrication-tool.jpg"
+            alt="Detail of fabrication process with precision equipment"
+            loading="lazy"
+          />
+        </div>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Credits</h2>
