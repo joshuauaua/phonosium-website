@@ -59,7 +59,7 @@ export default function Navbar() {
             }
             onClick={closeMenu}
           >
-            Contributor
+            Open Call
           </NavLink>
         </div>
       </nav>
