@@ -9,6 +9,14 @@ export default function ThemeToggle() {
     return 'system';
   });
 
+  const cycleTheme = useCallback(() => {
+    setTheme(current => {
+      if (current === 'light') return 'dark';
+      if (current === 'dark') return 'system';
+      return 'light';
+    });
+  }, []);
+
   useEffect(() => {
     const root = document.documentElement;
 
@@ -32,14 +40,6 @@ export default function ThemeToggle() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [cycleTheme]);
-
-  const cycleTheme = useCallback(() => {
-    setTheme(current => {
-      if (current === 'light') return 'dark';
-      if (current === 'dark') return 'system';
-      return 'light';
-    });
-  }, []);
 
   const getIcon = () => {
     if (theme === 'light') return '☀️';
