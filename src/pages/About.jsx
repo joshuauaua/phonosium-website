@@ -14,32 +14,71 @@ export default function About() {
         </p>
 
         <img
-          src="/images/phonosium-installation.jpg"
-          alt="Phonosium installation showing PVC pipes around shipping container"
+          src="/images/phonosium-pipes-angle.jpg"
+          alt="Phonosium installation PVC pipes from below showing construction details"
           className={styles.heroImage}
         />
+
+        <section className={styles.gallerySection}>
+          <h2 className={styles.sectionTitle}>Building Process</h2>
+          <div className={styles.gallery}>
+            <img
+              src="/images/gallery/aerial-view-1.jpg"
+              alt="Aerial view of Phonosium installation construction"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/aerial-view-2.jpg"
+              alt="Aerial view of PVC pipe structure"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/detail-1.jpg"
+              alt="Detail of pipe connections and mounting"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/detail-2.jpg"
+              alt="Close-up of installation structure"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/detail-3.jpg"
+              alt="Construction detail showing pipe assembly"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/construction-1.jpg"
+              alt="Installation construction progress"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/construction-2.jpg"
+              alt="Behind-the-scenes construction work"
+              loading="lazy"
+            />
+            <img
+              src="/images/gallery/construction-3.jpg"
+              alt="Final construction details"
+              loading="lazy"
+            />
+          </div>
+        </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>About the Installation</h2>
           <p>
-            Phonosium is a collaborative sonic experiment powered by a Bela.io
-            microcontroller. Four electret microphones embedded in the PVC
-            structure capture local interactions, while four high-fidelity
-            speakers broadcast generative soundscapes that react in real-time to
-            the environment.
-          </p>
-          <p>
-            Whether you're standing in front of the installation in Stockholm or
-            tuning in online, you can listen live and experience what's
-            currently playing at Frihamnstorget.
+            Phonosium is a collaborative sonic experiment at Frihamnstorget in
+            Stockholm. Powered by Bela.io, four microphones capture local
+            interactions while four speakers broadcast generative soundscapes.
+            Listen live online or experience it in person.
           </p>
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Contribute</h2>
           <p>
-            Want to hear your sounds echoing through the pipes? Submit your own
-            audio material or code via our{' '}
+            Submit audio or code via our{' '}
             <a
               href="https://docs.phonosium.org"
               target="_blank"
@@ -48,21 +87,17 @@ export default function About() {
             >
               contributor portal
             </a>{' '}
-            to influence the installation&apos;s behavior.
+            to influence the installation.
           </p>
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Credits</h2>
           <p>
-            Phonosium is a project by <strong>Joshua Ng</strong> of{' '}
-            <strong>Sonic Assembly</strong>, made possible with support from{' '}
-            <strong>FRIHAMNSTORGETS KULTURFÖRENING</strong> in Stockholm's
-            Frihamnen district.
+            A project by Joshua Ng (Sonic Assembly) with support from
+            Frihamnstorgets Kulturförening.
           </p>
         </section>
-
-        {/* Future: Add gallery section with WIP/behind-the-scenes images */}
 
         <div className={styles.divider} />
 

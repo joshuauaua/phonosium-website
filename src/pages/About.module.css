@@ -52,6 +52,31 @@
 .body {
 }
 
+.gallerySection {
+  margin-bottom: clamp(3rem, 6vw, 4rem);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.gallery img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.gallery img:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-active);
+}
+
 .section {
   margin-bottom: clamp(2.5rem, 5vw, 3rem);
   text-align: center;
