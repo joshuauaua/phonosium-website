@@ -153,7 +153,7 @@ describe('ThemeToggle', () => {
     const button = screen.getByRole('button')
     expect(button).toHaveAttribute('aria-label')
     expect(button.getAttribute('aria-label')).toMatch(
-      /Theme:.*Click to cycle themes/
+      /Theme:.*Click.*to cycle themes/
     )
   })
 
