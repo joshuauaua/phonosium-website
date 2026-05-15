@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './Gallery.module.css'
 
 const GALLERY_IMAGES = [
@@ -54,6 +54,19 @@ export default function Gallery() {
       prevIndex === GALLERY_IMAGES.length - 1 ? 0 : prevIndex + 1
     )
   }
+
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === 'ArrowLeft') {
+        goToPrevious()
+      } else if (event.key === 'ArrowRight') {
+        goToNext()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const currentImage = GALLERY_IMAGES[currentIndex]
 
