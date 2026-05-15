@@ -356,7 +356,6 @@ const Waves = ({
     setSize()
     setLines()
     frameIdRef.current = requestAnimationFrame(tick)
-    const container = containerRef.current
     window.addEventListener('resize', onResize)
     container.addEventListener('mousemove', onMouseMove)
     container.addEventListener('touchmove', onTouchMove, { passive: true })
