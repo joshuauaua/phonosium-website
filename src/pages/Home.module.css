@@ -1,15 +1,13 @@
 .main {
   flex: 1;
-  height: calc(100vh - 72px);
-  height: calc(100dvh - 72px);
-  overflow: hidden;
+  min-height: calc(100vh - 72px);
   contain: layout style paint;
 }
 
 .layout {
   display: grid;
   grid-template-columns: 1fr 360px;
-  height: 100%;
+  min-height: calc(100vh - 72px);
   transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: grid-template-columns;
 }
