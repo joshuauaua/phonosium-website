@@ -51,7 +51,10 @@
   border: none;
   border-left: 2px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s;
   color: var(--text-soft);
   display: flex;
   flex-direction: column;
