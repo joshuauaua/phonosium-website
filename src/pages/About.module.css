@@ -1,6 +1,7 @@
 .main {
   flex: 1;
-  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 8vw, 6rem);
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem)
+    clamp(3rem, 8vw, 6rem);
   min-height: calc(100vh - 72px);
   min-height: calc(100dvh - 72px);
 }
@@ -48,7 +49,8 @@
   display: block;
 }
 
-.body {}
+.body {
+}
 
 .section {
   margin-bottom: clamp(2.5rem, 5vw, 3rem);
@@ -82,7 +84,9 @@
   color: var(--orange);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -115,7 +119,9 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  transition: border-color 0.2s, transform 0.15s;
+  transition:
+    border-color 0.2s,
+    transform 0.15s;
   contain: layout style paint;
 }
 

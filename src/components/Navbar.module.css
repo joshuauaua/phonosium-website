@@ -73,7 +73,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -140,7 +141,9 @@
   text-transform: uppercase;
   color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.15s;
+  transition:
+    color 0.2s ease,
+    transform 0.15s;
   position: relative;
   padding-bottom: 4px;
 }

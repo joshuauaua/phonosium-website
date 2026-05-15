@@ -1,7 +1,8 @@
 .wrapper {
   position: relative;
   z-index: 1;
-  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 6vw, 5rem) clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 6vw, 5rem)
+    clamp(2rem, 5vw, 3rem);
   height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -31,7 +32,8 @@
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     box-shadow: 0 0 6px var(--orange);
     transform: scale(1);
@@ -113,7 +115,8 @@
 }
 
 @keyframes wave {
-  0%, 100% {
+  0%,
+  100% {
     transform: scaleY(1) translateZ(0);
     opacity: 0.5;
   }
@@ -155,7 +158,8 @@
   margin-bottom: 2rem;
 }
 
-.artistSection {}
+.artistSection {
+}
 
 .artistHeading {
   font-family: 'Space Mono', monospace;
@@ -189,7 +193,8 @@
   flex-shrink: 0;
 }
 
-.artistInfo {}
+.artistInfo {
+}
 
 .artistName {
   font-size: 1.1rem;

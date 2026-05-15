@@ -1,7 +1,11 @@
 import { memo, useCallback } from 'react'
 import styles from './InstallationList.module.css'
 
-const InstallationItem = memo(function InstallationItem({ inst, isSelected, onSelect }) {
+const InstallationItem = memo(function InstallationItem({
+  inst,
+  isSelected,
+  onSelect,
+}) {
   const handleClick = useCallback(() => {
     onSelect(inst.id)
   }, [inst.id, onSelect])
@@ -33,7 +37,11 @@ const InstallationItem = memo(function InstallationItem({ inst, isSelected, onSe
   )
 })
 
-export default function InstallationList({ installations, selectedId, onSelect }) {
+export default function InstallationList({
+  installations,
+  selectedId,
+  onSelect,
+}) {
   return (
     <aside className={styles.aside}>
       <div className={styles.header}>
@@ -41,7 +49,7 @@ export default function InstallationList({ installations, selectedId, onSelect }
         <span className={styles.count}>{installations.length}</span>
       </div>
       <ul className={styles.list}>
-        {installations.map((inst) => (
+        {installations.map(inst => (
           <InstallationItem
             key={inst.id}
             inst={inst}

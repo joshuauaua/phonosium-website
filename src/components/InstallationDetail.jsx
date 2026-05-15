@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import styles from './InstallationDetail.module.css'
 
-const generateWaveformBars = (installationId) => {
+const generateWaveformBars = installationId => {
   const bars = []
   for (let i = 0; i < 48; i++) {
     const seed = installationId * 1000 + i
@@ -10,14 +10,24 @@ const generateWaveformBars = (installationId) => {
 
     bars.push({
       delay: (i * 0.07).toFixed(2),
-      height: 20 + Math.sin(i * 0.6) * 60 + randomValue
+      height: 20 + Math.sin(i * 0.6) * 60 + randomValue,
     })
   }
   return bars
 }
 
 export default function InstallationDetail({ installation }) {
-  const { title, subtitle, year, duration, artist, description, medium, tags, id } = installation || {}
+  const {
+    title,
+    subtitle,
+    year,
+    duration,
+    artist,
+    description,
+    medium,
+    tags,
+    id,
+  } = installation || {}
 
   const waveformBars = useMemo(() => {
     if (!id) return []
@@ -26,7 +36,10 @@ export default function InstallationDetail({ installation }) {
 
   const artistInitials = useMemo(() => {
     if (!artist?.name) return ''
-    return artist.name.split(' ').map(n => n[0]).join('')
+    return artist.name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
   }, [artist])
 
   if (!installation) return null
@@ -74,7 +87,9 @@ export default function InstallationDetail({ installation }) {
 
       <div className={styles.tags}>
         {tags.map(tag => (
-          <span key={tag} className={styles.tag}>{tag}</span>
+          <span key={tag} className={styles.tag}>
+            {tag}
+          </span>
         ))}
       </div>
 
@@ -83,9 +98,7 @@ export default function InstallationDetail({ installation }) {
       <section className={styles.artistSection}>
         <h2 className={styles.artistHeading}>Artist</h2>
         <div className={styles.artistCard}>
-          <div className={styles.artistAvatar}>
-            {artistInitials}
-          </div>
+          <div className={styles.artistAvatar}>{artistInitials}</div>
           <div className={styles.artistInfo}>
             <h3 className={styles.artistName}>{artist.name}</h3>
             <p className={styles.artistOrigin}>{artist.origin}</p>

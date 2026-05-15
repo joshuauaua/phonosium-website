@@ -39,7 +39,9 @@
 
 .socialLink {
   color: var(--text-muted);
-  transition: color 0.2s, transform 0.15s;
+  transition:
+    color 0.2s,
+    transform 0.15s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +71,9 @@
   color: var(--text-soft);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -88,7 +92,7 @@
     align-items: flex-start;
     gap: 1.5rem;
   }
-  
+
   .rightSection {
     width: 100%;
     justify-content: space-between;
