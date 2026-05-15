@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Navbar.module.css'
-import ThemeToggle from './ThemeToggle/ThemeToggle'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -62,7 +61,6 @@ export default function Navbar() {
           >
             Open Call
           </NavLink>
-          <ThemeToggle />
         </div>
       </nav>
     </header>
