@@ -112,4 +112,65 @@ describe('Gallery', () => {
     const image = screen.getByRole('img')
     expect(image).toHaveAttribute('loading', 'lazy')
   })
+
+  it('advances to next image when right arrow key is pressed', () => {
+    render(<Gallery />)
+
+    fireEvent.keyDown(window, { key: 'ArrowRight' })
+
+    const secondImage = screen.getByAltText(
+      'Overhead view of workbench with electronics, laptop and tools'
+    )
+    expect(secondImage).toBeInTheDocument()
+  })
+
+  it('goes back to previous image when left arrow key is pressed', () => {
+    render(<Gallery />)
+
+    fireEvent.keyDown(window, { key: 'ArrowRight' })
+    fireEvent.keyDown(window, { key: 'ArrowLeft' })
+
+    const firstImage = screen.getByAltText(
+      'PVC pipes and construction materials laid out on rooftop'
+    )
+    expect(firstImage).toBeInTheDocument()
+  })
+
+  it('wraps to last image when left arrow is pressed on first image', () => {
+    render(<Gallery />)
+
+    fireEvent.keyDown(window, { key: 'ArrowLeft' })
+
+    const lastImage = screen.getByAltText(
+      'Detail of fabrication process with precision equipment'
+    )
+    expect(lastImage).toBeInTheDocument()
+  })
+
+  it('wraps to first image when right arrow is pressed on last image', () => {
+    render(<Gallery />)
+
+    // Navigate to last image using arrow keys
+    for (let i = 0; i < 9; i++) {
+      fireEvent.keyDown(window, { key: 'ArrowRight' })
+    }
+
+    const firstImage = screen.getByAltText(
+      'PVC pipes and construction materials laid out on rooftop'
+    )
+    expect(firstImage).toBeInTheDocument()
+  })
+
+  it('does not navigate when other keys are pressed', () => {
+    render(<Gallery />)
+
+    fireEvent.keyDown(window, { key: 'a' })
+    fireEvent.keyDown(window, { key: 'Enter' })
+    fireEvent.keyDown(window, { key: 'Space' })
+
+    const firstImage = screen.getByAltText(
+      'PVC pipes and construction materials laid out on rooftop'
+    )
+    expect(firstImage).toBeInTheDocument()
+  })
 })
