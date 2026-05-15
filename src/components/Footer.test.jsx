@@ -12,7 +12,9 @@ describe('Footer', () => {
 
   it('displays description text on single line', () => {
     render(<Footer />)
-    const description = screen.getByText(/Phonosium is a crowdsourced interactive sound installation/)
+    const description = screen.getByText(
+      /Phonosium is a crowdsourced interactive sound installation/
+    )
     expect(description).toBeInTheDocument()
     expect(description).toHaveTextContent(
       'Phonosium is a crowdsourced interactive sound installation physically located in Stockholm'
@@ -23,7 +25,10 @@ describe('Footer', () => {
     render(<Footer />)
     const instagramLink = screen.getByLabelText('Instagram')
     expect(instagramLink).toBeInTheDocument()
-    expect(instagramLink).toHaveAttribute('href', 'https://instagram.com/phonosium')
+    expect(instagramLink).toHaveAttribute(
+      'href',
+      'https://instagram.com/phonosium'
+    )
     expect(instagramLink).toHaveAttribute('target', '_blank')
     expect(instagramLink).toHaveAttribute('rel', 'noopener noreferrer')
   })
@@ -41,7 +46,10 @@ describe('Footer', () => {
     render(<Footer />)
     const soundcloudLink = screen.getByLabelText('SoundCloud')
     expect(soundcloudLink).toBeInTheDocument()
-    expect(soundcloudLink).toHaveAttribute('href', 'https://soundcloud.com/phonosium')
+    expect(soundcloudLink).toHaveAttribute(
+      'href',
+      'https://soundcloud.com/phonosium'
+    )
     expect(soundcloudLink).toHaveAttribute('target', '_blank')
     expect(soundcloudLink).toHaveAttribute('rel', 'noopener noreferrer')
   })

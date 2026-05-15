@@ -152,7 +152,9 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle />)
     const button = screen.getByRole('button')
     expect(button).toHaveAttribute('aria-label')
-    expect(button.getAttribute('aria-label')).toMatch(/Theme:.*Click to cycle themes/)
+    expect(button.getAttribute('aria-label')).toMatch(
+      /Theme:.*Click.*to cycle themes/
+    )
   })
 
   it('toggles theme with Ctrl+Shift+T keyboard shortcut', () => {
@@ -208,7 +210,7 @@ describe('ThemeToggle', () => {
       shiftKey: true,
       key: 'T',
       bubbles: true,
-      cancelable: true
+      cancelable: true,
     })
     const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
 
@@ -238,7 +240,10 @@ describe('ThemeToggle', () => {
 
     unmount()
 
-    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    expect(removeEventListenerSpy).toHaveBeenCalledWith(
+      'keydown',
+      expect.any(Function)
+    )
     removeEventListenerSpy.mockRestore()
   })
 
