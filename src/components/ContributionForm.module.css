@@ -20,7 +20,7 @@
 }
 
 .formWrapper {
-  background: var(--black-mid);
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
@@ -40,7 +40,7 @@
 .closeBtn {
   background: transparent;
   border: none;
-  color: var(--white-muted);
+  color: var(--black-mid);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
@@ -54,7 +54,7 @@
 
 .header {
   padding: 1.5rem 2rem;
-  background: rgba(255, 120, 0, 0.05);
+  background: rgba(214, 90, 0, 0.05);
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -76,7 +76,7 @@
 .stepTitle {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--black);
   margin-bottom: 2rem;
 }
 
@@ -90,17 +90,17 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--white-muted);
+  color: var(--black-mid);
   margin-bottom: 0.5rem;
 }
 
 .input, .textarea {
   width: 100%;
-  background: var(--black);
+  background: var(--white-mid);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.8rem 1rem;
-  color: var(--white);
+  color: var(--black);
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -108,7 +108,7 @@
 .input:focus, .textarea:focus {
   outline: none;
   border-color: var(--orange);
-  box-shadow: 0 0 0 2px rgba(255, 120, 0, 0.1);
+  box-shadow: 0 0 0 2px rgba(214, 90, 0, 0.1);
 }
 
 .textarea {
@@ -118,7 +118,7 @@
 
 .footer {
   padding: 1.5rem 2rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--white-soft);
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -138,24 +138,24 @@
 .btnPrev {
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--white-muted);
+  color: var(--black-mid);
 }
 
 .btnPrev:hover {
-  border-color: var(--white-dim);
-  color: var(--white);
+  border-color: var(--black-soft);
+  color: var(--black);
 }
 
 .btnNext {
   background: var(--orange);
   border: 1px solid var(--orange);
-  color: var(--black);
+  color: var(--white);
   font-weight: 700;
 }
 
 .btnNext:hover {
-  background: var(--white);
-  border-color: var(--white);
+  background: var(--orange-light);
+  border-color: var(--orange-light);
 }
 
 .fileInputWrapper {
@@ -183,7 +183,7 @@
 }
 
 .fileHint {
-  color: var(--white-muted);
+  color: var(--black-mid);
   font-size: 0.9rem;
 }
 

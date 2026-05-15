@@ -23,7 +23,7 @@ export default function Home() {
       <div className={`${styles.layout} ${!isSidebarOpen ? styles.sidebarClosed : ''}`}>
         <section className={styles.detailPane}>
           <Waves
-            lineColor="rgba(255, 120, 0, 0.15)"
+            lineColor="rgba(214, 90, 0, 0.08)"
             backgroundColor="transparent"
             waveSpeedX={0.015}
             waveSpeedY={0.008}

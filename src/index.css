@@ -5,18 +5,26 @@
 }
 
 :root {
-  --orange: #FF6B1A;
-  --orange-light: #FF8C42;
-  --orange-dim: #cc5500;
-  --black: #0A0A0A;
-  --black-soft: #111111;
-  --black-mid: #1A1A1A;
-  --black-card: #1E1E1E;
-  --white: #F5F5F0;
-  --white-dim: #CCCCCC;
-  --white-muted: #888888;
-  --border: rgba(255, 107, 26, 0.2);
-  --border-active: rgba(255, 107, 26, 0.6);
+  /* Orange palette - darkened for white background contrast */
+  --orange: #D65A00;        /* Darkened from #FF6B1A for 4.5:1 contrast */
+  --orange-light: #E87020;  /* Slightly lighter accent */
+  --orange-dim: #B44A00;    /* Darker variant */
+
+  /* Background colors - inverted */
+  --white: #FFFFFF;         /* Primary background */
+  --white-soft: #F9F9F9;    /* Subtle variation */
+  --white-mid: #F0F0F0;     /* Card backgrounds */
+  --white-card: #FAFAFA;    /* Elevated surfaces */
+
+  /* Text colors - inverted */
+  --black: #0A0A0A;         /* Primary text */
+  --black-soft: #333333;    /* Secondary text */
+  --black-mid: #666666;     /* Muted text */
+  --black-muted: #999999;   /* Disabled/placeholder text */
+
+  /* Borders */
+  --border: rgba(214, 90, 0, 0.2);       /* Orange-tinted borders */
+  --border-active: rgba(214, 90, 0, 0.6); /* Active state borders */
 
   /* Premium spacing scale */
   --spacing-xs: 0.25rem;
@@ -39,8 +47,8 @@ html {
 }
 
 body {
-  background-color: var(--black);
-  color: var(--white);
+  background-color: var(--white);
+  color: var(--black);
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
   min-height: 100vh;
@@ -70,7 +78,7 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--black-mid);
+  background: var(--white-mid);
 }
 
 ::-webkit-scrollbar-thumb {

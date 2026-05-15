@@ -25,7 +25,7 @@
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--black);
   margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
@@ -48,7 +48,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--white-muted);
+  color: var(--black-muted);
   margin-bottom: 1.5rem;
   display: block;
 }
@@ -61,7 +61,7 @@
 }
 
 .sidebarLink {
-  color: var(--white-muted);
+  color: var(--black-mid);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -71,7 +71,7 @@
 }
 
 .activeLink {
-  color: var(--white);
+  color: var(--black);
   font-weight: 600;
 }
 
@@ -95,7 +95,7 @@
 .section h2 {
   font-size: clamp(1.5rem, 4vw, 1.8rem);
   font-weight: 600;
-  color: var(--white);
+  color: var(--black);
   margin-bottom: 1.5rem;
   letter-spacing: -0.01em;
 }
@@ -103,13 +103,13 @@
 .section p {
   font-size: clamp(0.95rem, 2.5vw, 1.05rem);
   line-height: 1.8;
-  color: var(--white-muted);
+  color: var(--black-mid);
   margin-bottom: 1.5rem;
   max-width: 70ch;
 }
 
 .codeBlock {
-  background: var(--black-mid);
+  background: var(--white-mid);
   padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: 6px;
   border: 1px solid var(--border);
@@ -117,7 +117,7 @@
   font-family: 'Space Mono', monospace;
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   line-height: 1.6;
-  color: var(--white-dim);
+  color: var(--black-soft);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -135,7 +135,7 @@
 
 .contributeBtn {
   background: var(--orange);
-  color: var(--black);
+  color: var(--white);
   border: 1px solid var(--orange);
   padding: 1rem 2.5rem;
   min-height: var(--touch-target-min);
@@ -152,10 +152,10 @@
 }
 
 .contributeBtn:hover {
-  background: var(--white);
-  border-color: var(--white);
+  background: var(--orange-light);
+  border-color: var(--orange-light);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(214, 90, 0, 0.3);
 }
 
 .contributeBtn:active {
@@ -164,7 +164,7 @@
 
 .contributeBtn.active {
   background: transparent;
-  color: var(--white);
+  color: var(--black);
   border-color: var(--border);
 }
 
@@ -187,7 +187,7 @@
 
   .sidebarLink {
     padding: 0.5rem 1rem;
-    background: var(--black-card);
+    background: var(--white-card);
     border: 1px solid var(--border);
     border-radius: 4px;
     font-size: 0.85rem;
