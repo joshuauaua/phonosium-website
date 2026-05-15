@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Phonosium - An interactive sound installation and digital platform bridging physical presence with global sonic exploration" />
-    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="theme-color" content="#ffffff" />
     <title>Phonosium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,15 +14,6 @@
     />
   </head>
   <body>
-    <script>
-      // Prevent FOUC by setting theme before render
-      (function() {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'dark' || stored === 'light') {
-          document.documentElement.setAttribute('data-theme', stored);
-        }
-      })();
-    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
