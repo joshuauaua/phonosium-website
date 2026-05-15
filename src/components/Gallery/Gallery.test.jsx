@@ -80,9 +80,11 @@ describe('Gallery', () => {
 
   it('displays indicator dots for all images', () => {
     render(<Gallery />)
-    const indicators = screen.getAllByRole('button').filter(button =>
-      button.getAttribute('aria-label')?.startsWith('Go to image')
-    )
+    const indicators = screen
+      .getAllByRole('button')
+      .filter(button =>
+        button.getAttribute('aria-label')?.startsWith('Go to image')
+      )
     expect(indicators).toHaveLength(9)
   })
 
