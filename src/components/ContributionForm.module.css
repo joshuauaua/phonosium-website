@@ -20,7 +20,7 @@
 }
 
 .formWrapper {
-  background: var(--white);
+  background: var(--bg-primary);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
@@ -40,7 +40,7 @@
 .closeBtn {
   background: transparent;
   border: none;
-  color: var(--black-mid);
+  color: var(--text-mid);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
@@ -76,7 +76,7 @@
 .stepTitle {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--black);
+  color: var(--text-primary);
   margin-bottom: 2rem;
 }
 
@@ -90,17 +90,17 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--black-mid);
+  color: var(--text-mid);
   margin-bottom: 0.5rem;
 }
 
 .input, .textarea {
   width: 100%;
-  background: var(--white-mid);
+  background: var(--bg-mid);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.8rem 1rem;
-  color: var(--black);
+  color: var(--text-primary);
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -118,7 +118,7 @@
 
 .footer {
   padding: 1.5rem 2rem;
-  background: var(--white-soft);
+  background: var(--bg-soft);
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -138,18 +138,18 @@
 .btnPrev {
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--black-mid);
+  color: var(--text-mid);
 }
 
 .btnPrev:hover {
-  border-color: var(--black-soft);
-  color: var(--black);
+  border-color: var(--text-soft);
+  color: var(--text-primary);
 }
 
 .btnNext {
   background: var(--orange);
   border: 1px solid var(--orange);
-  color: var(--white);
+  color: var(--bg-primary);
   font-weight: 700;
 }
 
@@ -183,7 +183,7 @@
 }
 
 .fileHint {
-  color: var(--black-mid);
+  color: var(--text-mid);
   font-size: 0.9rem;
 }
 

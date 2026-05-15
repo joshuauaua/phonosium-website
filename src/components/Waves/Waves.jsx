@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import './Waves.css';
 
 class Grad {
@@ -78,7 +78,7 @@ class Noise {
 }
 
 const Waves = ({
-  lineColor = 'black',
+  lineColor,
   backgroundColor = 'transparent',
   waveSpeedX = 0.0125,
   waveSpeedY = 0.005,
@@ -92,6 +92,36 @@ const Waves = ({
   style = {},
   className = ''
 }) => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const theme = document.documentElement.getAttribute('data-theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDark(theme === 'dark' || (!theme && systemDark));
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', checkTheme);
+
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener('change', checkTheme);
+    };
+  }, []);
+
+  const effectiveLineColor = lineColor || (isDark
+    ? "rgba(255, 120, 0, 0.15)"
+    : "rgba(214, 90, 0, 0.08)");
+
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -111,7 +141,7 @@ const Waves = ({
     set: false
   });
   const configRef = useRef({
-    lineColor,
+    lineColor: effectiveLineColor,
     waveSpeedX,
     waveSpeedY,
     waveAmpX,
@@ -126,7 +156,7 @@ const Waves = ({
 
   useEffect(() => {
     configRef.current = {
-      lineColor,
+      lineColor: effectiveLineColor,
       waveSpeedX,
       waveSpeedY,
       waveAmpX,
@@ -137,7 +167,7 @@ const Waves = ({
       xGap,
       yGap
     };
-  }, [lineColor, waveSpeedX, waveSpeedY, waveAmpX, waveAmpY, friction, tension, maxCursorMove, xGap, yGap]);
+  }, [effectiveLineColor, waveSpeedX, waveSpeedY, waveAmpX, waveAmpY, friction, tension, maxCursorMove, xGap, yGap]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

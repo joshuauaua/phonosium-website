@@ -5,26 +5,23 @@
 }
 
 :root {
-  /* Orange palette - darkened for white background contrast */
-  --orange: #D65A00;        /* Darkened from #FF6B1A for 4.5:1 contrast */
-  --orange-light: #E87020;  /* Slightly lighter accent */
-  --orange-dim: #B44A00;    /* Darker variant */
+  /* Light theme colors (default) */
+  --orange: #D65A00;
+  --orange-light: #E87020;
+  --orange-dim: #B44A00;
 
-  /* Background colors - inverted */
-  --white: #FFFFFF;         /* Primary background */
-  --white-soft: #F9F9F9;    /* Subtle variation */
-  --white-mid: #F0F0F0;     /* Card backgrounds */
-  --white-card: #FAFAFA;    /* Elevated surfaces */
+  --bg-primary: #FFFFFF;
+  --bg-soft: #F9F9F9;
+  --bg-mid: #F0F0F0;
+  --bg-card: #FAFAFA;
 
-  /* Text colors - inverted */
-  --black: #0A0A0A;         /* Primary text */
-  --black-soft: #333333;    /* Secondary text */
-  --black-mid: #666666;     /* Muted text */
-  --black-muted: #999999;   /* Disabled/placeholder text */
+  --text-primary: #0A0A0A;
+  --text-soft: #333333;
+  --text-mid: #666666;
+  --text-muted: #999999;
 
-  /* Borders */
-  --border: rgba(214, 90, 0, 0.2);       /* Orange-tinted borders */
-  --border-active: rgba(214, 90, 0, 0.6); /* Active state borders */
+  --border: rgba(214, 90, 0, 0.2);
+  --border-active: rgba(214, 90, 0, 0.6);
 
   /* Premium spacing scale */
   --spacing-xs: 0.25rem;
@@ -39,6 +36,48 @@
   --touch-target-min: 44px;
 }
 
+/* Dark theme override */
+[data-theme="dark"] {
+  --orange: #FF6B1A;
+  --orange-light: #FF8C42;
+  --orange-dim: #cc5500;
+
+  --bg-primary: #0A0A0A;
+  --bg-soft: #111111;
+  --bg-mid: #1A1A1A;
+  --bg-card: #1E1E1E;
+
+  --text-primary: #F5F5F0;
+  --text-soft: #CCCCCC;
+  --text-mid: #888888;
+  --text-muted: #666666;
+
+  --border: rgba(255, 107, 26, 0.2);
+  --border-active: rgba(255, 107, 26, 0.6);
+}
+
+/* System preference support (when no explicit theme set) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --orange: #FF6B1A;
+    --orange-light: #FF8C42;
+    --orange-dim: #cc5500;
+
+    --bg-primary: #0A0A0A;
+    --bg-soft: #111111;
+    --bg-mid: #1A1A1A;
+    --bg-card: #1E1E1E;
+
+    --text-primary: #F5F5F0;
+    --text-soft: #CCCCCC;
+    --text-mid: #888888;
+    --text-muted: #666666;
+
+    --border: rgba(255, 107, 26, 0.2);
+    --border-active: rgba(255, 107, 26, 0.6);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -47,8 +86,8 @@ html {
 }
 
 body {
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
   min-height: 100vh;
@@ -78,7 +117,7 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--white-mid);
+  background: var(--bg-mid);
 }
 
 ::-webkit-scrollbar-thumb {
