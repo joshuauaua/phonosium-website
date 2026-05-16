@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
 import Waves from '../components/Waves/Waves'
 import ContributionForm from '../components/ContributionForm'
 import styles from './Home.module.css'
 
 export default function Home() {
+  const navigate = useNavigate()
   const [selectedId, setSelectedId] = useState(installations[0].id)
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
@@ -212,31 +214,17 @@ export default function Home() {
       </section>
 
       <section className={styles.callSection}>
-        <h2 className={styles.callTitle}>Open Call</h2>
-        <p className={styles.callSubtitle}>Submit your sounds</p>
-        <p className={styles.callContact}>
-          Email <a href="mailto:hej@sonicassembly.se">hej@sonicassembly.se</a>{' '}
-          for more information
+        <h2 className={styles.callTitle}>Call for Submissions</h2>
+        <p className={styles.callSubtitle}>
+          We are accepting submissions for the installation from anywhere in the
+          world until June 15, 2026
         </p>
-
-        <div className={styles.callCriteria}>
-          <h3 className={styles.callCriteriaTitle}>Submission Requirements</h3>
-          <ul className={styles.callCriteriaList}>
-            <li>
-              One loop (max 20 MB) — 44.1 kHz · 16-bit · saved as loop.wav
-            </li>
-            <li>Up to 24 samples (1–6 seconds each) — balanced gain levels</li>
-            <li>Demo audio: your loop with triggered samples</li>
-            <li>Title and description of your piece</li>
-            <li>Links to your work</li>
-          </ul>
-        </div>
 
         <button
           className={styles.btnApplyNow}
-          onClick={() => setShowSubmissionForm(true)}
+          onClick={() => navigate('/contributor')}
         >
-          Apply now
+          Learn more
         </button>
       </section>
 
