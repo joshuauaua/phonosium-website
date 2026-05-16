@@ -6,7 +6,7 @@ export default function Footer() {
       <span className={styles.left}>&copy; Phonosium 2026 · Stockholm</span>
       <span className={styles.right}>
         <a
-          href="https://ig.com/sonicassembly"
+          href="https://www.instagram.com/sonicassembly"
           target="_blank"
           rel="noopener noreferrer"
         >

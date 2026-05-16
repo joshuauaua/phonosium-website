@@ -400,6 +400,28 @@
   color: var(--ph-stone);
 }
 
+.dayToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--ph-s-3);
+}
+
+.dayButton {
+  background: transparent;
+  border: 1px solid var(--ph-ink);
+  color: var(--ph-ink);
+  padding: 8px 12px;
+  border-radius: var(--ph-r-1);
+  cursor: pointer;
+  font-size: var(--ph-fs-body);
+  transition: background var(--ph-dur-base) var(--ph-ease);
+}
+
+.dayButton:hover {
+  background: var(--ph-ink);
+  color: var(--ph-paper);
+}
+
 .ch {
   display: flex;
   flex-direction: column;
