@@ -15,7 +15,7 @@ export default function Home() {
 
   const START_TIME = 9 * 60 // 9:00 AM in minutes
 
-  const formatTime = (minutes) => {
+  const formatTime = minutes => {
     const hours = Math.floor(minutes / 60)
     const mins = minutes % 60
     return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`
@@ -25,7 +25,7 @@ export default function Home() {
     return new Date().toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     })
   }
 
@@ -67,7 +67,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={`${styles.liveBand} ${isInfoExpanded ? styles.liveBandExpanded : ''}`}>
+      <section
+        className={`${styles.liveBand} ${isInfoExpanded ? styles.liveBandExpanded : ''}`}
+      >
         <div className={styles.liveInfo}>
           <div className={styles.liveLabel}>
             <span className={styles.liveDot} />
@@ -75,8 +77,8 @@ export default function Home() {
           </div>
           <div className={styles.liveTitle}>{current?.title}</div>
           <div className={styles.liveSub}>
-            {formatTime(START_TIME + (current?.id - 1) * 30)} · {current?.duration} ·{' '}
-            {current?.artist?.name}
+            {formatTime(START_TIME + (current?.id - 1) * 30)} ·{' '}
+            {current?.duration} · {current?.artist?.name}
           </div>
         </div>
         {!isInfoExpanded && (
@@ -95,7 +97,10 @@ export default function Home() {
                 yGap={35}
               />
             </div>
-            <button className={styles.listenBtn} onClick={() => setIsInfoExpanded(true)}>
+            <button
+              className={styles.listenBtn}
+              onClick={() => setIsInfoExpanded(true)}
+            >
               More Info
             </button>
           </>
@@ -111,8 +116,12 @@ export default function Home() {
                 <p className={styles.trackSubtitle}>{current?.subtitle}</p>
               </div>
               <div className={styles.trackArtist}>
-                <div className={styles.trackArtistName}>{current?.artist?.name}</div>
-                <div className={styles.trackArtistOrigin}>{current?.artist?.origin}</div>
+                <div className={styles.trackArtistName}>
+                  {current?.artist?.name}
+                </div>
+                <div className={styles.trackArtistOrigin}>
+                  {current?.artist?.origin}
+                </div>
               </div>
               <p className={styles.trackDescription}>{current?.description}</p>
               <div className={styles.trackMeta}>
@@ -122,16 +131,22 @@ export default function Home() {
                 </div>
                 <div className={styles.trackMetaItem}>
                   <span className={styles.trackMetaLabel}>Duration</span>
-                  <span className={styles.trackMetaValue}>{current?.duration}</span>
+                  <span className={styles.trackMetaValue}>
+                    {current?.duration}
+                  </span>
                 </div>
                 <div className={styles.trackMetaItem}>
                   <span className={styles.trackMetaLabel}>Medium</span>
-                  <span className={styles.trackMetaValue}>{current?.medium}</span>
+                  <span className={styles.trackMetaValue}>
+                    {current?.medium}
+                  </span>
                 </div>
               </div>
               <div className={styles.trackTags}>
                 {current?.tags?.map(tag => (
-                  <span key={tag} className={styles.trackTag}>{tag}</span>
+                  <span key={tag} className={styles.trackTag}>
+                    {tag}
+                  </span>
                 ))}
               </div>
               {current?.artist?.website && (
@@ -145,7 +160,10 @@ export default function Home() {
                 </a>
               )}
             </div>
-            <button className={styles.listenBtn} onClick={() => setIsInfoExpanded(false)}>
+            <button
+              className={styles.listenBtn}
+              onClick={() => setIsInfoExpanded(false)}
+            >
               Close
             </button>
           </>
@@ -155,9 +173,7 @@ export default function Home() {
       <section className={styles.programme}>
         <div className={styles.sectionHead}>
           <h2 className={styles.sectionTitle}>Schedule</h2>
-          <span className={styles.sectionMeta}>
-            {getCurrentDate()}
-          </span>
+          <span className={styles.sectionMeta}>{getCurrentDate()}</span>
         </div>
         <div className={styles.chList}>
           {installations.map(inst => (

@@ -33,7 +33,9 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      expect(screen.getByRole('button', { name: /more info/i })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: /more info/i })
+      ).toBeInTheDocument()
     })
 
     it('expands track info when "More Info" button is clicked', async () => {
@@ -62,7 +64,9 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      expect(screen.getByText(/Algorithmic avian composition/i)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Algorithmic avian composition/i)
+      ).toBeInTheDocument()
       expect(screen.getByText(/Joshua Ng/i)).toBeInTheDocument()
       expect(screen.getByText(/Stockholm\/Sheffield/i)).toBeInTheDocument()
       expect(screen.getByText(/Year/i)).toBeInTheDocument()
@@ -99,9 +103,14 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      const websiteLink = screen.getByRole('link', { name: /visit artist website/i })
+      const websiteLink = screen.getByRole('link', {
+        name: /visit artist website/i,
+      })
       expect(websiteLink).toBeInTheDocument()
-      expect(websiteLink).toHaveAttribute('href', 'https://joshuauaua.github.io')
+      expect(websiteLink).toHaveAttribute(
+        'href',
+        'https://joshuauaua.github.io'
+      )
       expect(websiteLink).toHaveAttribute('target', '_blank')
     })
 
@@ -120,7 +129,9 @@ describe('Home', () => {
       await user.click(closeButton)
 
       expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /more info/i })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: /more info/i })
+      ).toBeInTheDocument()
     })
   })
 
@@ -135,7 +146,7 @@ describe('Home', () => {
       const dateText = new Date().toLocaleDateString('en-US', {
         weekday: 'long',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
       })
 
       expect(screen.getByText(dateText)).toBeInTheDocument()
