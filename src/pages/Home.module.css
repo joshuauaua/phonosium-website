@@ -94,8 +94,9 @@
   color: var(--ph-ink);
   border-radius: var(--ph-r-1);
   cursor: pointer;
-  transition: background var(--ph-dur-base) var(--ph-ease),
-              color var(--ph-dur-base) var(--ph-ease);
+  transition:
+    background var(--ph-dur-base) var(--ph-ease),
+    color var(--ph-dur-base) var(--ph-ease);
 }
 
 .btnOutline:hover {
@@ -179,8 +180,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.25; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
 }
 
 .liveTitle {
@@ -395,14 +401,19 @@
 }
 
 .ch {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--ph-ink);
+  transition: background var(--ph-dur-base) var(--ph-ease);
+}
+
+.chRow {
   display: grid;
   grid-template-columns: 64px 1fr 200px 180px 140px;
   gap: var(--ph-s-6);
   padding: 28px var(--ph-s-6);
-  border-top: 1px solid var(--ph-ink);
   align-items: center;
   cursor: pointer;
-  transition: background var(--ph-dur-base) var(--ph-ease);
 }
 
 .ch:last-child {
@@ -472,10 +483,110 @@
   color: var(--ph-ink);
 }
 
-/* ===== Detail ===== */
-.detailSection {
+.chExpanded {
+  background: var(--ph-paper);
+}
+
+.scheduleItemDetails {
+  display: grid;
+  grid-template-columns: 300px 1fr 280px;
+  gap: var(--ph-s-6);
+  padding: var(--ph-s-7) var(--ph-s-6);
+  background: var(--ph-ink);
+  color: var(--ph-paper);
+  align-items: start;
+  border-top: 1px solid var(--ph-ink);
+}
+
+.closeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: var(--ph-orange);
+  color: var(--ph-ink);
+  border: 1px solid var(--ph-orange);
+  font-family: var(--ph-font-sans);
+  font-weight: var(--ph-fw-bold);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  justify-self: end;
+  cursor: pointer;
+  transition: background var(--ph-dur-base) var(--ph-ease);
+}
+
+.closeBtn:hover {
+  background: var(--ph-orange-deep);
+  border-color: var(--ph-orange-deep);
+  color: var(--ph-paper);
+}
+
+/* ===== Open Call Section ===== */
+.callSection {
   padding: var(--ph-s-9) var(--ph-s-6);
   border-bottom: 1px solid var(--ph-ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ph-s-6);
+}
+
+.callTitle {
+  font-size: 64px;
+  font-weight: var(--ph-fw-black);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.callSubtitle {
+  font-size: var(--ph-fs-lead);
+  color: var(--ph-graphite);
+  margin: 0;
+}
+
+.callContact {
+  font-size: var(--ph-fs-body);
+  color: var(--ph-ink);
+  margin: 0;
+}
+
+.callContact a {
+  color: var(--ph-orange);
+  text-decoration: none;
+  font-weight: var(--ph-fw-semibold);
+  transition: color var(--ph-dur-base) var(--ph-ease);
+}
+
+.callContact a:hover {
+  color: var(--ph-orange-deep);
+}
+
+.callCriteria {
+  margin-top: var(--ph-s-6);
+  padding: var(--ph-s-6);
+  background: var(--ph-orange-tint);
+  border-radius: var(--ph-r-1);
+}
+
+.callCriteriaTitle {
+  font-size: var(--ph-fs-body-lg);
+  font-weight: var(--ph-fw-bold);
+  margin: 0 0 var(--ph-s-4);
+}
+
+.callCriteriaList {
+  margin: 0;
+  padding-left: var(--ph-s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ph-s-3);
+}
+
+.callCriteriaList li {
+  font-size: var(--ph-fs-body);
+  line-height: 1.5;
+  color: var(--ph-ink);
 }
 
 /* ===== Responsive ===== */
@@ -508,7 +619,7 @@
     justify-self: start;
   }
 
-  .ch {
+  .chRow {
     grid-template-columns: 48px 1fr auto;
     gap: var(--ph-s-4);
   }
@@ -516,6 +627,11 @@
   .chMeta,
   .chTime {
     display: none;
+  }
+
+  .scheduleItemDetails {
+    grid-template-columns: 1fr;
+    gap: var(--ph-s-5);
   }
 
   .sectionTitle {
