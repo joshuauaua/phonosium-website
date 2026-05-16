@@ -37,8 +37,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.25; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
 }
 
 .nav {
@@ -83,8 +88,8 @@
   position: absolute;
   left: 50%;
   top: 0.04em;
-  width: 0.40em;
-  height: 0.40em;
+  width: 0.4em;
+  height: 0.4em;
   border-radius: 999px;
   border: 0.09em solid var(--ph-orange);
   transform: translateX(-50%);
