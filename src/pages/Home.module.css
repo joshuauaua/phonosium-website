@@ -143,6 +143,13 @@
   background: var(--ph-ink);
   color: var(--ph-paper);
   align-items: center;
+  transition: grid-template-columns var(--ph-dur-base) var(--ph-ease);
+}
+
+.liveBandExpanded {
+  grid-template-columns: 300px 1fr 280px;
+  align-items: start;
+  padding: var(--ph-s-7) var(--ph-s-6);
 }
 
 .liveInfo {
@@ -221,6 +228,143 @@
   color: var(--ph-paper);
 }
 
+/* ===== Expanded Track Info ===== */
+.trackImage {
+  width: 300px;
+  height: 300px;
+  background: var(--ph-stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ph-graphite);
+  font-family: var(--ph-font-mono);
+  font-size: var(--ph-fs-mono-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--ph-r-1);
+}
+
+.trackDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ph-s-5);
+}
+
+.trackHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ph-s-2);
+}
+
+.trackTitle {
+  font-size: 36px;
+  font-weight: var(--ph-fw-bold);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ph-paper);
+}
+
+.trackSubtitle {
+  font-size: var(--ph-fs-body-lg);
+  font-style: italic;
+  color: var(--ph-mist);
+  margin: 0;
+}
+
+.trackArtist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--ph-s-4) 0;
+  border-top: 1px solid rgba(250, 247, 242, 0.15);
+  border-bottom: 1px solid rgba(250, 247, 242, 0.15);
+}
+
+.trackArtistName {
+  font-weight: var(--ph-fw-bold);
+  font-size: var(--ph-fs-body-lg);
+  color: var(--ph-paper);
+}
+
+.trackArtistOrigin {
+  font-family: var(--ph-font-mono);
+  font-size: var(--ph-fs-mono-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ph-mist);
+}
+
+.trackDescription {
+  font-size: var(--ph-fs-body);
+  line-height: 1.5;
+  color: var(--ph-paper);
+  margin: 0;
+}
+
+.trackMeta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ph-s-4);
+}
+
+.trackMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trackMetaLabel {
+  font-family: var(--ph-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ph-mist);
+}
+
+.trackMetaValue {
+  font-family: var(--ph-font-sans);
+  font-weight: var(--ph-fw-semibold);
+  font-size: var(--ph-fs-body);
+  color: var(--ph-paper);
+}
+
+.trackTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.trackTag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(250, 247, 242, 0.1);
+  border: 1px solid rgba(250, 247, 242, 0.2);
+  border-radius: 4px;
+  font-family: var(--ph-font-mono);
+  font-size: var(--ph-fs-mono-xs);
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--ph-paper);
+}
+
+.trackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ph-font-mono);
+  font-size: var(--ph-fs-mono-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ph-orange);
+  text-decoration: none;
+  transition: color var(--ph-dur-base) var(--ph-ease);
+}
+
+.trackLink:hover {
+  color: var(--ph-orange-deep);
+}
+
 /* ===== Programme ===== */
 .programme {
   padding: var(--ph-s-9) var(--ph-s-6);
@@ -254,7 +398,7 @@
   display: grid;
   grid-template-columns: 64px 1fr 200px 180px 140px;
   gap: var(--ph-s-6);
-  padding: 28px 0;
+  padding: 28px var(--ph-s-6);
   border-top: 1px solid var(--ph-ink);
   align-items: center;
   cursor: pointer;
