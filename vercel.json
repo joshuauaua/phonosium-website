@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/api/submissions/upload-url",
+      "destination": "/api/upload-url"
+    },
+    {
+      "source": "/api/submissions/submit",
+      "destination": "/api/submit"
+    }
+  ]
+}

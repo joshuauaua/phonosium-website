@@ -1,5 +1,5 @@
 const API_BASE_URL =
-  import.meta.env.VITE_AZURE_FUNCTIONS_URL || 'http://localhost:7071/api'
+  import.meta.env.VITE_AZURE_FUNCTIONS_URL || '/api'
 
 export async function requestUploadUrl(
   fileName,
