@@ -13,12 +13,29 @@ export default function Navbar() {
     setIsOpen(false)
   }, [])
 
+  const now = new Date()
+  const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`
+
   return (
     <header className={styles.header}>
+      <div className={styles.strip}>
+        <span className={styles.stripLeft}>
+          <span className={styles.dot} />
+          PHONOSIUM · STOCKHOLM · {dateStr}
+        </span>
+        <span className={styles.stripRight}>
+          CROWDSOURCED SOUND INSTALLATION
+        </span>
+      </div>
+
       <nav className={styles.nav}>
-        <NavLink to="/" className={styles.logo} onClick={closeMenu}>
-          <span className={styles.logoMark}>◉</span>
-          <span className={styles.logoText}>PHONOSIUM</span>
+        <NavLink to="/" className={styles.brand} onClick={closeMenu}>
+          phon
+          <span className={styles.brandDot}>
+            <span className={styles.stem} />
+            <span className={styles.ring} />
+          </span>
+          sium
         </NavLink>
 
         <button

@@ -1,31 +1,70 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { installations } from '../data/installations'
 import InstallationDetail from '../components/InstallationDetail'
-import InstallationList from '../components/InstallationList'
 import Waves from '../components/Waves/Waves'
 import styles from './Home.module.css'
 
 export default function Home() {
   const [selectedId, setSelectedId] = useState(installations[0].id)
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const current = useMemo(
     () => installations.find(i => i.id === selectedId),
     [selectedId]
   )
 
-  const toggleSidebar = useCallback(() => {
-    setIsSidebarOpen(prev => !prev)
-  }, [])
-
   return (
     <main className={styles.main}>
-      <div
-        className={`${styles.layout} ${!isSidebarOpen ? styles.sidebarClosed : ''}`}
-      >
-        <section className={styles.detailPane}>
+      <section className={styles.hero}>
+        <div className={styles.sideRail}>Installation · 2026</div>
+        <div className={styles.heroContent}>
+          <h1 className={styles.headline}>
+            a space for s<span className={styles.o}>&#9675;</span>und.
+          </h1>
+          <p className={styles.lead}>
+            Phonosium is a crowdsourced interactive sound installation
+            physically located in Stockholm. Six speakers, one structure. The{' '}
+            <em>pipes answer</em>.
+          </p>
+          <div className={styles.ctaRow}>
+            <button className={styles.btnAccent}>Explore library</button>
+            <button className={styles.btnOutline}>About the project</button>
+          </div>
+        </div>
+        <div className={styles.metaCol}>
+          <div className={styles.metaItem}>
+            <div className={styles.metaLabel}>Artists</div>
+            <div className={styles.metaValue}>12+ contributors</div>
+          </div>
+          <div className={styles.metaItem}>
+            <div className={styles.metaLabel}>Duration</div>
+            <div className={styles.metaValue}>Continuous loop</div>
+          </div>
+          <div className={styles.metaItem}>
+            <div className={styles.metaLabel}>Channels</div>
+            <div className={styles.metaValue}>4 · mono + stereo</div>
+          </div>
+          <div className={styles.metaItem}>
+            <div className={styles.metaLabel}>Location</div>
+            <div className={styles.metaValue}>Frihamnstorget, Stockholm</div>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.liveBand}>
+        <div className={styles.liveInfo}>
+          <div className={styles.liveLabel}>
+            <span className={styles.liveDot} />
+            Now playing
+          </div>
+          <div className={styles.liveTitle}>{current?.title}</div>
+          <div className={styles.liveSub}>
+            Ch. {String(current?.id).padStart(2, '0')} · {current?.duration} ·{' '}
+            {current?.artist?.name}
+          </div>
+        </div>
+        <div className={styles.waveContainer}>
           <Waves
-            lineColor="rgba(214, 90, 0, 0.08)"
+            lineColor="rgba(250, 247, 242, 0.06)"
             backgroundColor="transparent"
             waveSpeedX={0.015}
             waveSpeedY={0.008}
@@ -36,30 +75,42 @@ export default function Home() {
             xGap={15}
             yGap={35}
           />
-          <InstallationDetail installation={current} />
-        </section>
+        </div>
+        <button className={styles.listenBtn}>Listen live</button>
+      </section>
 
-        <section className={styles.listPane}>
-          <button
-            className={styles.sidebarToggle}
-            onClick={toggleSidebar}
-            aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
-          >
-            <span className={styles.toggleText}>Library</span>
-            <span className={styles.toggleIcon}>
-              {isSidebarOpen ? '›' : '‹'}
-            </span>
-          </button>
+      <section className={styles.programme}>
+        <div className={styles.sectionHead}>
+          <h2 className={styles.sectionTitle}>Programme</h2>
+          <span className={styles.sectionMeta}>
+            {installations.length} installations · crowdsourced
+          </span>
+        </div>
+        <div className={styles.chList}>
+          {installations.map(inst => (
+            <div
+              key={inst.id}
+              className={`${styles.ch} ${inst.id === selectedId ? styles.chCur : ''}`}
+              onClick={() => setSelectedId(inst.id)}
+            >
+              <div className={styles.chNum}>
+                {inst.id === selectedId && '● '}Ch.{' '}
+                {String(inst.id).padStart(2, '0')}
+              </div>
+              <div className={styles.chTitle}>{inst.title}</div>
+              <div className={styles.chMeta}>{inst.artist.name}</div>
+              <div className={styles.chTime}>{inst.duration}</div>
+              <div className={styles.chArrow}>
+                {inst.id === selectedId ? '●' : '→'}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          <div className={styles.listContent}>
-            <InstallationList
-              installations={installations}
-              selectedId={selectedId}
-              onSelect={setSelectedId}
-            />
-          </div>
-        </section>
-      </div>
+      <section className={styles.detailSection}>
+        <InstallationDetail installation={current} />
+      </section>
     </main>
   )
 }

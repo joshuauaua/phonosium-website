@@ -46,7 +46,7 @@ describe('InstallationList', () => {
     expect(screen.getByText('Test Installation 3')).toBeInTheDocument()
   })
 
-  it('displays correct number of installations', () => {
+  it('displays installation count', () => {
     const handleSelect = vi.fn()
     render(
       <InstallationList
@@ -56,7 +56,7 @@ describe('InstallationList', () => {
       />
     )
 
-    expect(screen.getByText('3')).toBeInTheDocument() // count badge
+    expect(screen.getByText(/3 installations/)).toBeInTheDocument()
   })
 
   it('displays "Library" heading', () => {
@@ -92,7 +92,7 @@ describe('InstallationList', () => {
     expect(handleSelect).toHaveBeenCalledWith(1)
   })
 
-  it('displays "Playing" tag for selected installation', () => {
+  it('displays filled dot indicator for selected installation', () => {
     const handleSelect = vi.fn()
     render(
       <InstallationList
@@ -102,11 +102,29 @@ describe('InstallationList', () => {
       />
     )
 
-    const playingTag = screen.getByText('Playing')
-    expect(playingTag).toBeInTheDocument()
+    const selectedButton = screen.getByRole('button', {
+      name: /Select Test Installation 2/i,
+    })
+    expect(selectedButton).toHaveTextContent('●')
   })
 
-  it('does not display "Playing" tag when no installation is selected', () => {
+  it('displays arrow for non-selected installations', () => {
+    const handleSelect = vi.fn()
+    render(
+      <InstallationList
+        installations={mockInstallations}
+        selectedId={2}
+        onSelect={handleSelect}
+      />
+    )
+
+    const notSelectedButton = screen.getByRole('button', {
+      name: /Select Test Installation 1/i,
+    })
+    expect(notSelectedButton).toHaveTextContent('→')
+  })
+
+  it('formats installation numbers with Ch. prefix', () => {
     const handleSelect = vi.fn()
     render(
       <InstallationList
@@ -116,26 +134,12 @@ describe('InstallationList', () => {
       />
     )
 
-    const playingTag = screen.queryByText('Playing')
-    expect(playingTag).not.toBeInTheDocument()
+    expect(screen.getByText(/Ch\. 01/)).toBeInTheDocument()
+    expect(screen.getByText(/Ch\. 02/)).toBeInTheDocument()
+    expect(screen.getByText(/Ch\. 03/)).toBeInTheDocument()
   })
 
-  it('formats installation numbers with leading zero', () => {
-    const handleSelect = vi.fn()
-    render(
-      <InstallationList
-        installations={mockInstallations}
-        selectedId={null}
-        onSelect={handleSelect}
-      />
-    )
-
-    expect(screen.getByText('01')).toBeInTheDocument()
-    expect(screen.getByText('02')).toBeInTheDocument()
-    expect(screen.getByText('03')).toBeInTheDocument()
-  })
-
-  it('displays artist name, year, and duration for each installation', () => {
+  it('displays artist name and duration for each installation', () => {
     const handleSelect = vi.fn()
     render(
       <InstallationList
@@ -146,11 +150,8 @@ describe('InstallationList', () => {
     )
 
     expect(screen.getByText('Artist One')).toBeInTheDocument()
-    expect(screen.getByText('2024')).toBeInTheDocument()
     expect(screen.getByText('10:00')).toBeInTheDocument()
-
     expect(screen.getByText('Artist Two')).toBeInTheDocument()
-    expect(screen.getByText('2023')).toBeInTheDocument()
     expect(screen.getByText('15:30')).toBeInTheDocument()
   })
 
@@ -196,7 +197,7 @@ describe('InstallationList', () => {
       />
     )
 
-    expect(screen.getByText('0')).toBeInTheDocument() // count badge
+    expect(screen.getByText(/0 installations/)).toBeInTheDocument()
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
   })
 })
