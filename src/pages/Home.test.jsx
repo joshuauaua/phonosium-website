@@ -25,8 +25,8 @@ describe('Home', () => {
     await testAccessibility(container)
   })
 
-  describe('Track Info Expansion', () => {
-    it('shows "More Info" button initially', () => {
+  describe('Schedule Item Expansion', () => {
+    it('shows "More Info" button in black section', () => {
       render(
         <BrowserRouter>
           <Home />
@@ -38,7 +38,7 @@ describe('Home', () => {
       ).toBeInTheDocument()
     })
 
-    it('expands track info when "More Info" button is clicked', async () => {
+    it('expands schedule item when "More Info" button in black section is clicked', async () => {
       const user = userEvent.setup()
       render(
         <BrowserRouter>
@@ -48,6 +48,22 @@ describe('Home', () => {
 
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
+
+      expect(screen.getByText('No Image Available')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
+    })
+
+    it('expands schedule item when clicked directly', async () => {
+      const user = userEvent.setup()
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const scheduleItems = screen.getAllByText('Birds!')
+      const scheduleItemRow = scheduleItems[1].closest('div')
+      await user.click(scheduleItemRow)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
@@ -116,7 +132,7 @@ describe('Home', () => {
       expect(websiteLink).toHaveAttribute('target', '_blank')
     })
 
-    it('collapses track info when "Close" button is clicked', async () => {
+    it('collapses schedule item when "Close" button is clicked', async () => {
       const user = userEvent.setup()
       render(
         <BrowserRouter>
@@ -131,9 +147,25 @@ describe('Home', () => {
       await user.click(closeButton)
 
       expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
-      expect(
-        screen.getByRole('button', { name: /more info/i })
-      ).toBeInTheDocument()
+    })
+
+    it('collapses when clicking the same schedule item again', async () => {
+      const user = userEvent.setup()
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const scheduleItems = screen.getAllByText('Birds!')
+      const scheduleItemRow = scheduleItems[1].closest('div')
+      await user.click(scheduleItemRow)
+
+      expect(screen.getByText('No Image Available')).toBeInTheDocument()
+
+      await user.click(scheduleItemRow)
+
+      expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
     })
   })
 
@@ -165,6 +197,48 @@ describe('Home', () => {
       expect(screen.getByText('09:30')).toBeInTheDocument()
       expect(screen.queryByText(/Slot 01/)).not.toBeInTheDocument()
       expect(screen.queryByText(/Slot 02/)).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Open Call Section', () => {
+    it('displays Open Call section at bottom of page', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      expect(screen.getByText('Open Call')).toBeInTheDocument()
+      expect(screen.getByText('Submit your sounds')).toBeInTheDocument()
+    })
+
+    it('displays submission requirements', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      expect(screen.getByText('Submission Requirements')).toBeInTheDocument()
+      expect(screen.getByText(/One loop \(max 20 MB\)/)).toBeInTheDocument()
+      expect(screen.getByText(/Up to 24 samples/)).toBeInTheDocument()
+      expect(screen.getByText(/Demo audio/)).toBeInTheDocument()
+      expect(screen.getByText(/Title and description/)).toBeInTheDocument()
+      expect(screen.getByText(/Links to your work/)).toBeInTheDocument()
+    })
+
+    it('displays contact email link', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const emailLink = screen.getByRole('link', {
+        name: /hej@sonicassembly\.se/i,
+      })
+      expect(emailLink).toBeInTheDocument()
+      expect(emailLink).toHaveAttribute('href', 'mailto:hej@sonicassembly.se')
     })
   })
 })

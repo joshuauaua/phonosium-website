@@ -7,6 +7,7 @@ user-invocable: true
 Read `README.md` for the brand foundation: voice, visual rules, type system, color usage, motion. Tokens live in `colors_and_type.css` — link it from every HTML file you produce. Sample components are in `preview/`; a full microsite example is in `ui_kits/site/`.
 
 Core rules to honor:
+
 - Two-color palette: vermillion `#FF5A1F` + warm paper `#FAF7F2`, anchored by ink `#14110E`. Orange marks one thing per view.
 - Type: Archivo (display at 900, body at 400/500). JetBrains Mono for timecodes, frequencies, room numbers, all UPPERCASE labels.
 - Curatorial, restrained voice. Numbers are precise (`Ch. 03 · 12′37″ · 87.31 Hz`). No emoji. No exclamation.
