@@ -4,38 +4,166 @@ import styles from './ContributionForm.module.css'
 export default function ContributionForm({ onClose }) {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    location: '',
+    // Artist Info
     artistName: '',
     artistEmail: '',
-    loopAudio: null,
-    samples: [],
+    links: [''],
+    location: '',
+    artistDescription: '',
+    // Piece Info
+    pieceName: '',
+    subtitle: '',
+    pieceDescription: '',
+    tags: [],
+    loopFile: null,
+    samplesFiles: [],
+    coverImage: null,
+    medium: [],
+    // Terms
+    agreedToTerms: false,
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  // Predefined options
+  const availableTags = [
+    'generative',
+    'birdsong',
+    'algorithm',
+    'field recording',
+    'spatial audio',
+    'industrial',
+    'drone',
+    'hydrophone',
+    'underwater',
+    'ambient',
+    'feedback',
+    'noise',
+    'electronics',
+    'live',
+    'contact mic',
+    'ecology',
+    'slow listening',
+    'nature',
+    'radio',
+    'archive',
+    'west africa',
+    'transmission',
+  ]
+
+  const availableMediums = [
+    'Algorithmic composition',
+    'field recording',
+    '8-channel spatial audio',
+    'Stereo + subwoofer',
+    'Live electronics',
+    '4-channel audio',
+    'Contact microphones',
+    'binaural audio',
+    'Archival audio',
+    'radio transmission',
+  ]
 
   const handleInputChange = e => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleLoopAudioChange = e => {
-    setFormData(prev => ({ ...prev, loopAudio: e.target.files[0] }))
+  const handleCheckboxChange = e => {
+    setFormData(prev => ({ ...prev, agreedToTerms: e.target.checked }))
+  }
+
+  const handleLinkChange = (index, value) => {
+    setFormData(prev => {
+      const newLinks = [...prev.links]
+      newLinks[index] = value
+      return { ...prev, links: newLinks }
+    })
+  }
+
+  const addLink = () => {
+    setFormData(prev => ({ ...prev, links: [...prev.links, ''] }))
+  }
+
+  const removeLink = index => {
+    setFormData(prev => ({
+      ...prev,
+      links: prev.links.filter((_, i) => i !== index),
+    }))
+  }
+
+  const toggleTag = tag => {
+    setFormData(prev => ({
+      ...prev,
+      tags: prev.tags.includes(tag)
+        ? prev.tags.filter(t => t !== tag)
+        : [...prev.tags, tag],
+    }))
+  }
+
+  const toggleMedium = medium => {
+    setFormData(prev => ({
+      ...prev,
+      medium: prev.medium.includes(medium)
+        ? prev.medium.filter(m => m !== medium)
+        : [...prev.medium, medium],
+    }))
+  }
+
+  const handleLoopFileChange = e => {
+    const file = e.target.files[0]
+    if (file) {
+      if (!file.name.endsWith('.wav')) {
+        alert('Loop file must be a WAV file')
+        return
+      }
+      if (file.size > 20 * 1024 * 1024) {
+        alert('Loop file must be under 20MB')
+        return
+      }
+      setFormData(prev => ({ ...prev, loopFile: file }))
+    }
   }
 
   const handleSamplesChange = e => {
     const files = Array.from(e.target.files)
-    setFormData(prev => ({ ...prev, samples: [...prev.samples, ...files] }))
-  }
-
-  const removeSample = index => {
+    const validFiles = files.filter(file => {
+      if (
+        !file.name.endsWith('.wav') &&
+        !file.name.endsWith('.zip') &&
+        !file.name.endsWith('.WAV') &&
+        !file.name.endsWith('.ZIP')
+      ) {
+        alert(`${file.name}: Must be WAV or ZIP file`)
+        return false
+      }
+      return true
+    })
     setFormData(prev => ({
       ...prev,
-      samples: prev.samples.filter((_, i) => i !== index),
+      samplesFiles: [...prev.samplesFiles, ...validFiles],
     }))
   }
 
-  const nextStep = () => setStep(prev => Math.min(prev + 1, 4))
+  const removeSampleFile = index => {
+    setFormData(prev => ({
+      ...prev,
+      samplesFiles: prev.samplesFiles.filter((_, i) => i !== index),
+    }))
+  }
+
+  const handleCoverImageChange = e => {
+    const file = e.target.files[0]
+    if (file) {
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+      if (!validTypes.includes(file.type)) {
+        alert('Cover image must be JPG, PNG, or WebP')
+        return
+      }
+      setFormData(prev => ({ ...prev, coverImage: file }))
+    }
+  }
+
+  const nextStep = () => setStep(prev => Math.min(prev + 1, 3))
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1))
 
   const handleSubmit = e => {
@@ -52,31 +180,17 @@ export default function ContributionForm({ onClose }) {
           <div className={styles.content}>
             <div className={styles.successMessage}>
               <div className={styles.successIcon}>✓</div>
-              <h2 className={styles.stepTitle}>Contribution Received</h2>
-              <p style={{ color: 'var(--white-muted)' }}>
-                Thank you for contributing to Phonosium. Our curators will
-                review your submission and get in touch via the link provided.
+              <h2 className={styles.stepTitle}>Submission Received</h2>
+              <p style={{ color: 'var(--ph-stone)' }}>
+                Thank you for submitting to Phonosium. Our curators will review
+                your work and contact you via email.
               </p>
               <button
                 className={`${styles.btn} ${styles.btnNext}`}
                 style={{ marginTop: '2rem' }}
-                onClick={() => {
-                  setIsSubmitted(false)
-                  setStep(1)
-                  setFormData({
-                    title: '',
-                    description: '',
-                    aboutArtist: '',
-                    link: '',
-                    location: '',
-                    artistName: '',
-                    artistEmail: '',
-                    loopAudio: null,
-                    samples: [],
-                  })
-                }}
+                onClick={onClose}
               >
-                Submit Another
+                Close
               </button>
             </div>
           </div>
@@ -89,16 +203,17 @@ export default function ContributionForm({ onClose }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.formWrapper} onClick={e => e.stopPropagation()}>
         <div className={styles.header}>
-          <span className={styles.stepIndicator}>Step {step} of 4</span>
+          <span className={styles.stepIndicator}>Step {step} of 3</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <div style={{ display: 'flex', gap: '4px' }}>
-              {[1, 2, 3, 4].map(s => (
+              {[1, 2, 3].map(s => (
                 <div
                   key={s}
                   style={{
                     width: '16px',
                     height: '2px',
-                    background: s <= step ? 'var(--orange)' : 'var(--border)',
+                    background:
+                      s <= step ? 'var(--ph-orange)' : 'var(--ph-ink)',
                   }}
                 />
               ))}
@@ -113,38 +228,9 @@ export default function ContributionForm({ onClose }) {
           <div className={styles.content}>
             {step === 1 && (
               <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>The Piece</h2>
+                <h2 className={styles.stepTitle}>Artist Information</h2>
                 <div className={styles.field}>
-                  <label className={styles.label}>Title of Piece</label>
-                  <input
-                    type="text"
-                    name="title"
-                    className={styles.input}
-                    placeholder="e.g. Mechanical Echoes"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <div className={styles.field}>
-                  <label className={styles.label}>Description</label>
-                  <textarea
-                    name="description"
-                    className={styles.textarea}
-                    placeholder="Tell us about the sonic concept..."
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-            )}
-
-            {step === 2 && (
-              <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>The Artist</h2>
-                <div className={styles.field}>
-                  <label className={styles.label}>Full Name</label>
+                  <label className={styles.label}>Your Name</label>
                   <input
                     type="text"
                     name="artistName"
@@ -156,7 +242,7 @@ export default function ContributionForm({ onClose }) {
                   />
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label}>Contact Email</label>
+                  <label className={styles.label}>Your Email</label>
                   <input
                     type="email"
                     name="artistEmail"
@@ -168,26 +254,41 @@ export default function ContributionForm({ onClose }) {
                   />
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label}>About Artist</label>
-                  <textarea
-                    name="aboutArtist"
-                    className={styles.textarea}
-                    placeholder="Brief biography..."
-                    value={formData.aboutArtist}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <div className={styles.field}>
-                  <label className={styles.label}>External Link</label>
-                  <input
-                    type="url"
-                    name="link"
-                    className={styles.input}
-                    placeholder="Portfolio, SoundCloud, or GitHub"
-                    value={formData.link}
-                    onChange={handleInputChange}
-                  />
+                  <label className={styles.label}>Links</label>
+                  {formData.links.map((link, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: 'flex',
+                        gap: '0.5rem',
+                        marginBottom: '0.5rem',
+                      }}
+                    >
+                      <input
+                        type="url"
+                        className={styles.input}
+                        placeholder="https://..."
+                        value={link}
+                        onChange={e => handleLinkChange(index, e.target.value)}
+                      />
+                      {formData.links.length > 1 && (
+                        <button
+                          type="button"
+                          className={styles.btnRemoveLink}
+                          onClick={() => removeLink(index)}
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className={styles.btnAddLink}
+                    onClick={addLink}
+                  >
+                    + Add Link
+                  </button>
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label}>Location</label>
@@ -200,91 +301,121 @@ export default function ContributionForm({ onClose }) {
                     onChange={handleInputChange}
                   />
                 </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>Artist Description</label>
+                  <textarea
+                    name="artistDescription"
+                    className={styles.textarea}
+                    placeholder="Tell us about yourself..."
+                    value={formData.artistDescription}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
             )}
 
-            {step === 3 && (
+            {step === 2 && (
               <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>Audio Assets</h2>
+                <h2 className={styles.stepTitle}>Piece Information</h2>
+                <div className={styles.field}>
+                  <label className={styles.label}>Name of Piece</label>
+                  <input
+                    type="text"
+                    name="pieceName"
+                    className={styles.input}
+                    placeholder="e.g. Mechanical Echoes"
+                    value={formData.pieceName}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>Subtitle</label>
+                  <input
+                    type="text"
+                    name="subtitle"
+                    className={styles.input}
+                    placeholder="Optional subtitle"
+                    value={formData.subtitle}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>Short Description</label>
+                  <textarea
+                    name="pieceDescription"
+                    className={styles.textarea}
+                    placeholder="Describe your piece..."
+                    value={formData.pieceDescription}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
 
                 <div className={styles.field}>
-                  <label className={styles.label}>Main Loop Audio</label>
-                  <div
-                    className={styles.fileInputWrapper}
-                    style={{ padding: '1.5rem' }}
-                  >
+                  <label className={styles.label}>Tags</label>
+                  <div className={styles.tagGrid}>
+                    {availableTags.map(tag => (
+                      <button
+                        key={tag}
+                        type="button"
+                        className={`${styles.tagButton} ${formData.tags.includes(tag) ? styles.tagButtonActive : ''}`}
+                        onClick={() => toggleTag(tag)}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.field}>
+                  <label className={styles.label}>
+                    Loop File Input (WAV, max 20MB)
+                  </label>
+                  <div className={styles.fileInputWrapper}>
                     <input
                       type="file"
                       className={styles.fileInput}
-                      onChange={handleLoopAudioChange}
-                      accept=".wav,.mp3"
+                      onChange={handleLoopFileChange}
+                      accept=".wav"
                     />
                     <div className={styles.fileHint}>
-                      {formData.loopAudio ? (
-                        <span style={{ color: 'var(--orange)' }}>
-                          Selected: {formData.loopAudio.name}
+                      {formData.loopFile ? (
+                        <span style={{ color: 'var(--ph-orange)' }}>
+                          Selected: {formData.loopFile.name}
                         </span>
                       ) : (
-                        <>
-                          <strong>Upload Loop</strong> (WAV/MP3)
-                        </>
+                        <strong>Upload Loop (WAV)</strong>
                       )}
                     </div>
                   </div>
                 </div>
 
                 <div className={styles.field}>
-                  <label className={styles.label}>Additional Samples</label>
-                  <div
-                    className={styles.fileInputWrapper}
-                    style={{ padding: '1.5rem' }}
-                  >
+                  <label className={styles.label}>
+                    Samples File Input (WAV or ZIP)
+                  </label>
+                  <div className={styles.fileInputWrapper}>
                     <input
                       type="file"
                       className={styles.fileInput}
                       onChange={handleSamplesChange}
                       multiple
-                      accept=".wav,.mp3"
+                      accept=".wav,.zip"
                     />
                     <div className={styles.fileHint}>
-                      <strong>Add Samples</strong> (Multiple)
+                      <strong>Add Samples (Multiple)</strong>
                     </div>
                   </div>
-
-                  {formData.samples.length > 0 && (
-                    <div
-                      style={{
-                        marginTop: '1rem',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '8px',
-                      }}
-                    >
-                      {formData.samples.map((file, idx) => (
-                        <div
-                          key={idx}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            fontSize: '0.8rem',
-                            background: 'rgba(255,255,255,0.03)',
-                            padding: '6px 10px',
-                            borderRadius: '4px',
-                          }}
-                        >
-                          <span style={{ color: 'var(--white-dim)' }}>
-                            {file.name}
-                          </span>
+                  {formData.samplesFiles.length > 0 && (
+                    <div className={styles.fileList}>
+                      {formData.samplesFiles.map((file, idx) => (
+                        <div key={idx} className={styles.fileListItem}>
+                          <span>{file.name}</span>
                           <button
                             type="button"
-                            onClick={() => removeSample(idx)}
-                            style={{
-                              background: 'none',
-                              border: 'none',
-                              color: 'var(--orange)',
-                              cursor: 'pointer',
-                            }}
+                            onClick={() => removeSampleFile(idx)}
+                            className={styles.btnRemoveFile}
                           >
                             remove
                           </button>
@@ -293,88 +424,142 @@ export default function ContributionForm({ onClose }) {
                     </div>
                   )}
                 </div>
+
+                <div className={styles.field}>
+                  <label className={styles.label}>
+                    Image of Piece (Cover)
+                  </label>
+                  <div className={styles.fileInputWrapper}>
+                    <input
+                      type="file"
+                      className={styles.fileInput}
+                      onChange={handleCoverImageChange}
+                      accept="image/jpeg,image/jpg,image/png,image/webp"
+                    />
+                    <div className={styles.fileHint}>
+                      {formData.coverImage ? (
+                        <span style={{ color: 'var(--ph-orange)' }}>
+                          Selected: {formData.coverImage.name}
+                        </span>
+                      ) : (
+                        <strong>Upload Cover Image</strong>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.field}>
+                  <label className={styles.label}>Medium</label>
+                  <div className={styles.tagGrid}>
+                    {availableMediums.map(medium => (
+                      <button
+                        key={medium}
+                        type="button"
+                        className={`${styles.tagButton} ${formData.medium.includes(medium) ? styles.tagButtonActive : ''}`}
+                        onClick={() => toggleMedium(medium)}
+                      >
+                        {medium}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
-            {step === 4 && (
+            {step === 3 && (
               <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>Finalize</h2>
-                <p
-                  style={{ color: 'var(--white-muted)', marginBottom: '2rem' }}
-                >
-                  Please review your submission details. By clicking submit,
-                  your work will be sent to the Phonosium collective for review.
+                <h2 className={styles.stepTitle}>Review and Terms</h2>
+                <p style={{ color: 'var(--ph-stone)', marginBottom: '2rem' }}>
+                  Please review your submission details before submitting.
                 </p>
-                <div
-                  style={{
-                    background: 'rgba(0,0,0,0.2)',
-                    padding: '1.5rem',
-                    borderRadius: '8px',
-                    fontSize: '0.9rem',
-                  }}
-                >
-                  <div style={{ marginBottom: '1rem' }}>
-                    <span
-                      style={{
-                        color: 'var(--orange)',
-                        fontSize: '0.7rem',
-                        display: 'block',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      Piece
-                    </span>
-                    <span style={{ color: 'var(--white)' }}>
-                      {formData.title || 'Untitled'}
+                <div className={styles.reviewBox}>
+                  <div className={styles.reviewSection}>
+                    <span className={styles.reviewLabel}>Artist</span>
+                    <span className={styles.reviewValue}>
+                      {formData.artistName || 'Not provided'}
                     </span>
                   </div>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <span
-                      style={{
-                        color: 'var(--orange)',
-                        fontSize: '0.7rem',
-                        display: 'block',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      Artist
-                    </span>
-                    <span style={{ color: 'var(--white)' }}>
-                      {formData.artistName || 'Anonymous'} (
-                      {formData.location || 'Unknown Location'})
+                  <div className={styles.reviewSection}>
+                    <span className={styles.reviewLabel}>Email</span>
+                    <span className={styles.reviewValue}>
+                      {formData.artistEmail || 'Not provided'}
                     </span>
                   </div>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <span
-                      style={{
-                        color: 'var(--orange)',
-                        fontSize: '0.7rem',
-                        display: 'block',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      Contact
-                    </span>
-                    <span style={{ color: 'var(--white)' }}>
-                      {formData.artistEmail || 'No email provided'}
-                    </span>
-                  </div>
-                  <div>
-                    <span
-                      style={{
-                        color: 'var(--orange)',
-                        fontSize: '0.7rem',
-                        display: 'block',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      Assets
-                    </span>
-                    <span style={{ color: 'var(--white)' }}>
-                      {formData.loopAudio ? '1 Loop' : 'No Loop'},{' '}
-                      {formData.samples.length} Samples
+                  {formData.links.filter(l => l).length > 0 && (
+                    <div className={styles.reviewSection}>
+                      <span className={styles.reviewLabel}>Links</span>
+                      <span className={styles.reviewValue}>
+                        {formData.links.filter(l => l).length} link
+                        {formData.links.filter(l => l).length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  )}
+                  {formData.location && (
+                    <div className={styles.reviewSection}>
+                      <span className={styles.reviewLabel}>Location</span>
+                      <span className={styles.reviewValue}>
+                        {formData.location}
+                      </span>
+                    </div>
+                  )}
+                  <div className={styles.reviewSection}>
+                    <span className={styles.reviewLabel}>Piece Name</span>
+                    <span className={styles.reviewValue}>
+                      {formData.pieceName || 'Not provided'}
                     </span>
                   </div>
+                  {formData.subtitle && (
+                    <div className={styles.reviewSection}>
+                      <span className={styles.reviewLabel}>Subtitle</span>
+                      <span className={styles.reviewValue}>
+                        {formData.subtitle}
+                      </span>
+                    </div>
+                  )}
+                  {formData.tags.length > 0 && (
+                    <div className={styles.reviewSection}>
+                      <span className={styles.reviewLabel}>Tags</span>
+                      <span className={styles.reviewValue}>
+                        {formData.tags.join(', ')}
+                      </span>
+                    </div>
+                  )}
+                  {formData.medium.length > 0 && (
+                    <div className={styles.reviewSection}>
+                      <span className={styles.reviewLabel}>Medium</span>
+                      <span className={styles.reviewValue}>
+                        {formData.medium.join(', ')}
+                      </span>
+                    </div>
+                  )}
+                  <div className={styles.reviewSection}>
+                    <span className={styles.reviewLabel}>Files</span>
+                    <span className={styles.reviewValue}>
+                      {formData.loopFile ? '1 Loop, ' : 'No Loop, '}
+                      {formData.samplesFiles.length} Sample
+                      {formData.samplesFiles.length !== 1 ? 's' : ''},{' '}
+                      {formData.coverImage ? '1 Image' : 'No Image'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={styles.termsBox}>
+                  <label className={styles.checkboxLabel}>
+                    <input
+                      type="checkbox"
+                      checked={formData.agreedToTerms}
+                      onChange={handleCheckboxChange}
+                      className={styles.checkbox}
+                    />
+                    <span className={styles.termsText}>
+                      I agree that by submitting this work, I retain full
+                      ownership and rights to my recordings. However, if
+                      accepted, the piece will be performed in a public space
+                      installation at a scheduled time. I understand that I have
+                      the right to withdraw my recordings at any time by
+                      contacting the organizers.
+                    </span>
+                  </label>
                 </div>
               </div>
             )}
@@ -393,7 +578,7 @@ export default function ContributionForm({ onClose }) {
               <div />
             )}
 
-            {step < 4 ? (
+            {step < 3 ? (
               <button
                 type="button"
                 className={`${styles.btn} ${styles.btnNext}`}
@@ -405,8 +590,9 @@ export default function ContributionForm({ onClose }) {
               <button
                 type="submit"
                 className={`${styles.btn} ${styles.btnNext}`}
+                disabled={!formData.agreedToTerms}
               >
-                Submit Contribution
+                Submit
               </button>
             )}
           </div>
