@@ -61,10 +61,7 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      const scheduleItem = screen
-        .getByText(/Algorithmic avian composition/i)
-        .closest('div')
-        .closest('div')
+      const scheduleItem = screen.getByText('Birds!').closest('div')
       await user.click(scheduleItem)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
@@ -159,10 +156,7 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      const scheduleItem = screen
-        .getByText(/Algorithmic avian composition/i)
-        .closest('div')
-        .closest('div')
+      const scheduleItem = screen.getByText('Birds!').closest('div')
       await user.click(scheduleItem)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
