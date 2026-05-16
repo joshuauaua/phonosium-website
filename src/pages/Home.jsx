@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react'
 import { installations } from '../data/installations'
 import Waves from '../components/Waves/Waves'
+import ContributionForm from '../components/ContributionForm'
 import styles from './Home.module.css'
 
 export default function Home() {
   const [selectedId, setSelectedId] = useState(installations[0].id)
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
+  const [showSubmissionForm, setShowSubmissionForm] = useState(false)
 
   const current = useMemo(
     () => installations.find(i => i.id === selectedId),
@@ -229,7 +231,18 @@ export default function Home() {
             <li>Links to your work</li>
           </ul>
         </div>
+
+        <button
+          className={styles.btnApplyNow}
+          onClick={() => setShowSubmissionForm(true)}
+        >
+          Apply now
+        </button>
       </section>
+
+      {showSubmissionForm && (
+        <ContributionForm onClose={() => setShowSubmissionForm(false)} />
+      )}
     </main>
   )
 }
