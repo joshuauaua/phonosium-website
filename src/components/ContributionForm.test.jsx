@@ -118,8 +118,8 @@ describe('ContributionForm', () => {
         screen.getByRole('button', { name: 'algorithm' })
       ).toBeInTheDocument()
       expect(
-        screen.getByRole('button', { name: 'field recording' })
-      ).toBeInTheDocument()
+        screen.getAllByRole('button', { name: 'field recording' })
+      ).toHaveLength(2)
     })
 
     it('allows selecting and deselecting tags', async () => {
@@ -160,7 +160,7 @@ describe('ContributionForm', () => {
       render(<ContributionForm onClose={mockOnClose} />)
 
       await user.click(screen.getByRole('button', { name: /next step/i }))
-      await user.click(screen.getByRole('button', { name: /back/i }))
+      await user.click(screen.getByRole('button', { name: 'Back' }))
 
       expect(screen.getByText('Artist Information')).toBeInTheDocument()
       expect(screen.getByText(/step 1 of 3/i)).toBeInTheDocument()
