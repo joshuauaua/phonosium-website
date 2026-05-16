@@ -10,6 +10,7 @@ export default function Home() {
   const [selectedId, setSelectedId] = useState(installations[0].id)
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
+  const [selectedDay, setSelectedDay] = useState(new Date())
 
   const current = useMemo(
     () => installations.find(i => i.id === selectedId),
@@ -24,14 +25,6 @@ export default function Home() {
     return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`
   }
 
-  const getCurrentDate = () => {
-    return new Date().toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
-
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -42,12 +35,25 @@ export default function Home() {
           </h1>
           <p className={styles.lead}>
             Phonosium is a crowdsourced interactive sound installation
-            physically located in Stockholm. Six speakers, one structure. The{' '}
-            <em>pipes answer</em>.
+            physically located at Frihamnstorget in Stockholm.
           </p>
           <div className={styles.ctaRow}>
-            <button className={styles.btnAccent}>Explore library</button>
-            <button className={styles.btnOutline}>About the project</button>
+            <button
+              className={styles.btnAccent}
+              onClick={() =>
+                document
+                  .getElementById('schedule-section')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Explore library
+            </button>
+            <button
+              className={styles.btnOutline}
+              onClick={() => navigate('/about')}
+            >
+              About the project
+            </button>
           </div>
         </div>
         <div className={styles.metaCol}>
@@ -104,10 +110,38 @@ export default function Home() {
         </button>
       </section>
 
-      <section className={styles.programme}>
+      <section className={styles.programme} id="schedule-section">
         <div className={styles.sectionHead}>
           <h2 className={styles.sectionTitle}>Schedule</h2>
-          <span className={styles.sectionMeta}>{getCurrentDate()}</span>
+          <div className={styles.dayToggle}>
+            <button
+              className={styles.dayButton}
+              onClick={() => {
+                const prev = new Date(selectedDay)
+                prev.setDate(prev.getDate() - 1)
+                setSelectedDay(prev)
+              }}
+            >
+              ←
+            </button>
+            <span className={styles.sectionMeta}>
+              {selectedDay.toLocaleDateString('en-US', {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
+            <button
+              className={styles.dayButton}
+              onClick={() => {
+                const next = new Date(selectedDay)
+                next.setDate(next.getDate() + 1)
+                setSelectedDay(next)
+              }}
+            >
+              →
+            </button>
+          </div>
         </div>
         <div className={styles.chList}>
           {installations.map(inst => {
