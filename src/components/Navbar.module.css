@@ -59,41 +59,14 @@
   font-weight: 900;
   font-size: 28px;
   letter-spacing: -0.04em;
-  line-height: 1;
-  display: inline-flex;
-  align-items: baseline;
+  line-height: 0.86;
   text-decoration: none;
   color: var(--ph-ink);
 }
 
-.brandDot {
-  position: relative;
-  display: inline-block;
-  width: 0.7em;
-  height: 0.85em;
-  vertical-align: baseline;
-}
-
-.stem {
-  position: absolute;
-  left: 50%;
-  bottom: 0.06em;
-  width: 0.13em;
-  height: 0.52em;
-  background: var(--ph-ink);
-  transform: translateX(-50%);
-}
-
-.ring {
-  position: absolute;
-  left: 50%;
-  top: 0.04em;
-  width: 0.4em;
-  height: 0.4em;
-  border-radius: 999px;
-  border: 0.09em solid var(--ph-orange);
-  transform: translateX(-50%);
-  box-sizing: border-box;
+.brandO {
+  font-style: normal;
+  color: var(--ph-orange);
 }
 
 .hamburger {

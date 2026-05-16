@@ -30,12 +30,7 @@ export default function Navbar() {
 
       <nav className={styles.nav}>
         <NavLink to="/" className={styles.brand} onClick={closeMenu}>
-          phon
-          <span className={styles.brandDot}>
-            <span className={styles.stem} />
-            <span className={styles.ring} />
-          </span>
-          sium
+          phon<span className={styles.brandO}>o</span>sium
         </NavLink>
 
         <button
