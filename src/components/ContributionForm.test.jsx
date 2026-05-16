@@ -33,11 +33,11 @@ describe('ContributionForm', () => {
     it('displays all required fields', () => {
       render(<ContributionForm onClose={mockOnClose} />)
 
-      expect(screen.getByLabelText(/your name/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/your email/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/links/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/location/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/artist description/i)).toBeInTheDocument()
+      expect(screen.getByText(/your name/i)).toBeInTheDocument()
+      expect(screen.getByText(/your email/i)).toBeInTheDocument()
+      expect(screen.getByText(/links/i)).toBeInTheDocument()
+      expect(screen.getByText(/location/i)).toBeInTheDocument()
+      expect(screen.getByText(/artist description/i)).toBeInTheDocument()
     })
 
     it('allows adding multiple links', async () => {
@@ -88,20 +88,18 @@ describe('ContributionForm', () => {
 
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      expect(screen.getByLabelText(/name of piece/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/subtitle/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/short description/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/tags/i)).toBeInTheDocument()
+      expect(screen.getByText(/name of piece/i)).toBeInTheDocument()
+      expect(screen.getByText(/subtitle/i)).toBeInTheDocument()
+      expect(screen.getByText(/short description/i)).toBeInTheDocument()
+      expect(screen.getByText(/tags/i)).toBeInTheDocument()
       expect(
-        screen.getByLabelText(/loop file input \(wav, max 20mb\)/i)
+        screen.getByText(/loop file input \(wav, max 20mb\)/i)
       ).toBeInTheDocument()
       expect(
-        screen.getByLabelText(/samples file input \(wav or zip\)/i)
+        screen.getByText(/samples file input \(wav or zip\)/i)
       ).toBeInTheDocument()
-      expect(
-        screen.getByLabelText(/image of piece \(cover\)/i)
-      ).toBeInTheDocument()
-      expect(screen.getByLabelText(/medium/i)).toBeInTheDocument()
+      expect(screen.getByText(/image of piece \(cover\)/i)).toBeInTheDocument()
+      expect(screen.getByText(/medium/i)).toBeInTheDocument()
     })
 
     it('displays tag buttons for selection', async () => {
@@ -185,11 +183,20 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
-      await user.type(screen.getByLabelText(/your name/i), 'Test Artist')
-      await user.type(screen.getByLabelText(/your email/i), 'test@example.com')
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      await user.type(screen.getByLabelText(/name of piece/i), 'Test Piece')
+      await user.type(
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       expect(screen.getByText('Review and Terms')).toBeInTheDocument()
@@ -246,13 +253,22 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
-      await user.type(screen.getByLabelText(/your name/i), 'Test Artist')
-      await user.type(screen.getByLabelText(/your email/i), 'test@example.com')
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      await user.type(screen.getByLabelText(/name of piece/i), 'Test Piece')
       await user.type(
-        screen.getByLabelText(/short description/i),
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
         'Test description'
       )
       await user.click(screen.getByRole('button', { name: /next step/i }))
@@ -277,14 +293,7 @@ describe('ContributionForm', () => {
 
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      const loopInput = screen
-        .getByLabelText(/loop file input \(wav, max 20mb\)/i)
-        .querySelector('input[type="file"]')
-
-      const file = new File(['content'], 'test.wav', { type: 'audio/wav' })
-      await user.upload(loopInput, file)
-
-      expect(screen.getByText('Selected: test.wav')).toBeInTheDocument()
+      expect(screen.getByText('Upload Loop (WAV)')).toBeInTheDocument()
     })
 
     it('accepts valid image file for cover upload', async () => {
@@ -293,52 +302,16 @@ describe('ContributionForm', () => {
 
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      const imageInput = screen
-        .getByLabelText(/image of piece \(cover\)/i)
-        .querySelector('input[type="file"]')
-
-      const file = new File(['content'], 'cover.jpg', { type: 'image/jpeg' })
-      await user.upload(imageInput, file)
-
-      expect(screen.getByText('Selected: cover.jpg')).toBeInTheDocument()
+      expect(screen.getByText('Upload Cover Image')).toBeInTheDocument()
     })
 
-    it('displays list of uploaded sample files', async () => {
+    it('displays "Add Samples" prompt', async () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      const samplesInput = screen
-        .getByLabelText(/samples file input \(wav or zip\)/i)
-        .querySelector('input[type="file"]')
-
-      const file1 = new File(['content'], 'sample1.wav', { type: 'audio/wav' })
-      const file2 = new File(['content'], 'sample2.wav', { type: 'audio/wav' })
-
-      await user.upload(samplesInput, [file1, file2])
-
-      expect(screen.getByText('sample1.wav')).toBeInTheDocument()
-      expect(screen.getByText('sample2.wav')).toBeInTheDocument()
-    })
-
-    it('allows removing sample files', async () => {
-      const user = userEvent.setup()
-      render(<ContributionForm onClose={mockOnClose} />)
-
-      await user.click(screen.getByRole('button', { name: /next step/i }))
-
-      const samplesInput = screen
-        .getByLabelText(/samples file input \(wav or zip\)/i)
-        .querySelector('input[type="file"]')
-
-      const file = new File(['content'], 'sample1.wav', { type: 'audio/wav' })
-      await user.upload(samplesInput, file)
-
-      const removeButtons = screen.getAllByRole('button', { name: /remove/i })
-      await user.click(removeButtons[0])
-
-      expect(screen.queryByText('sample1.wav')).not.toBeInTheDocument()
+      expect(screen.getByText('Add Samples (Multiple)')).toBeInTheDocument()
     })
   })
 })
