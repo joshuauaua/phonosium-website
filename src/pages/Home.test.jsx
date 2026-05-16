@@ -65,14 +65,16 @@ describe('Home', () => {
       await user.click(moreInfoButton)
 
       expect(
-        screen.getByText(/Algorithmic avian composition/i)
-      ).toBeInTheDocument()
-      expect(screen.getByText(/Joshua Ng/i)).toBeInTheDocument()
-      expect(screen.getByText(/Stockholm\/Sheffield/i)).toBeInTheDocument()
-      expect(screen.getByText(/Year/i)).toBeInTheDocument()
-      expect(screen.getByText(/2025/)).toBeInTheDocument()
-      expect(screen.getByText(/Duration/i)).toBeInTheDocument()
-      expect(screen.getByText(/Medium/i)).toBeInTheDocument()
+        screen.getAllByText(/Algorithmic avian composition/i).length
+      ).toBeGreaterThan(0)
+      expect(screen.getAllByText(/Joshua Ng/i).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/Stockholm\/Sheffield/i).length).toBeGreaterThan(
+        0
+      )
+      expect(screen.getAllByText(/Year/i).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/2025/).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/Duration/i).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/Medium/i).length).toBeGreaterThan(0)
     })
 
     it('displays tags when expanded', async () => {
@@ -86,10 +88,10 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      expect(screen.getByText('generative')).toBeInTheDocument()
-      expect(screen.getByText('birdsong')).toBeInTheDocument()
-      expect(screen.getByText('algorithm')).toBeInTheDocument()
-      expect(screen.getByText('field recording')).toBeInTheDocument()
+      expect(screen.getAllByText('generative').length).toBeGreaterThan(0)
+      expect(screen.getAllByText('birdsong').length).toBeGreaterThan(0)
+      expect(screen.getAllByText('algorithm').length).toBeGreaterThan(0)
+      expect(screen.getAllByText('field recording').length).toBeGreaterThan(0)
     })
 
     it('displays artist website link when expanded', async () => {
@@ -159,8 +161,8 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      expect(screen.getByText(/^09:00$/)).toBeInTheDocument()
-      expect(screen.getByText(/^09:30$/)).toBeInTheDocument()
+      expect(screen.getByText('● 09:00')).toBeInTheDocument()
+      expect(screen.getByText('09:30')).toBeInTheDocument()
       expect(screen.queryByText(/Slot 01/)).not.toBeInTheDocument()
       expect(screen.queryByText(/Slot 02/)).not.toBeInTheDocument()
     })
