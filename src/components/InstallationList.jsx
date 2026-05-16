@@ -18,20 +18,13 @@ const InstallationItem = memo(function InstallationItem({
         aria-label={`Select ${inst.title}`}
         aria-pressed={isSelected}
       >
-        <div className={styles.itemTop}>
-          <span className={styles.itemNumber}>
-            {String(inst.id).padStart(2, '0')}
-          </span>
-          {isSelected && <span className={styles.playingTag}>Playing</span>}
+        <div className={styles.itemNum}>
+          Ch. {String(inst.id).padStart(2, '0')}
         </div>
         <div className={styles.itemTitle}>{inst.title}</div>
-        <div className={styles.itemMeta}>
-          <span>{inst.artist.name}</span>
-          <span className={styles.dot}>·</span>
-          <span>{inst.year}</span>
-          <span className={styles.dot}>·</span>
-          <span>{inst.duration}</span>
-        </div>
+        <div className={styles.itemArtist}>{inst.artist.name}</div>
+        <div className={styles.itemDuration}>{inst.duration}</div>
+        <div className={styles.itemArrow}>{isSelected ? '●' : '→'}</div>
       </button>
     </li>
   )
@@ -46,7 +39,9 @@ export default function InstallationList({
     <aside className={styles.aside}>
       <div className={styles.header}>
         <h2 className={styles.heading}>Library</h2>
-        <span className={styles.count}>{installations.length}</span>
+        <span className={styles.count}>
+          {installations.length} installations
+        </span>
       </div>
       <ul className={styles.list}>
         {installations.map(inst => (

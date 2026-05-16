@@ -1,71 +1,55 @@
 .main {
   flex: 1;
-  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem)
-    clamp(3rem, 8vw, 6rem);
-  min-height: calc(100vh - 72px);
-  min-height: calc(100dvh - 72px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: calc(100vh - 120px);
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
+.hero {
+  padding: var(--ph-s-9) var(--ph-s-6);
+  border-bottom: 1px solid var(--ph-ink);
 }
 
 .title {
-  font-size: clamp(2.5rem, 8vw, 4rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  font-size: 64px;
+  font-weight: var(--ph-fw-black);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0 0 var(--ph-s-5);
 }
 
 .subtitle {
-  font-size: clamp(1rem, 3vw, 1.25rem);
-  line-height: 1.6;
-  color: var(--text-mid);
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
+  font-size: var(--ph-fs-lead);
+  line-height: 1.4;
+  color: var(--ph-graphite);
+  margin-bottom: var(--ph-s-5);
 }
 
 .contact {
-  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-  line-height: 1.8;
-  color: var(--text-mid);
-  margin-bottom: clamp(3rem, 6vw, 4rem);
+  font-size: var(--ph-fs-body-lg);
+  line-height: 1.55;
+  color: var(--ph-graphite);
 }
 
-.contact a {
-  color: var(--orange);
+.link {
+  color: var(--ph-orange-deep);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  transition: border-color var(--ph-dur-base) var(--ph-ease);
 }
 
-.contact a:hover {
-  border-color: var(--orange);
+.link:hover {
+  border-color: var(--ph-orange-deep);
 }
 
-.criteriaBox {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: clamp(2rem, 5vw, 3rem);
-  text-align: left;
-  max-width: 600px;
-  margin: 0 auto;
+.criteria {
+  padding: var(--ph-s-9) var(--ph-s-6);
+  max-width: 700px;
 }
 
-.criteriaBox h2 {
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
-  letter-spacing: -0.01em;
+.criteriaTitle {
+  font-size: var(--ph-fs-h5);
+  font-weight: var(--ph-fw-semibold);
+  letter-spacing: var(--ph-ls-headline);
+  margin-bottom: var(--ph-s-6);
 }
 
 .criteriaList {
@@ -74,31 +58,25 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 3vw, 1.25rem);
+  gap: var(--ph-s-5);
 }
 
 .criteriaList li {
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  line-height: 1.7;
-  color: var(--text-mid);
-  padding-left: 1.5rem;
+  font-size: var(--ph-fs-body-lg);
+  line-height: 1.55;
+  color: var(--ph-graphite);
+  padding-left: var(--ph-s-5);
   position: relative;
+  border-left: 2px solid var(--ph-orange);
 }
 
-.criteriaList li::before {
-  content: '◉';
-  position: absolute;
-  left: 0;
-  color: var(--orange);
-  font-size: 0.8em;
-}
-
-@media (max-width: 480px) {
-  .main {
-    padding: 1.5rem 1rem 2rem;
+@media (max-width: 600px) {
+  .title {
+    font-size: 40px;
   }
 
-  .criteriaBox {
-    padding: 1.5rem;
+  .hero,
+  .criteria {
+    padding: var(--ph-s-7) var(--ph-s-4);
   }
 }

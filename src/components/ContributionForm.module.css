@@ -4,125 +4,130 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(20, 17, 14, 0.85);
   backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  animation: fadeIn 0.3s ease;
+  padding: var(--ph-s-6);
+  animation: fadeIn var(--ph-dur-base) var(--ph-ease);
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .formWrapper {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: var(--ph-paper);
+  border: 1px solid var(--ph-ink);
+  border-radius: 0;
   overflow: hidden;
   width: 100%;
   max-width: 650px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  animation: modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: modalIn var(--ph-dur-slow) var(--ph-ease);
 }
 
 @keyframes modalIn {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(20px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
   }
 }
 
 .closeBtn {
   background: transparent;
   border: none;
-  color: var(--text-mid);
+  color: var(--ph-stone);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
   line-height: 1;
-  transition: color 0.2s;
+  transition: color var(--ph-dur-base) var(--ph-ease);
 }
 
 .closeBtn:hover {
-  color: var(--orange);
+  color: var(--ph-orange);
 }
 
 .header {
-  padding: 1.5rem 2rem;
-  background: rgba(214, 90, 0, 0.05);
-  border-bottom: 1px solid var(--border);
+  padding: var(--ph-s-5) var(--ph-s-6);
+  background: var(--ph-orange-tint);
+  border-bottom: 1px solid var(--ph-ink);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .stepIndicator {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
+  font-family: var(--ph-font-mono);
+  font-size: var(--ph-fs-mono-xs);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--orange);
+  letter-spacing: 0.14em;
+  color: var(--ph-orange);
 }
 
 .content {
-  padding: 2.5rem 2rem;
+  padding: var(--ph-s-7) var(--ph-s-6);
 }
 
 .stepTitle {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 2rem;
+  font-size: var(--ph-fs-h5);
+  font-weight: var(--ph-fw-semibold);
+  color: var(--ph-ink);
+  margin-bottom: var(--ph-s-6);
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
 }
 
 .field {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--ph-s-5);
 }
 
 .label {
   display: block;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
+  font-family: var(--ph-font-mono);
+  font-size: var(--ph-fs-mono-xs);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-mid);
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.14em;
+  color: var(--ph-stone);
+  margin-bottom: var(--ph-s-2);
 }
 
 .input,
 .textarea {
   width: 100%;
-  background: var(--bg-mid);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.8rem 1rem;
-  color: var(--text-primary);
-  font-size: 1rem;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  padding: 14px 16px;
+  font-family: var(--ph-font-sans);
+  font-size: var(--ph-fs-body);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--ph-ink);
+  border-radius: 0;
+  color: var(--ph-ink);
+  outline: none;
+  transition: border-color var(--ph-dur-base) var(--ph-ease);
 }
 
 .input:focus,
 .textarea:focus {
-  outline: none;
-  border-color: var(--orange);
-  box-shadow: 0 0 0 2px rgba(214, 90, 0, 0.1);
+  border-color: var(--ph-orange);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ph-stone);
 }
 
 .textarea {
@@ -131,59 +136,63 @@
 }
 
 .footer {
-  padding: 1.5rem 2rem;
-  background: var(--bg-soft);
-  border-top: 1px solid var(--border);
+  padding: var(--ph-s-5) var(--ph-s-6);
+  background: var(--ph-chalk);
+  border-top: 1px solid var(--ph-ink);
   display: flex;
   justify-content: space-between;
 }
 
 .btn {
-  padding: 0.8rem 1.5rem;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.8rem;
+  padding: 14px 22px;
+  font-family: var(--ph-font-sans);
+  font-size: var(--ph-fs-body);
+  font-weight: var(--ph-fw-semibold);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--ph-ls-caps);
   cursor: pointer;
-  transition: all 0.2s;
-  border-radius: 4px;
+  transition: background var(--ph-dur-base) var(--ph-ease),
+              color var(--ph-dur-base) var(--ph-ease),
+              border-color var(--ph-dur-base) var(--ph-ease);
+  border-radius: var(--ph-r-1);
 }
 
 .btnPrev {
   background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-mid);
+  border: 1px solid var(--ph-ink);
+  color: var(--ph-ink);
 }
 
 .btnPrev:hover {
-  border-color: var(--text-soft);
-  color: var(--text-primary);
+  background: var(--ph-ink);
+  color: var(--ph-paper);
 }
 
 .btnNext {
-  background: var(--orange);
-  border: 1px solid var(--orange);
-  color: var(--bg-primary);
-  font-weight: 700;
+  background: var(--ph-orange);
+  border: 1px solid var(--ph-orange);
+  color: var(--ph-ink);
+  font-weight: var(--ph-fw-bold);
 }
 
 .btnNext:hover {
-  background: var(--orange-light);
-  border-color: var(--orange-light);
+  background: var(--ph-orange-deep);
+  border-color: var(--ph-orange-deep);
+  color: var(--ph-paper);
 }
 
 .fileInputWrapper {
   position: relative;
-  border: 2px dashed var(--border);
-  border-radius: 4px;
-  padding: 3rem 2rem;
+  border: 2px dashed var(--ph-ink);
+  border-radius: 0;
+  padding: var(--ph-s-6) var(--ph-s-5);
   text-align: center;
-  transition: border-color 0.2s;
+  transition: border-color var(--ph-dur-base) var(--ph-ease);
   cursor: pointer;
 }
 
 .fileInputWrapper:hover {
-  border-color: var(--orange);
+  border-color: var(--ph-orange);
 }
 
 .fileInput {
@@ -197,24 +206,17 @@
 }
 
 .fileHint {
-  color: var(--text-mid);
-  font-size: 0.9rem;
-}
-
-.fileName {
-  margin-top: 1rem;
-  color: var(--orange);
-  font-family: 'Space Mono', monospace;
-  font-size: 0.8rem;
+  color: var(--ph-stone);
+  font-size: var(--ph-fs-body-sm);
 }
 
 .successMessage {
   text-align: center;
-  padding: 2rem 0;
+  padding: var(--ph-s-6) 0;
 }
 
 .successIcon {
   font-size: 3rem;
-  color: var(--orange);
-  margin-bottom: 1.5rem;
+  color: var(--ph-orange);
+  margin-bottom: var(--ph-s-5);
 }

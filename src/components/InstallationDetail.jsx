@@ -1,21 +1,6 @@
 import { useMemo } from 'react'
 import styles from './InstallationDetail.module.css'
 
-const generateWaveformBars = installationId => {
-  const bars = []
-  for (let i = 0; i < 48; i++) {
-    const seed = installationId * 1000 + i
-    const pseudoRandom = Math.sin(seed) * 10000
-    const randomValue = (pseudoRandom - Math.floor(pseudoRandom)) * 20
-
-    bars.push({
-      delay: (i * 0.07).toFixed(2),
-      height: 20 + Math.sin(i * 0.6) * 60 + randomValue,
-    })
-  }
-  return bars
-}
-
 export default function InstallationDetail({ installation }) {
   const {
     title,
@@ -29,11 +14,6 @@ export default function InstallationDetail({ installation }) {
     id,
   } = installation || {}
 
-  const waveformBars = useMemo(() => {
-    if (!id) return []
-    return generateWaveformBars(id)
-  }, [id])
-
   const artistInitials = useMemo(() => {
     if (!artist?.name) return ''
     return artist.name
@@ -46,15 +26,13 @@ export default function InstallationDetail({ installation }) {
 
   return (
     <article className={styles.wrapper}>
-      <div className={styles.statusBadge}>
+      <div className={styles.eyebrow}>
         <span className={styles.dot} />
-        Now Playing
+        Now Playing · Ch. {String(id).padStart(2, '0')}
       </div>
 
-      <div className={styles.titleBlock}>
-        <h1 className={styles.title}>{title}</h1>
-        <p className={styles.subtitle}>{subtitle}</p>
-      </div>
+      <h1 className={styles.title}>{title}</h1>
+      <p className={styles.subtitle}>{subtitle}</p>
 
       <div className={styles.meta}>
         <div className={styles.metaItem}>
@@ -71,16 +49,6 @@ export default function InstallationDetail({ installation }) {
         </div>
       </div>
 
-      <div className={styles.waveform} aria-hidden="true">
-        {waveformBars.map((bar, i) => (
-          <div
-            key={i}
-            className={styles.bar}
-            style={{ '--delay': `${bar.delay}s`, '--height': `${bar.height}%` }}
-          />
-        ))}
-      </div>
-
       <div className={styles.description}>
         <p>{description}</p>
       </div>
@@ -93,7 +61,7 @@ export default function InstallationDetail({ installation }) {
         ))}
       </div>
 
-      <div className={styles.divider} />
+      <hr className={styles.rule} />
 
       <section className={styles.artistSection}>
         <h2 className={styles.artistHeading}>Artist</h2>
@@ -111,7 +79,7 @@ export default function InstallationDetail({ installation }) {
           rel="noopener noreferrer"
           className={styles.artistLink}
         >
-          {artist.website} ↗
+          {artist.website} &#8599;
         </a>
       </section>
     </article>

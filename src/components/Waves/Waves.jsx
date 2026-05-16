@@ -101,36 +101,7 @@ const Waves = ({
   style = {},
   className = '',
 }) => {
-  const [isDark, setIsDark] = useState(false)
-
-  useEffect(() => {
-    const checkTheme = () => {
-      const theme = document.documentElement.getAttribute('data-theme')
-      const systemDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches
-      setIsDark(theme === 'dark' || (!theme && systemDark))
-    }
-
-    checkTheme()
-
-    const observer = new MutationObserver(checkTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    })
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    mediaQuery.addEventListener('change', checkTheme)
-
-    return () => {
-      observer.disconnect()
-      mediaQuery.removeEventListener('change', checkTheme)
-    }
-  }, [])
-
-  const effectiveLineColor =
-    lineColor || (isDark ? 'rgba(255, 120, 0, 0.15)' : 'rgba(214, 90, 0, 0.08)')
+  const effectiveLineColor = lineColor || 'rgba(20, 17, 14, 0.06)'
 
   const containerRef = useRef(null)
   const canvasRef = useRef(null)
@@ -286,8 +257,6 @@ const Waves = ({
 
     function drawLines() {
       const ctx = ctxRef.current
-
-      // Guard: Skip drawing if context is not available (test environment)
       if (!ctx || !boundingRef.current) return
 
       const { width, height } = boundingRef.current
@@ -331,7 +300,6 @@ const Waves = ({
 
       movePoints(t)
 
-      // Guard: Only draw if context is available
       if (ctxRef.current) {
         drawLines()
       }

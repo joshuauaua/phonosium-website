@@ -10,66 +10,39 @@ describe('Footer', () => {
     expect(footer).toBeInTheDocument()
   })
 
-  it('displays description text on single line', () => {
+  it('displays copyright text', () => {
     render(<Footer />)
-    const description = screen.getByText(
-      /Phonosium is a crowdsourced interactive sound installation/
-    )
-    expect(description).toBeInTheDocument()
-    expect(description).toHaveTextContent(
-      'Phonosium is a crowdsourced interactive sound installation physically located in Stockholm'
-    )
+    expect(screen.getByText(/Phonosium 2026/)).toBeInTheDocument()
   })
 
   it('renders Instagram link', () => {
     render(<Footer />)
-    const instagramLink = screen.getByLabelText('Instagram')
-    expect(instagramLink).toBeInTheDocument()
-    expect(instagramLink).toHaveAttribute(
-      'href',
-      'https://ig.com/sonicassembly'
-    )
-    expect(instagramLink).toHaveAttribute('target', '_blank')
-    expect(instagramLink).toHaveAttribute('rel', 'noopener noreferrer')
+    const link = screen.getByRole('link', { name: /Instagram/i })
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', 'https://ig.com/sonicassembly')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('renders GitHub link', () => {
     render(<Footer />)
-    const githubLink = screen.getByLabelText('GitHub')
-    expect(githubLink).toBeInTheDocument()
-    expect(githubLink).toHaveAttribute(
+    const link = screen.getByRole('link', { name: /GitHub/i })
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute(
       'href',
       'https://github.com/joshuauaua/phonosium'
     )
-    expect(githubLink).toHaveAttribute('target', '_blank')
-    expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
-  it('renders SoundCloud link', () => {
+  it('renders Sonic Assembly link', () => {
     render(<Footer />)
-    const soundcloudLink = screen.getByLabelText('SoundCloud')
-    expect(soundcloudLink).toBeInTheDocument()
-    expect(soundcloudLink).toHaveAttribute(
-      'href',
-      'https://soundcloud.com/phonosium'
-    )
-    expect(soundcloudLink).toHaveAttribute('target', '_blank')
-    expect(soundcloudLink).toHaveAttribute('rel', 'noopener noreferrer')
-  })
-
-  it('renders Sonic Assembly credit link', () => {
-    render(<Footer />)
-    const creditLink = screen.getByRole('link', { name: /Sonic Assembly/i })
-    expect(creditLink).toBeInTheDocument()
-    expect(creditLink).toHaveAttribute('href', 'https://sonicassembly.se')
-    expect(creditLink).toHaveAttribute('target', '_blank')
-    expect(creditLink).toHaveAttribute('rel', 'noopener noreferrer')
-  })
-
-  it('displays credits text', () => {
-    render(<Footer />)
-    const credits = screen.getByText(/Project by/i)
-    expect(credits).toBeInTheDocument()
+    const link = screen.getByRole('link', { name: /Sonic Assembly/i })
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', 'https://sonicassembly.se')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('has no accessibility violations', async () => {
