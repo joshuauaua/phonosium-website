@@ -240,5 +240,50 @@ describe('Home', () => {
       expect(emailLink).toBeInTheDocument()
       expect(emailLink).toHaveAttribute('href', 'mailto:hej@sonicassembly.se')
     })
+
+    it('displays "Apply now" button', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const applyButton = screen.getByRole('button', { name: /apply now/i })
+      expect(applyButton).toBeInTheDocument()
+    })
+
+    it('opens submission form modal when "Apply now" button is clicked', async () => {
+      const user = userEvent.setup()
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const applyButton = screen.getByRole('button', { name: /apply now/i })
+      await user.click(applyButton)
+
+      expect(screen.getByText('Artist Information')).toBeInTheDocument()
+      expect(screen.getByText(/step 1 of 3/i)).toBeInTheDocument()
+    })
+
+    it('closes submission form modal when close button is clicked', async () => {
+      const user = userEvent.setup()
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const applyButton = screen.getByRole('button', { name: /apply now/i })
+      await user.click(applyButton)
+
+      const closeButton = screen.getByRole('button', { name: '×' })
+      await user.click(closeButton)
+
+      expect(
+        screen.queryByText('Artist Information')
+      ).not.toBeInTheDocument()
+    })
   })
 })
