@@ -43,9 +43,9 @@ export default function About() {
           >
             Bela
           </a>
-          , the installation uses four microphones to capture local
-          interactions while four speakers broadcast a continuous programme.
-          Each installation plays in 30-minute scheduled timeslots. Listen live
+          , the installation uses four microphones to capture local interactions
+          while four speakers broadcast a continuous programme. Each
+          installation plays in 30-minute scheduled timeslots. Listen live
           online or experience it in person.
         </p>
       </section>

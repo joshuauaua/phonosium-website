@@ -25,14 +25,6 @@ export default function Home() {
     return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`
   }
 
-  const getCurrentDate = () => {
-    return new Date().toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
-
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -48,7 +40,11 @@ export default function Home() {
           <div className={styles.ctaRow}>
             <button
               className={styles.btnAccent}
-              onClick={() => document.getElementById('schedule-section')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() =>
+                document
+                  .getElementById('schedule-section')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
             >
               Explore library
             </button>
