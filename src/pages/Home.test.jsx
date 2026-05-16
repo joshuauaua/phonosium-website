@@ -61,8 +61,9 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      const scheduleItem = screen.getByText('Birds!').closest('div')
-      await user.click(scheduleItem)
+      const scheduleItems = screen.getAllByText('Birds!')
+      const scheduleItemRow = scheduleItems[1].closest('div')
+      await user.click(scheduleItemRow)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
@@ -156,12 +157,13 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      const scheduleItem = screen.getByText('Birds!').closest('div')
-      await user.click(scheduleItem)
+      const scheduleItems = screen.getAllByText('Birds!')
+      const scheduleItemRow = scheduleItems[1].closest('div')
+      await user.click(scheduleItemRow)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
 
-      await user.click(scheduleItem)
+      await user.click(scheduleItemRow)
 
       expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
     })
