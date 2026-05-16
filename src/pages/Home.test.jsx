@@ -200,59 +200,63 @@ describe('Home', () => {
     })
   })
 
-  describe('Open Call Section', () => {
-    it('displays Open Call section at bottom of page', () => {
+  describe('Call for Submissions Section', () => {
+    it('displays Call for Submissions section at bottom of page', () => {
       render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
       )
 
-      expect(screen.getByText('Open Call')).toBeInTheDocument()
-      expect(screen.getByText('Submit your sounds')).toBeInTheDocument()
+      expect(screen.getByText('Call for Submissions')).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          /We are accepting submissions for the installation from anywhere in the world until June 15, 2026/
+        )
+      ).toBeInTheDocument()
     })
 
-    it('displays submission requirements', () => {
+    it('does not display inline submission requirements', () => {
       render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
       )
 
-      expect(screen.getByText('Submission Requirements')).toBeInTheDocument()
-      expect(screen.getByText(/One loop \(max 20 MB\)/)).toBeInTheDocument()
-      expect(screen.getByText(/Up to 24 samples/)).toBeInTheDocument()
-      expect(screen.getByText(/Demo audio/)).toBeInTheDocument()
-      expect(screen.getByText(/Title and description/)).toBeInTheDocument()
-      expect(screen.getByText(/Links to your work/)).toBeInTheDocument()
+      expect(
+        screen.queryByText('Submission Requirements')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(/One loop \(max 20 MB\)/)
+      ).not.toBeInTheDocument()
     })
 
-    it('displays contact email link', () => {
+    it('does not display contact email on home page', () => {
       render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
       )
 
-      const emailLink = screen.getByRole('link', {
-        name: /hej@sonicassembly\.se/i,
+      expect(
+        screen.queryByRole('link', { name: /hej@sonicassembly\.se/i })
+      ).not.toBeInTheDocument()
+    })
+
+    it('displays "Learn more" button', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const learnMoreButton = screen.getByRole('button', {
+        name: /learn more/i,
       })
-      expect(emailLink).toBeInTheDocument()
-      expect(emailLink).toHaveAttribute('href', 'mailto:hej@sonicassembly.se')
+      expect(learnMoreButton).toBeInTheDocument()
     })
 
-    it('displays "Apply now" button', () => {
-      render(
-        <BrowserRouter>
-          <Home />
-        </BrowserRouter>
-      )
-
-      const applyButton = screen.getByRole('button', { name: /apply now/i })
-      expect(applyButton).toBeInTheDocument()
-    })
-
-    it('opens submission form modal when "Apply now" button is clicked', async () => {
+    it('does not open submission form when button is clicked', async () => {
       const user = userEvent.setup()
       render(
         <BrowserRouter>
@@ -260,26 +264,10 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      const applyButton = screen.getByRole('button', { name: /apply now/i })
-      await user.click(applyButton)
-
-      expect(screen.getByText('Artist Information')).toBeInTheDocument()
-      expect(screen.getByText(/step 1 of 3/i)).toBeInTheDocument()
-    })
-
-    it('closes submission form modal when close button is clicked', async () => {
-      const user = userEvent.setup()
-      render(
-        <BrowserRouter>
-          <Home />
-        </BrowserRouter>
-      )
-
-      const applyButton = screen.getByRole('button', { name: /apply now/i })
-      await user.click(applyButton)
-
-      const closeButton = screen.getByRole('button', { name: '×' })
-      await user.click(closeButton)
+      const learnMoreButton = screen.getByRole('button', {
+        name: /learn more/i,
+      })
+      await user.click(learnMoreButton)
 
       expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
     })
