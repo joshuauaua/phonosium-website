@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import styles from './ContributionForm.module.css'
+import { uploadFile, submitFormData } from '../utils/azureUpload'
 
 export default function ContributionForm({ onClose }) {
   const [step, setStep] = useState(1)
@@ -23,6 +24,9 @@ export default function ContributionForm({ onClose }) {
     agreedToTerms: false,
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
+  const [uploadProgress, setUploadProgress] = useState({})
 
   // Predefined options
   const availableTags = [
@@ -166,12 +170,86 @@ export default function ContributionForm({ onClose }) {
   const nextStep = () => setStep(prev => Math.min(prev + 1, 3))
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1))
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    // In a real app, you'd send this to an API
-    console.log('Form submitted:', formData)
-    setIsSubmitted(true)
-  }
+  const handleSubmit = useCallback(
+    async e => {
+      e.preventDefault()
+      setIsSubmitting(true)
+      setSubmitError(null)
+      setUploadProgress({})
+
+      try {
+        let submissionId = null
+        const blobReferences = { loop: null, samples: [], cover: null }
+
+        if (formData.loopFile) {
+          setUploadProgress(prev => ({ ...prev, loop: 0 }))
+          const result = await uploadFile(
+            formData.loopFile,
+            'audio',
+            submissionId,
+            progress => setUploadProgress(prev => ({ ...prev, loop: progress }))
+          )
+          submissionId = result.submissionId
+          blobReferences.loop = result.blobName
+        }
+
+        for (let i = 0; i < formData.samplesFiles.length; i++) {
+          const file = formData.samplesFiles[i]
+          const key = `sample-${i}`
+          setUploadProgress(prev => ({ ...prev, [key]: 0 }))
+          const result = await uploadFile(
+            file,
+            'audio',
+            submissionId,
+            progress =>
+              setUploadProgress(prev => ({ ...prev, [key]: progress }))
+          )
+          submissionId = submissionId || result.submissionId
+          blobReferences.samples.push(result.blobName)
+        }
+
+        if (formData.coverImage) {
+          setUploadProgress(prev => ({ ...prev, cover: 0 }))
+          const result = await uploadFile(
+            formData.coverImage,
+            'image',
+            submissionId,
+            progress =>
+              setUploadProgress(prev => ({ ...prev, cover: progress }))
+          )
+          submissionId = submissionId || result.submissionId
+          blobReferences.cover = result.blobName
+        }
+
+        await submitFormData(
+          {
+            submissionId,
+            artistName: formData.artistName,
+            artistEmail: formData.artistEmail,
+            links: formData.links.filter(l => l),
+            location: formData.location,
+            artistDescription: formData.artistDescription,
+            pieceName: formData.pieceName,
+            subtitle: formData.subtitle,
+            pieceDescription: formData.pieceDescription,
+            tags: formData.tags,
+            medium: formData.medium,
+            agreedToTerms: formData.agreedToTerms,
+          },
+          blobReferences
+        )
+
+        setIsSubmitted(true)
+      } catch (error) {
+        setSubmitError(
+          error.message || 'Something went wrong. Please try again.'
+        )
+      } finally {
+        setIsSubmitting(false)
+      }
+    },
+    [formData]
+  )
 
   if (isSubmitted) {
     return (
@@ -563,12 +641,57 @@ export default function ContributionForm({ onClose }) {
             )}
           </div>
 
+          {submitError && (
+            <div className={styles.errorMessage}>{submitError}</div>
+          )}
+
+          {isSubmitting && Object.keys(uploadProgress).length > 0 && (
+            <div className={styles.progressSection}>
+              {uploadProgress.loop !== undefined && (
+                <div className={styles.progressItem}>
+                  <span>Loop file</span>
+                  <div className={styles.progressBar}>
+                    <div
+                      className={styles.progressFill}
+                      style={{ width: `${uploadProgress.loop}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+              {Object.entries(uploadProgress)
+                .filter(([key]) => key.startsWith('sample-'))
+                .map(([key, progress]) => (
+                  <div key={key} className={styles.progressItem}>
+                    <span>Sample {parseInt(key.split('-')[1]) + 1}</span>
+                    <div className={styles.progressBar}>
+                      <div
+                        className={styles.progressFill}
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              {uploadProgress.cover !== undefined && (
+                <div className={styles.progressItem}>
+                  <span>Cover image</span>
+                  <div className={styles.progressBar}>
+                    <div
+                      className={styles.progressFill}
+                      style={{ width: `${uploadProgress.cover}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className={styles.footer}>
             {step > 1 ? (
               <button
                 type="button"
                 className={`${styles.btn} ${styles.btnPrev}`}
                 onClick={prevStep}
+                disabled={isSubmitting}
               >
                 Back
               </button>
@@ -588,9 +711,9 @@ export default function ContributionForm({ onClose }) {
               <button
                 type="submit"
                 className={`${styles.btn} ${styles.btnNext}`}
-                disabled={!formData.agreedToTerms}
+                disabled={!formData.agreedToTerms || isSubmitting}
               >
-                Submit
+                {isSubmitting ? 'Uploading...' : 'Submit'}
               </button>
             )}
           </div>

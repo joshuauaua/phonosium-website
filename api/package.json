@@ -1,0 +1,19 @@
+{
+  "name": "phonosium-api",
+  "version": "1.0.0",
+  "description": "Azure Functions backend for Phonosium submission form",
+  "type": "module",
+  "scripts": {
+    "start": "func start",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.6.0",
+    "@azure/storage-blob": "^12.26.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.6"
+  }
+}

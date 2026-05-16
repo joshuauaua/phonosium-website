@@ -1,8 +1,17 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { testAccessibility } from '../test/axe-utils'
 import ContributionForm from './ContributionForm'
+
+vi.mock('../utils/azureUpload', () => ({
+  uploadFile: vi.fn(() =>
+    Promise.resolve({ blobName: 'test-id/file.wav', submissionId: 'test-id' })
+  ),
+  submitFormData: vi.fn(() =>
+    Promise.resolve({ submissionId: 'test-id', status: 'received' })
+  ),
+}))
 
 describe('ContributionForm', () => {
   const mockOnClose = vi.fn()
@@ -279,10 +288,50 @@ describe('ContributionForm', () => {
       const submitButton = screen.getByRole('button', { name: /submit/i })
       await user.click(submitButton)
 
-      expect(screen.getByText('Submission Received')).toBeInTheDocument()
+      await waitFor(() => {
+        expect(screen.getByText('Submission Received')).toBeInTheDocument()
+      })
       expect(
         screen.getByText(/Thank you for submitting to Phonosium/i)
       ).toBeInTheDocument()
+    })
+
+    it('shows error message when submission fails', async () => {
+      const { submitFormData } = await import('../utils/azureUpload')
+      submitFormData.mockRejectedValueOnce(new Error('Network error'))
+
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      await user.type(
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
+        'Test description'
+      )
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const termsCheckbox = screen.getByRole('checkbox')
+      await user.click(termsCheckbox)
+
+      const submitButton = screen.getByRole('button', { name: /submit/i })
+      await user.click(submitButton)
+
+      await waitFor(() => {
+        expect(screen.getByText('Network error')).toBeInTheDocument()
+      })
     })
   })
 

@@ -399,3 +399,44 @@
   border-color: var(--ph-orange);
   color: var(--ph-ink);
 }
+
+.errorMessage {
+  padding: var(--ph-s-4) var(--ph-s-6);
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #dc2626;
+  font-size: var(--ph-fs-body-sm);
+}
+
+.progressSection {
+  padding: var(--ph-s-4) var(--ph-s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ph-s-3);
+}
+
+.progressItem {
+  display: flex;
+  align-items: center;
+  gap: var(--ph-s-4);
+  font-size: var(--ph-fs-body-sm);
+  color: var(--ph-stone);
+}
+
+.progressItem span {
+  min-width: 80px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 4px;
+  background: var(--ph-ink);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--ph-orange);
+  transition: width 0.2s ease;
+}
