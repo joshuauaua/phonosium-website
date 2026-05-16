@@ -19,7 +19,10 @@ describe('Footer', () => {
     render(<Footer />)
     const link = screen.getByRole('link', { name: /Instagram/i })
     expect(link).toBeInTheDocument()
-    expect(link).toHaveAttribute('href', 'https://www.instagram.com/sonicassembly')
+    expect(link).toHaveAttribute(
+      'href',
+      'https://www.instagram.com/sonicassembly'
+    )
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
