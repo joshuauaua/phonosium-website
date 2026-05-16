@@ -40,8 +40,8 @@ export default function Home() {
             <div className={styles.metaValue}>Continuous loop</div>
           </div>
           <div className={styles.metaItem}>
-            <div className={styles.metaLabel}>Channels</div>
-            <div className={styles.metaValue}>4 · mono + stereo</div>
+            <div className={styles.metaLabel}>Schedule</div>
+            <div className={styles.metaValue}>30-min timeslots</div>
           </div>
           <div className={styles.metaItem}>
             <div className={styles.metaLabel}>Location</div>
@@ -58,7 +58,7 @@ export default function Home() {
           </div>
           <div className={styles.liveTitle}>{current?.title}</div>
           <div className={styles.liveSub}>
-            Ch. {String(current?.id).padStart(2, '0')} · {current?.duration} ·{' '}
+            Slot {String(current?.id).padStart(2, '0')} · {current?.duration} ·{' '}
             {current?.artist?.name}
           </div>
         </div>
@@ -81,9 +81,9 @@ export default function Home() {
 
       <section className={styles.programme}>
         <div className={styles.sectionHead}>
-          <h2 className={styles.sectionTitle}>Programme</h2>
+          <h2 className={styles.sectionTitle}>Schedule</h2>
           <span className={styles.sectionMeta}>
-            {installations.length} installations · crowdsourced
+            {installations.length} timeslots · 30 min each
           </span>
         </div>
         <div className={styles.chList}>
@@ -94,7 +94,7 @@ export default function Home() {
               onClick={() => setSelectedId(inst.id)}
             >
               <div className={styles.chNum}>
-                {inst.id === selectedId && '● '}Ch.{' '}
+                {inst.id === selectedId && '● '}Slot{' '}
                 {String(inst.id).padStart(2, '0')}
               </div>
               <div className={styles.chTitle}>{inst.title}</div>
