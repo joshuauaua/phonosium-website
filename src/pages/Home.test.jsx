@@ -226,7 +226,9 @@ describe('Home', () => {
       expect(
         screen.queryByText('Submission Requirements')
       ).not.toBeInTheDocument()
-      expect(screen.queryByText(/One loop \(max 20 MB\)/)).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(/One loop \(max 20 MB\)/)
+      ).not.toBeInTheDocument()
     })
 
     it('does not display contact email on home page', () => {
@@ -254,17 +256,8 @@ describe('Home', () => {
       expect(learnMoreButton).toBeInTheDocument()
     })
 
-    it('navigates to contributor page when button is clicked', async () => {
+    it('does not open submission form when button is clicked', async () => {
       const user = userEvent.setup()
-      const mockNavigate = vi.fn()
-      vi.mock('react-router-dom', async () => {
-        const actual = await vi.importActual('react-router-dom')
-        return {
-          ...actual,
-          useNavigate: () => mockNavigate,
-        }
-      })
-
       render(
         <BrowserRouter>
           <Home />
@@ -276,7 +269,7 @@ describe('Home', () => {
       })
       await user.click(learnMoreButton)
 
-      expect(mockNavigate).toHaveBeenCalledWith('/contributor')
+      expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
     })
   })
 })

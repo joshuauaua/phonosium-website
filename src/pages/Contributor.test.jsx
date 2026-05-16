@@ -38,11 +38,11 @@ describe('Contributor', () => {
 
     expect(screen.getByText('About the Installation')).toBeInTheDocument()
     expect(
-      screen.getByText(/Phonosium is a crowdsourced interactive sound installation/)
+      screen.getByText(
+        /Phonosium is a crowdsourced interactive sound installation/
+      )
     ).toBeInTheDocument()
-    expect(
-      screen.getByText(/6-speaker system/)
-    ).toBeInTheDocument()
+    expect(screen.getByText(/6-speaker system/)).toBeInTheDocument()
   })
 
   it('displays submission requirements section', () => {
