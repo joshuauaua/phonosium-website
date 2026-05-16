@@ -35,8 +35,9 @@ export default function About() {
         <p className={styles.body}>
           Phonosium is a collaborative sonic experiment at Frihamnstorget in
           Stockholm. Powered by Bela.io, four microphones capture local
-          interactions while four speakers broadcast generative soundscapes.
-          Listen live online or experience it in person.
+          interactions while four speakers broadcast a continuous programme.
+          Each installation plays in 30-minute scheduled timeslots. Listen live
+          online or experience it in person.
         </p>
       </section>
 

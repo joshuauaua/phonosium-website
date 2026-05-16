@@ -1,3 +1,4 @@
+// Each installation represents a 30-minute timeslot in the daily broadcast schedule
 export const installations = [
   {
     id: 1,
