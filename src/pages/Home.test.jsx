@@ -68,9 +68,9 @@ describe('Home', () => {
         screen.getAllByText(/Algorithmic avian composition/i).length
       ).toBeGreaterThan(0)
       expect(screen.getAllByText(/Joshua Ng/i).length).toBeGreaterThan(0)
-      expect(screen.getAllByText(/Stockholm\/Sheffield/i).length).toBeGreaterThan(
-        0
-      )
+      expect(
+        screen.getAllByText(/Stockholm\/Sheffield/i).length
+      ).toBeGreaterThan(0)
       expect(screen.getAllByText(/Year/i).length).toBeGreaterThan(0)
       expect(screen.getAllByText(/2025/).length).toBeGreaterThan(0)
       expect(screen.getAllByText(/Duration/i).length).toBeGreaterThan(0)
