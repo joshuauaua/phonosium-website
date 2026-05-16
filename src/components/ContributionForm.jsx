@@ -426,9 +426,7 @@ export default function ContributionForm({ onClose }) {
                 </div>
 
                 <div className={styles.field}>
-                  <label className={styles.label}>
-                    Image of Piece (Cover)
-                  </label>
+                  <label className={styles.label}>Image of Piece (Cover)</label>
                   <div className={styles.fileInputWrapper}>
                     <input
                       type="file"

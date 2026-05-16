@@ -110,9 +110,15 @@ describe('ContributionForm', () => {
 
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
-      expect(screen.getByRole('button', { name: 'generative' })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'birdsong' })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'algorithm' })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'generative' })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'birdsong' })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'algorithm' })
+      ).toBeInTheDocument()
       expect(
         screen.getByRole('button', { name: 'field recording' })
       ).toBeInTheDocument()
@@ -180,10 +186,7 @@ describe('ContributionForm', () => {
       render(<ContributionForm onClose={mockOnClose} />)
 
       await user.type(screen.getByLabelText(/your name/i), 'Test Artist')
-      await user.type(
-        screen.getByLabelText(/your email/i),
-        'test@example.com'
-      )
+      await user.type(screen.getByLabelText(/your email/i), 'test@example.com')
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       await user.type(screen.getByLabelText(/name of piece/i), 'Test Piece')
@@ -244,10 +247,7 @@ describe('ContributionForm', () => {
       render(<ContributionForm onClose={mockOnClose} />)
 
       await user.type(screen.getByLabelText(/your name/i), 'Test Artist')
-      await user.type(
-        screen.getByLabelText(/your email/i),
-        'test@example.com'
-      )
+      await user.type(screen.getByLabelText(/your email/i), 'test@example.com')
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       await user.type(screen.getByLabelText(/name of piece/i), 'Test Piece')

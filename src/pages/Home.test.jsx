@@ -281,9 +281,7 @@ describe('Home', () => {
       const closeButton = screen.getByRole('button', { name: '×' })
       await user.click(closeButton)
 
-      expect(
-        screen.queryByText('Artist Information')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
     })
   })
 })
