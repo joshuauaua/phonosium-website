@@ -284,8 +284,7 @@ describe('Home', () => {
       expect(screen.getByText('Accepting Submissions')).toBeInTheDocument()
     })
 
-    it('has About button that navigates to /about', async () => {
-      const user = userEvent.setup()
+    it('has About button that navigates to /about', () => {
       render(
         <BrowserRouter>
           <Home />
