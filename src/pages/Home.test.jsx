@@ -273,7 +273,7 @@ describe('Home', () => {
     })
 
     it('renders "Learn more" button with correct CSS classes', () => {
-      const { container } = render(
+      render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
@@ -286,7 +286,7 @@ describe('Home', () => {
     })
 
     it('has "Learn more" button within callSection container', () => {
-      const { container } = render(
+      render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
