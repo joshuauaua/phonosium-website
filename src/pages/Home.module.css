@@ -550,6 +550,7 @@
   border-bottom: 1px solid var(--ph-ink);
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--ph-s-6);
 }
 

@@ -271,6 +271,35 @@ describe('Home', () => {
 
       expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
     })
+
+    it('renders "Learn more" button with styling', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const learnMoreButton = screen.getByRole('button', {
+        name: /learn more/i,
+      })
+      expect(learnMoreButton).toHaveAttribute('class')
+      expect(learnMoreButton.className).toContain('btnApplyNow')
+    })
+
+    it('has "Learn more" button within callSection container', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const learnMoreButton = screen.getByRole('button', {
+        name: /learn more/i,
+      })
+      const callSection = learnMoreButton.closest('section')
+      expect(callSection).toBeInTheDocument()
+      expect(callSection?.className).toContain('callSection')
+    })
   })
 
   describe('About and Artists sections', () => {
