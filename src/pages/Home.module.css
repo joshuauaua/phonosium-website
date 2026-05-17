@@ -35,6 +35,17 @@
   color: var(--ph-orange);
 }
 
+.soundLetter {
+  transition:
+    color var(--ph-dur-base) var(--ph-ease),
+    font-style var(--ph-dur-base) var(--ph-ease);
+}
+
+.headline:hover .soundLetter {
+  color: var(--ph-orange);
+  font-style: italic;
+}
+
 .lead {
   font-size: var(--ph-fs-lead);
   line-height: 1.4;

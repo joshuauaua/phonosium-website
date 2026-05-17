@@ -31,7 +31,11 @@ export default function Home() {
         <div className={styles.sideRail}>Installation · 2026</div>
         <div className={styles.heroContent}>
           <h1 className={styles.headline}>
-            a space for s<span className={styles.o}>&#9675;</span>und.
+            a space for <span className={styles.soundLetter}>s</span>
+            <span className={styles.o}>&#9675;</span>
+            <span className={styles.soundLetter}>u</span>
+            <span className={styles.soundLetter}>n</span>
+            <span className={styles.soundLetter}>d</span>.
           </h1>
           <p className={styles.lead}>
             Phonosium is a crowdsourced interactive sound installation

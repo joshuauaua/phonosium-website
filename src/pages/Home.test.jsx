@@ -16,6 +16,23 @@ describe('Home', () => {
     expect(screen.getByText(/a space for s/i)).toBeInTheDocument()
   })
 
+  it('renders headline with individual sound letter spans', () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    )
+
+    const headline = container.querySelector('h1')
+    const soundLetterSpans = headline.querySelectorAll('.soundLetter')
+
+    expect(soundLetterSpans).toHaveLength(4)
+    expect(soundLetterSpans[0].textContent).toBe('s')
+    expect(soundLetterSpans[1].textContent).toBe('u')
+    expect(soundLetterSpans[2].textContent).toBe('n')
+    expect(soundLetterSpans[3].textContent).toBe('d')
+  })
+
   it('has no accessibility violations', async () => {
     const { container } = render(
       <BrowserRouter>
