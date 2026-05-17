@@ -44,7 +44,10 @@ export default function Contributor() {
         <ul className={styles.criteriaList}>
           <li>One loop (max 20 MB) — 44.1 kHz · 16-bit · saved as loop.wav</li>
           <li>Up to 24 samples (1–6 seconds each) — balanced gain levels</li>
-          <li>Demo audio: your loop with triggered samples (uploaded to Phonosium Soundcloud)</li>
+          <li>
+            Demo audio: your loop with triggered samples (uploaded to Phonosium
+            Soundcloud)
+          </li>
           <li>Cover image for your piece</li>
           <li>Title and description of your piece</li>
           <li>Links to your work</li>
