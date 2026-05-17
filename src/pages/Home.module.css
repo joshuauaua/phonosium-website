@@ -33,6 +33,7 @@
 
 .o {
   color: var(--ph-orange);
+  transition: font-style var(--ph-dur-base) var(--ph-ease);
 }
 
 .soundLetter {
@@ -41,7 +42,8 @@
     font-style var(--ph-dur-base) var(--ph-ease);
 }
 
-.headline:hover .soundLetter {
+.headline:hover .soundLetter,
+.headline:hover .o {
   color: var(--ph-orange);
   font-style: italic;
 }
