@@ -50,7 +50,12 @@ export default function Home() {
             </button>
             <button
               className={styles.btnOutline}
-              onClick={() => navigate('/about')}
+              onClick={() => {
+                navigate('/about')
+                setTimeout(() => {
+                  window.scrollTo(0, 0)
+                }, 0)
+              }}
             >
               About the project
             </button>
@@ -59,7 +64,7 @@ export default function Home() {
         <div className={styles.metaCol}>
           <div className={styles.metaItem}>
             <div className={styles.metaLabel}>Artists</div>
-            <div className={styles.metaValue}>12+ contributors</div>
+            <div className={styles.metaValue}>Accepting Submissions</div>
           </div>
           <div className={styles.metaItem}>
             <div className={styles.metaLabel}>Duration</div>
