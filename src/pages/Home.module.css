@@ -511,37 +511,13 @@
 
 .scheduleItemDetails {
   display: grid;
-  grid-template-columns: 300px 1fr 280px;
+  grid-template-columns: 300px 1fr;
   gap: var(--ph-s-6);
   padding: var(--ph-s-7) var(--ph-s-6);
   background: var(--ph-ink);
   color: var(--ph-paper);
   align-items: start;
   border-top: 1px solid var(--ph-ink);
-}
-
-.closeBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 20px;
-  background: var(--ph-orange);
-  color: var(--ph-ink);
-  border: 1px solid var(--ph-orange);
-  font-family: var(--ph-font-sans);
-  font-weight: var(--ph-fw-bold);
-  font-size: 13px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  justify-self: end;
-  cursor: pointer;
-  transition: background var(--ph-dur-base) var(--ph-ease);
-}
-
-.closeBtn:hover {
-  background: var(--ph-orange-deep);
-  border-color: var(--ph-orange-deep);
-  color: var(--ph-paper);
 }
 
 /* ===== Open Call Section ===== */

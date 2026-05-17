@@ -154,7 +154,6 @@ export default function Home() {
                 <div
                   className={styles.chRow}
                   onClick={() => {
-                    setSelectedId(inst.id)
                     setExpandedScheduleId(isExpanded ? null : inst.id)
                   }}
                 >
@@ -230,15 +229,6 @@ export default function Home() {
                         </a>
                       )}
                     </div>
-                    <button
-                      className={styles.closeBtn}
-                      onClick={e => {
-                        e.stopPropagation()
-                        setExpandedScheduleId(null)
-                      }}
-                    >
-                      Close
-                    </button>
                   </div>
                 )}
               </div>
