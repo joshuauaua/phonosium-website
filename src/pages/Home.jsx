@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
 import Waves from '../components/Waves/Waves'
 import ContributionForm from '../components/ContributionForm'
+import SEO from '../components/SEO'
 import styles from './Home.module.css'
 
 export default function Home() {
@@ -26,7 +27,13 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
+    <>
+      <SEO
+        title="Interactive Sound Installation in Stockholm"
+        description="A crowdsourced interactive sound installation physically located at Frihamnstorget in Stockholm. Experience sonic art 24/7."
+        path="/"
+      />
+      <main className={styles.main}>
       <section className={styles.hero}>
         <div className={styles.sideRail}>Installation · 2026</div>
         <div className={styles.heroContent}>
@@ -265,5 +272,6 @@ export default function Home() {
         <ContributionForm onClose={() => setShowSubmissionForm(false)} />
       )}
     </main>
+    </>
   )
 }

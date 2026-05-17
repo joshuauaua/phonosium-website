@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import SEO from '../components/SEO'
 import styles from './Contributor.module.css'
 import ContributionForm from '../components/ContributionForm'
 
@@ -6,7 +7,13 @@ export default function Contributor() {
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
 
   return (
-    <main className={styles.main}>
+    <>
+      <SEO
+        title="Call for Submissions"
+        description="Submit your sound to Phonosium. We are accepting submissions for the installation from anywhere in the world until June 15, 2026."
+        path="/contributor"
+      />
+      <main className={styles.main}>
       <section className={styles.hero}>
         <h1 className={styles.title}>Call for Submissions</h1>
         <p className={styles.subtitle}>
@@ -67,5 +74,6 @@ export default function Contributor() {
         <ContributionForm onClose={() => setShowSubmissionForm(false)} />
       )}
     </main>
+    </>
   )
 }

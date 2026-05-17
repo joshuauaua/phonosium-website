@@ -1,9 +1,16 @@
+import SEO from '../components/SEO'
 import styles from './About.module.css'
 import Gallery from '../components/Gallery/Gallery'
 
 export default function About() {
   return (
-    <main className={styles.main}>
+    <>
+      <SEO
+        title="About"
+        description="A living, breathing sound installation bridging the physical and digital. Wrapped around a shipping container at Frihamnstorget, this network of PVC pipes serves as an interactive interface for sonic exploration."
+        path="/about"
+      />
+      <main className={styles.main}>
       <section className={styles.hero}>
         <h1 className={styles.title}>About.</h1>
         <p className={styles.lead}>
@@ -134,5 +141,6 @@ export default function About() {
         </div>
       </div>
     </main>
+    </>
   )
 }
