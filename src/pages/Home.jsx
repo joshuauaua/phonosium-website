@@ -7,7 +7,7 @@ import styles from './Home.module.css'
 
 export default function Home() {
   const navigate = useNavigate()
-  const [selectedId, setSelectedId] = useState(installations[0].id)
+  const [selectedId] = useState(installations[0].id)
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
@@ -159,7 +159,6 @@ export default function Home() {
                 <div
                   className={styles.chRow}
                   onClick={() => {
-                    setSelectedId(inst.id)
                     setExpandedScheduleId(isExpanded ? null : inst.id)
                   }}
                 >
@@ -235,15 +234,6 @@ export default function Home() {
                         </a>
                       )}
                     </div>
-                    <button
-                      className={styles.closeBtn}
-                      onClick={e => {
-                        e.stopPropagation()
-                        setExpandedScheduleId(null)
-                      }}
-                    >
-                      Close
-                    </button>
                   </div>
                 )}
               </div>

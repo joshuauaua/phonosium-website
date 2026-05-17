@@ -50,7 +50,6 @@ describe('Home', () => {
       await user.click(moreInfoButton)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
     })
 
     it('expands schedule item when clicked directly', async () => {
@@ -66,7 +65,6 @@ describe('Home', () => {
       await user.click(scheduleItemRow)
 
       expect(screen.getByText('No Image Available')).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
     })
 
     it('displays track details when expanded', async () => {
@@ -132,7 +130,7 @@ describe('Home', () => {
       expect(websiteLink).toHaveAttribute('target', '_blank')
     })
 
-    it('collapses schedule item when "Close" button is clicked', async () => {
+    it('does not render Close button in expanded schedule details', async () => {
       const user = userEvent.setup()
       render(
         <BrowserRouter>
@@ -143,10 +141,9 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      const closeButton = screen.getByRole('button', { name: /close/i })
-      await user.click(closeButton)
-
-      expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
+      expect(
+        screen.queryByRole('button', { name: /close/i })
+      ).not.toBeInTheDocument()
     })
 
     it('collapses when clicking the same schedule item again', async () => {
@@ -166,6 +163,28 @@ describe('Home', () => {
       await user.click(scheduleItemRow)
 
       expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
+    })
+
+    it('does not change Now Playing section when clicking schedule items', async () => {
+      const user = userEvent.setup()
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      // Initially, first item should be "Now Playing" (has the ● indicator)
+      expect(screen.getByText('● 09:00')).toBeInTheDocument()
+
+      // Find and click the second schedule item (09:30)
+      const scheduleItems = screen.getAllByText('Birds!')
+      const secondScheduleItem = scheduleItems[1].closest('div')
+      await user.click(secondScheduleItem)
+
+      // "Now Playing" indicator should still be on first item
+      expect(screen.getByText('● 09:00')).toBeInTheDocument()
+      // The second item should NOT have the ● indicator in its time display
+      expect(screen.queryByText('● 09:30')).not.toBeInTheDocument()
     })
   })
 
