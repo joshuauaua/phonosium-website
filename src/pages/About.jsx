@@ -43,10 +43,14 @@ export default function About() {
           >
             Bela
           </a>
-          , the installation uses four microphones to capture local interactions
+          , the installation uses three microphones to capture local interactions
           while four speakers broadcast a continuous programme. Each
           installation plays in 30-minute scheduled timeslots. Listen live
           online or experience it in person.
+        </p>
+        <p className={styles.body}>
+          Visit the installation in person at Frihamnstorget — it's open 24/7 —
+          or listen to recordings online from this site.
         </p>
       </section>
 
@@ -68,16 +72,49 @@ export default function About() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Contribute</h2>
         <p className={styles.body}>
-          Submit audio or code via our contributor portal to influence the
-          installation. All contributions are reviewed by the collective.
+          Submissions are now open — contribute your sounds via our{' '}
+          <a
+            href="/contributor"
+            className={styles.link}
+          >
+            open call
+          </a>
+          , or contribute code to the{' '}
+          <a
+            href="https://github.com/joshuauaua/phonosium"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            GitHub repository
+          </a>
+          . All contributions are reviewed by the collective.
         </p>
       </section>
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Credits</h2>
         <p className={styles.body}>
-          A project by Joshua Ng (Sonic Assembly) with support from
-          Frihamnstorgets Kulturf&ouml;rening.
+          A project by{' '}
+          <a
+            href="https://sonicassembly.se"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Sonic Assembly
+          </a>{' '}
+          with support from{' '}
+          <a
+            href="https://www.frihamnstorget.se/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Frihamnstorget Kulturförening
+          </a>
+          . All sounds and recordings remain the property of their respective
+          artists.
         </p>
       </section>
 
