@@ -7,7 +7,7 @@ import styles from './Home.module.css'
 
 export default function Home() {
   const navigate = useNavigate()
-  const [selectedId, setSelectedId] = useState(installations[0].id)
+  const [selectedId] = useState(installations[0].id)
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
