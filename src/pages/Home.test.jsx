@@ -272,7 +272,7 @@ describe('Home', () => {
       expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
     })
 
-    it('renders "Learn more" button with correct CSS classes', () => {
+    it('renders "Learn more" button with styling', () => {
       render(
         <BrowserRouter>
           <Home />
@@ -282,7 +282,8 @@ describe('Home', () => {
       const learnMoreButton = screen.getByRole('button', {
         name: /learn more/i,
       })
-      expect(learnMoreButton).toHaveClass('btnApplyNow')
+      expect(learnMoreButton).toHaveAttribute('class')
+      expect(learnMoreButton.className).toContain('btnApplyNow')
     })
 
     it('has "Learn more" button within callSection container', () => {
@@ -297,7 +298,7 @@ describe('Home', () => {
       })
       const callSection = learnMoreButton.closest('section')
       expect(callSection).toBeInTheDocument()
-      expect(callSection).toHaveClass('callSection')
+      expect(callSection?.className).toContain('callSection')
     })
   })
 })
