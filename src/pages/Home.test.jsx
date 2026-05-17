@@ -7,13 +7,32 @@ import Home from './Home'
 
 describe('Home', () => {
   it('renders the home page', () => {
-    render(
+    const { container } = render(
       <BrowserRouter>
         <Home />
       </BrowserRouter>
     )
 
-    expect(screen.getByText(/a space for s/i)).toBeInTheDocument()
+    const headline = container.querySelector('h1')
+    expect(headline.textContent).toMatch(/a space for s.*und\./i)
+  })
+
+  it('renders headline with individual sound letter spans', () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    )
+
+    const headline = container.querySelector('h1')
+    const allSpans = headline.querySelectorAll('span')
+
+    // Check that we have 5 spans total (s, o, u, n, d)
+    expect(allSpans).toHaveLength(5)
+
+    // Check the text content of the sound letters (excluding the 'o' span which has the circle character)
+    const textContent = headline.textContent
+    expect(textContent).toMatch(/a space for s.*u.*n.*d\./)
   })
 
   it('has no accessibility violations', async () => {
