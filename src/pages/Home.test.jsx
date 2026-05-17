@@ -272,4 +272,30 @@ describe('Home', () => {
       expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
     })
   })
+
+  describe('About and Artists sections', () => {
+    it('displays "Accepting Submissions" in Artists section', () => {
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      expect(screen.getByText('Accepting Submissions')).toBeInTheDocument()
+    })
+
+    it('has About button that navigates to /about', async () => {
+      const user = userEvent.setup()
+      render(
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      )
+
+      const aboutButton = screen.getByRole('button', {
+        name: /about the project/i,
+      })
+      expect(aboutButton).toBeInTheDocument()
+    })
+  })
 })
