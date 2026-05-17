@@ -45,7 +45,6 @@
 .headline:hover .soundLetter,
 .headline:hover .o {
   color: var(--ph-orange);
-  font-style: italic;
 }
 
 .lead {
