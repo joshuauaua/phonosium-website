@@ -43,9 +43,9 @@ export default function About() {
           >
             Bela
           </a>
-          , the installation uses three microphones to capture local interactions
-          while four speakers broadcast a continuous programme. Each
-          installation plays in 30-minute scheduled timeslots. Listen live
+          , the installation uses three microphones to capture local
+          interactions while four speakers broadcast a continuous programme.
+          Each installation plays in 30-minute scheduled timeslots. Listen live
           online or experience it in person.
         </p>
         <p className={styles.body}>
@@ -73,10 +73,7 @@ export default function About() {
         <h2 className={styles.sectionTitle}>Contribute</h2>
         <p className={styles.body}>
           Submissions are now open — contribute your sounds via our{' '}
-          <a
-            href="/contributor"
-            className={styles.link}
-          >
+          <a href="/contributor" className={styles.link}>
             open call
           </a>
           , or contribute code to the{' '}
