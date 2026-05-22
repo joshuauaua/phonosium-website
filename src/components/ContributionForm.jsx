@@ -353,6 +353,7 @@ export default function ContributionForm({ onClose }) {
                         onChange={e =>
                           handleLinkChange(index, 'type', e.target.value)
                         }
+                        aria-label={`Link type for link ${index + 1}`}
                       >
                         <option value="">Type</option>
                         <option value="Portfolio">Portfolio</option>
