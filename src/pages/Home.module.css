@@ -53,7 +53,7 @@
   max-width: 520px;
   margin-top: var(--ph-s-6);
   font-weight: var(--ph-fw-regular);
-  color: var(--ph-graphite);
+  color: var(--ph-fg-lead);
 }
 
 .lead em {
@@ -136,7 +136,7 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .metaValue {
@@ -213,7 +213,7 @@
   font-size: var(--ph-fs-mono-xs);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ph-mist);
+  color: var(--ph-chalk);
 }
 
 .waveContainer {
