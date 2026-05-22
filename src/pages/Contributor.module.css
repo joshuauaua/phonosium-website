@@ -9,7 +9,7 @@
 }
 
 .title {
-  font-size: 64px;
+  font-size: clamp(40px, 6vw, 64px);
   font-weight: var(--ph-fw-black);
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -181,10 +181,6 @@
 }
 
 @media (max-width: 600px) {
-  .title {
-    font-size: 40px;
-  }
-
   .hero,
   .criteria,
   .description,
