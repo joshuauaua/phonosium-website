@@ -33,7 +33,7 @@
   height: 6px;
   border-radius: 999px;
   background: var(--ph-orange);
-  animation: pulse 1.6s var(--ph-ease) infinite;
+  animation: pulse 1.6s var(--ph-ease-out) infinite;
 }
 
 @keyframes pulse {
@@ -89,7 +89,7 @@
   width: 24px;
   height: 2px;
   background-color: var(--ph-ink);
-  transition: all 0.3s var(--ph-ease);
+  transition: all 0.3s var(--ph-ease-out);
 }
 
 .hamburger.open span:nth-child(1) {
@@ -120,7 +120,7 @@
   position: relative;
   padding-bottom: 4px;
   font-weight: var(--ph-fw-medium);
-  transition: color var(--ph-dur-base) var(--ph-ease);
+  transition: color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .link::after {
@@ -132,7 +132,7 @@
   height: 2px;
   background: var(--ph-orange);
   transform: scaleX(0);
-  transition: transform var(--ph-dur-base) var(--ph-ease);
+  transition: transform var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .link:hover {
@@ -177,7 +177,7 @@
     align-items: center;
     gap: var(--ph-s-6);
     transform: translateX(100%);
-    transition: transform 0.4s var(--ph-ease);
+    transition: transform 0.4s var(--ph-ease-out);
     z-index: 1000;
   }
 
