@@ -3,6 +3,9 @@ import { cleanup } from '@testing-library/react'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import * as axeMatchers from 'vitest-axe/matchers'
 
+// Enable canvas support in jsdom
+import 'canvas'
+
 expect.extend(matchers)
 expect.extend(axeMatchers)
 
