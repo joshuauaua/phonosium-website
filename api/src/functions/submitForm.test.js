@@ -101,4 +101,80 @@ describe('submitForm handler', () => {
     const response = await submitFormHandler(request, context)
     expect(response.status).toBe(204)
   })
+
+  it('accepts valid link objects with url and type', async () => {
+    const { submitFormHandler } = await import('./submitForm.js')
+    const request = makeRequest({
+      artistName: 'Test Artist',
+      artistEmail: 'test@example.com',
+      pieceName: 'Test Piece',
+      links: [
+        { url: 'https://instagram.com/artist', type: 'Instagram' },
+        { url: 'https://soundcloud.com/artist', type: 'SoundCloud' },
+      ],
+      agreedToTerms: true,
+    })
+
+    const response = await submitFormHandler(request, context)
+    expect(response.status).toBe(200)
+  })
+
+  it('rejects plain string links (old format)', async () => {
+    const { submitFormHandler } = await import('./submitForm.js')
+    const request = makeRequest({
+      artistName: 'Test Artist',
+      artistEmail: 'test@example.com',
+      pieceName: 'Test Piece',
+      links: ['https://instagram.com/artist'],
+      agreedToTerms: true,
+    })
+
+    const response = await submitFormHandler(request, context)
+    expect(response.status).toBe(400)
+    expect(JSON.parse(response.body).error).toContain('must be an object')
+  })
+
+  it('rejects link objects missing url field', async () => {
+    const { submitFormHandler } = await import('./submitForm.js')
+    const request = makeRequest({
+      artistName: 'Test Artist',
+      artistEmail: 'test@example.com',
+      pieceName: 'Test Piece',
+      links: [{ type: 'Instagram' }],
+      agreedToTerms: true,
+    })
+
+    const response = await submitFormHandler(request, context)
+    expect(response.status).toBe(400)
+    expect(JSON.parse(response.body).error).toContain('missing or invalid url')
+  })
+
+  it('rejects link objects missing type field', async () => {
+    const { submitFormHandler } = await import('./submitForm.js')
+    const request = makeRequest({
+      artistName: 'Test Artist',
+      artistEmail: 'test@example.com',
+      pieceName: 'Test Piece',
+      links: [{ url: 'https://instagram.com/artist' }],
+      agreedToTerms: true,
+    })
+
+    const response = await submitFormHandler(request, context)
+    expect(response.status).toBe(400)
+    expect(JSON.parse(response.body).error).toContain('missing or invalid type')
+  })
+
+  it('accepts empty links array', async () => {
+    const { submitFormHandler } = await import('./submitForm.js')
+    const request = makeRequest({
+      artistName: 'Test Artist',
+      artistEmail: 'test@example.com',
+      pieceName: 'Test Piece',
+      links: [],
+      agreedToTerms: true,
+    })
+
+    const response = await submitFormHandler(request, context)
+    expect(response.status).toBe(200)
+  })
 })
