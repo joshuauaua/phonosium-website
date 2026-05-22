@@ -49,8 +49,8 @@
 
 .lead {
   font-size: var(--ph-fs-lead);
-  line-height: 1.4;
-  max-width: 640px;
+  line-height: 1.6;
+  max-width: 520px;
   margin-top: var(--ph-s-6);
   font-weight: var(--ph-fw-regular);
   color: var(--ph-graphite);
@@ -422,7 +422,8 @@
   background: transparent;
   border: 1px solid var(--ph-ink);
   color: var(--ph-ink);
-  padding: 8px 12px;
+  padding: 11px 16px;
+  min-height: 44px;
   border-radius: var(--ph-r-1);
   cursor: pointer;
   font-size: var(--ph-fs-body);
@@ -552,6 +553,8 @@
 
 .callSubtitle {
   font-size: var(--ph-fs-lead);
+  line-height: 1.6;
+  max-width: 600px;
   color: var(--ph-graphite);
   margin: 0;
 }

@@ -17,9 +17,9 @@
 
 .lead {
   font-size: var(--ph-fs-lead);
-  line-height: 1.45;
+  line-height: 1.6;
   color: var(--ph-graphite);
-  max-width: 640px;
+  max-width: 520px;
 }
 
 .link {
@@ -58,9 +58,14 @@
 
 .body {
   font-size: var(--ph-fs-body-lg);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--ph-graphite);
-  max-width: 640px;
+  max-width: 65ch;
+  margin: 0 0 1em 0;
+}
+
+.body:last-child {
+  margin-bottom: 0;
 }
 
 /* ===== Quote ===== */
