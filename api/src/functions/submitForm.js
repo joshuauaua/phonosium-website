@@ -25,6 +25,33 @@ function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
+function validateLinks(links) {
+  if (!links || !Array.isArray(links)) {
+    return { valid: false, error: 'Links must be an array' }
+  }
+
+  for (let i = 0; i < links.length; i++) {
+    const link = links[i]
+    if (typeof link !== 'object' || link === null) {
+      return { valid: false, error: `Link at index ${i} must be an object` }
+    }
+    if (!link.url || typeof link.url !== 'string') {
+      return {
+        valid: false,
+        error: `Link at index ${i} missing or invalid url field`,
+      }
+    }
+    if (!link.type || typeof link.type !== 'string') {
+      return {
+        valid: false,
+        error: `Link at index ${i} missing or invalid type field`,
+      }
+    }
+  }
+
+  return { valid: true }
+}
+
 export async function submitFormHandler(request, context) {
   const corsHeaders = getCorsHeaders(request)
 
@@ -66,6 +93,17 @@ export async function submitFormHandler(request, context) {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         body: JSON.stringify({ error: 'Invalid email address' }),
+      }
+    }
+
+    if (links && links.length > 0) {
+      const linkValidation = validateLinks(links)
+      if (!linkValidation.valid) {
+        return {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ error: linkValidation.error }),
+        }
       }
     }
 
