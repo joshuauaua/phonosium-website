@@ -50,7 +50,7 @@
 .lead {
   font-size: var(--ph-fs-lead);
   line-height: 1.6;
-  max-width: 520px;
+  max-width: clamp(280px, 90vw, 520px);
   margin-top: var(--ph-s-6);
   font-weight: var(--ph-fw-regular);
   color: var(--ph-fg-lead);
@@ -554,7 +554,7 @@
 .callSubtitle {
   font-size: var(--ph-fs-lead);
   line-height: 1.6;
-  max-width: 600px;
+  max-width: clamp(300px, 90vw, 600px);
   color: var(--ph-graphite);
   margin: 0;
 }
