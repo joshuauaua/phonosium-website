@@ -94,6 +94,54 @@
   border-left: 2px solid var(--ph-orange);
 }
 
+.requirementsContainer {
+  padding: var(--ph-s-9) var(--ph-s-6);
+}
+
+.requirementsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ph-s-6);
+  max-width: 1200px;
+}
+
+.requirementCard {
+  padding: var(--ph-s-7);
+  border: 1px solid var(--ph-ink);
+  border-radius: var(--ph-r-1);
+}
+
+.cardTitle {
+  font-size: var(--ph-fs-h5);
+  font-weight: var(--ph-fw-semibold);
+  letter-spacing: var(--ph-ls-headline);
+  margin-bottom: var(--ph-s-6);
+}
+
+.cardList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ph-s-5);
+}
+
+.cardList li {
+  font-size: var(--ph-fs-body-lg);
+  line-height: 1.55;
+  color: var(--ph-graphite);
+  padding-left: var(--ph-s-5);
+  position: relative;
+  border-left: 2px solid var(--ph-orange);
+}
+
+@media (max-width: 768px) {
+  .requirementsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .applySection {
   padding: var(--ph-s-9) var(--ph-s-6);
   display: flex;
@@ -140,7 +188,12 @@
   .hero,
   .criteria,
   .description,
+  .requirementsContainer,
   .applySection {
     padding: var(--ph-s-7) var(--ph-s-4);
+  }
+
+  .requirementCard {
+    padding: var(--ph-s-5);
   }
 }

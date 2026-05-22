@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import styles from './ContributionForm.module.css'
 import { uploadFile, submitFormData } from '../utils/azureUpload'
 
@@ -8,7 +8,7 @@ export default function ContributionForm({ onClose }) {
     // Artist Info
     artistName: '',
     artistEmail: '',
-    links: [''],
+    links: [{ url: '', type: '' }],
     location: '',
     artistDescription: '',
     // Piece Info
@@ -27,6 +27,21 @@ export default function ContributionForm({ onClose }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
   const [uploadProgress, setUploadProgress] = useState({})
+  const [fieldErrors, setFieldErrors] = useState({})
+
+  const step1Ref = useRef(null)
+  const step2Ref = useRef(null)
+  const step3Ref = useRef(null)
+
+  useEffect(() => {
+    if (step === 1 && step1Ref.current) {
+      step1Ref.current.focus()
+    } else if (step === 2 && step2Ref.current) {
+      step2Ref.current.focus()
+    } else if (step === 3 && step3Ref.current) {
+      step3Ref.current.focus()
+    }
+  }, [step])
 
   // Predefined options
   const availableTags = [
@@ -67,25 +82,64 @@ export default function ContributionForm({ onClose }) {
     'radio transmission',
   ]
 
+  const validateEmail = email => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return re.test(email)
+  }
+
+  const formatFileSize = bytes => {
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i]
+  }
+
   const handleInputChange = e => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors[name]
+        return newErrors
+      })
+    }
+  }
+
+  const handleEmailBlur = () => {
+    if (formData.artistEmail && !validateEmail(formData.artistEmail)) {
+      setFieldErrors(prev => ({
+        ...prev,
+        artistEmail: 'Please enter a valid email address',
+      }))
+    } else if (fieldErrors.artistEmail) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors.artistEmail
+        return newErrors
+      })
+    }
   }
 
   const handleCheckboxChange = e => {
     setFormData(prev => ({ ...prev, agreedToTerms: e.target.checked }))
   }
 
-  const handleLinkChange = (index, value) => {
+  const handleLinkChange = (index, field, value) => {
     setFormData(prev => {
       const newLinks = [...prev.links]
-      newLinks[index] = value
+      newLinks[index] = { ...newLinks[index], [field]: value }
       return { ...prev, links: newLinks }
     })
   }
 
   const addLink = () => {
-    setFormData(prev => ({ ...prev, links: [...prev.links, ''] }))
+    setFormData(prev => ({
+      ...prev,
+      links: [...prev.links, { url: '', type: '' }],
+    }))
   }
 
   const removeLink = index => {
@@ -117,19 +171,31 @@ export default function ContributionForm({ onClose }) {
     const file = e.target.files[0]
     if (file) {
       if (!file.name.endsWith('.wav')) {
-        alert('Loop file must be a WAV file')
+        setFieldErrors(prev => ({
+          ...prev,
+          loopFile: 'Loop file must be a WAV file',
+        }))
         return
       }
       if (file.size > 20 * 1024 * 1024) {
-        alert('Loop file must be under 20MB')
+        setFieldErrors(prev => ({
+          ...prev,
+          loopFile: `Loop file must be under 20MB (current: ${formatFileSize(file.size)})`,
+        }))
         return
       }
+      setFieldErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors.loopFile
+        return newErrors
+      })
       setFormData(prev => ({ ...prev, loopFile: file }))
     }
   }
 
   const handleSamplesChange = e => {
     const files = Array.from(e.target.files)
+    const invalidFiles = []
     const validFiles = files.filter(file => {
       if (
         !file.name.endsWith('.wav') &&
@@ -137,15 +203,31 @@ export default function ContributionForm({ onClose }) {
         !file.name.endsWith('.WAV') &&
         !file.name.endsWith('.ZIP')
       ) {
-        alert(`${file.name}: Must be WAV or ZIP file`)
+        invalidFiles.push(file.name)
         return false
       }
       return true
     })
-    setFormData(prev => ({
-      ...prev,
-      samplesFiles: [...prev.samplesFiles, ...validFiles],
-    }))
+
+    if (invalidFiles.length > 0) {
+      setFieldErrors(prev => ({
+        ...prev,
+        samplesFiles: `Invalid file type: ${invalidFiles.join(', ')}. Must be WAV or ZIP files.`,
+      }))
+    } else if (fieldErrors.samplesFiles) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors.samplesFiles
+        return newErrors
+      })
+    }
+
+    if (validFiles.length > 0) {
+      setFormData(prev => ({
+        ...prev,
+        samplesFiles: [...prev.samplesFiles, ...validFiles],
+      }))
+    }
   }
 
   const removeSampleFile = index => {
@@ -160,9 +242,17 @@ export default function ContributionForm({ onClose }) {
     if (file) {
       const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
       if (!validTypes.includes(file.type)) {
-        alert('Cover image must be JPG, PNG, or WebP')
+        setFieldErrors(prev => ({
+          ...prev,
+          coverImage: 'Cover image must be JPG, PNG, or WebP',
+        }))
         return
       }
+      setFieldErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors.coverImage
+        return newErrors
+      })
       setFormData(prev => ({ ...prev, coverImage: file }))
     }
   }
@@ -306,7 +396,9 @@ export default function ContributionForm({ onClose }) {
           <div className={styles.content}>
             {step === 1 && (
               <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>Artist Information</h2>
+                <h2 className={styles.stepTitle} ref={step1Ref} tabIndex={-1}>
+                  Artist Information
+                </h2>
                 <div className={styles.field}>
                   <label className={styles.label}>Your Name</label>
                   <input
@@ -324,31 +416,49 @@ export default function ContributionForm({ onClose }) {
                   <input
                     type="email"
                     name="artistEmail"
-                    className={styles.input}
+                    className={`${styles.input} ${fieldErrors.artistEmail ? styles.error : ''}`}
                     placeholder="email@example.com"
                     value={formData.artistEmail}
                     onChange={handleInputChange}
+                    onBlur={handleEmailBlur}
                     required
                   />
+                  {fieldErrors.artistEmail && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.artistEmail}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label}>Links</label>
                   {formData.links.map((link, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        marginBottom: '0.5rem',
-                      }}
-                    >
+                    <div key={index} className={styles.linkRow}>
                       <input
                         type="url"
                         className={styles.input}
                         placeholder="https://..."
-                        value={link}
-                        onChange={e => handleLinkChange(index, e.target.value)}
+                        value={link.url}
+                        onChange={e =>
+                          handleLinkChange(index, 'url', e.target.value)
+                        }
                       />
+                      <select
+                        className={styles.linkTypeSelect}
+                        value={link.type}
+                        onChange={e =>
+                          handleLinkChange(index, 'type', e.target.value)
+                        }
+                        aria-label={`Link type for link ${index + 1}`}
+                      >
+                        <option value="">Type</option>
+                        <option value="Portfolio">Portfolio</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="SoundCloud">SoundCloud</option>
+                        <option value="Bandcamp">Bandcamp</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Spotify">Spotify</option>
+                        <option value="Other">Other</option>
+                      </select>
                       {formData.links.length > 1 && (
                         <button
                           type="button"
@@ -394,7 +504,9 @@ export default function ContributionForm({ onClose }) {
 
             {step === 2 && (
               <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>Piece Information</h2>
+                <h2 className={styles.stepTitle} ref={step2Ref} tabIndex={-1}>
+                  Piece Information
+                </h2>
                 <div className={styles.field}>
                   <label className={styles.label}>Name of Piece</label>
                   <input
@@ -450,7 +562,9 @@ export default function ContributionForm({ onClose }) {
                   <label className={styles.label}>
                     Loop File Input (WAV, max 20MB)
                   </label>
-                  <div className={styles.fileInputWrapper}>
+                  <div
+                    className={`${styles.fileInputWrapper} ${fieldErrors.loopFile ? styles.error : ''}`}
+                  >
                     <input
                       type="file"
                       className={styles.fileInput}
@@ -460,20 +574,28 @@ export default function ContributionForm({ onClose }) {
                     <div className={styles.fileHint}>
                       {formData.loopFile ? (
                         <span style={{ color: 'var(--ph-orange)' }}>
-                          Selected: {formData.loopFile.name}
+                          Selected: {formData.loopFile.name} (
+                          {formatFileSize(formData.loopFile.size)})
                         </span>
                       ) : (
                         <strong>Upload Loop (WAV)</strong>
                       )}
                     </div>
                   </div>
+                  {fieldErrors.loopFile && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.loopFile}
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.field}>
                   <label className={styles.label}>
                     Samples File Input (WAV or ZIP)
                   </label>
-                  <div className={styles.fileInputWrapper}>
+                  <div
+                    className={`${styles.fileInputWrapper} ${fieldErrors.samplesFiles ? styles.error : ''}`}
+                  >
                     <input
                       type="file"
                       className={styles.fileInput}
@@ -485,11 +607,18 @@ export default function ContributionForm({ onClose }) {
                       <strong>Add Samples (Multiple)</strong>
                     </div>
                   </div>
+                  {fieldErrors.samplesFiles && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.samplesFiles}
+                    </div>
+                  )}
                   {formData.samplesFiles.length > 0 && (
                     <div className={styles.fileList}>
                       {formData.samplesFiles.map((file, idx) => (
                         <div key={idx} className={styles.fileListItem}>
-                          <span>{file.name}</span>
+                          <span>
+                            {file.name} ({formatFileSize(file.size)})
+                          </span>
                           <button
                             type="button"
                             onClick={() => removeSampleFile(idx)}
@@ -505,7 +634,9 @@ export default function ContributionForm({ onClose }) {
 
                 <div className={styles.field}>
                   <label className={styles.label}>Image of Piece (Cover)</label>
-                  <div className={styles.fileInputWrapper}>
+                  <div
+                    className={`${styles.fileInputWrapper} ${fieldErrors.coverImage ? styles.error : ''}`}
+                  >
                     <input
                       type="file"
                       className={styles.fileInput}
@@ -515,13 +646,19 @@ export default function ContributionForm({ onClose }) {
                     <div className={styles.fileHint}>
                       {formData.coverImage ? (
                         <span style={{ color: 'var(--ph-orange)' }}>
-                          Selected: {formData.coverImage.name}
+                          Selected: {formData.coverImage.name} (
+                          {formatFileSize(formData.coverImage.size)})
                         </span>
                       ) : (
                         <strong>Upload Cover Image</strong>
                       )}
                     </div>
                   </div>
+                  {fieldErrors.coverImage && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.coverImage}
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.field}>
@@ -544,7 +681,9 @@ export default function ContributionForm({ onClose }) {
 
             {step === 3 && (
               <div className={styles.stepContent}>
-                <h2 className={styles.stepTitle}>Review and Terms</h2>
+                <h2 className={styles.stepTitle} ref={step3Ref} tabIndex={-1}>
+                  Review and Terms
+                </h2>
                 <p style={{ color: 'var(--ph-stone)', marginBottom: '2rem' }}>
                   Please review your submission details before submitting.
                 </p>
@@ -561,12 +700,14 @@ export default function ContributionForm({ onClose }) {
                       {formData.artistEmail || 'Not provided'}
                     </span>
                   </div>
-                  {formData.links.filter(l => l).length > 0 && (
+                  {formData.links.filter(l => l.url).length > 0 && (
                     <div className={styles.reviewSection}>
                       <span className={styles.reviewLabel}>Links</span>
                       <span className={styles.reviewValue}>
-                        {formData.links.filter(l => l).length} link
-                        {formData.links.filter(l => l).length !== 1 ? 's' : ''}
+                        {formData.links
+                          .filter(l => l.url)
+                          .map(l => `${l.url}${l.type ? ` (${l.type})` : ''}`)
+                          .join(', ')}
                       </span>
                     </div>
                   )}

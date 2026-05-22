@@ -111,7 +111,7 @@ export default function Gallery() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [goToNext, goToPrevious])
+  }, [maxIndex, goToPrevious, goToNext])
 
   const visibleImages = GALLERY_IMAGES.slice(
     currentIndex,
