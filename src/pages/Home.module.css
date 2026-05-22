@@ -48,7 +48,7 @@
 }
 
 .lead {
-  font-size: var(--ph-fs-lead);
+  font-size: clamp(18px, 2vw + 1rem, 22px);
   line-height: 1.4;
   max-width: 640px;
   margin-top: var(--ph-s-6);
@@ -397,7 +397,7 @@
 }
 
 .sectionTitle {
-  font-size: 64px;
+  font-size: clamp(40px, 5vw + 1rem, 64px);
   font-weight: var(--ph-fw-black);
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -477,7 +477,7 @@
 }
 
 .chTitle {
-  font-size: 34px;
+  font-size: clamp(22px, 3vw + 0.5rem, 34px);
   font-weight: var(--ph-fw-bold);
   letter-spacing: -0.02em;
   line-height: 1;
@@ -543,7 +543,7 @@
 }
 
 .callTitle {
-  font-size: 64px;
+  font-size: clamp(40px, 5vw + 1rem, 64px);
   font-weight: var(--ph-fw-black);
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -626,10 +626,12 @@
 }
 
 /* ===== Responsive ===== */
+
+/* Tablet (640px - 1024px) */
 @media (max-width: 1024px) {
   .hero {
     grid-template-columns: 1fr;
-    padding: var(--ph-s-7) var(--ph-s-5);
+    padding: var(--ph-s-7) var(--ph-s-6);
   }
 
   .sideRail {
@@ -654,9 +656,11 @@
   .listenBtn {
     justify-self: start;
   }
+}
 
+@media (max-width: 768px) {
   .chRow {
-    grid-template-columns: 48px 1fr auto;
+    grid-template-columns: 56px 1fr auto;
     gap: var(--ph-s-4);
   }
 
@@ -669,19 +673,12 @@
     grid-template-columns: 1fr;
     gap: var(--ph-s-5);
   }
-
-  .sectionTitle {
-    font-size: 40px;
-  }
-
-  .chTitle {
-    font-size: 22px;
-  }
 }
 
-@media (max-width: 600px) {
-  .headline {
-    font-size: clamp(48px, 12vw, 72px);
+/* Mobile (< 640px) */
+@media (max-width: 640px) {
+  .hero {
+    padding: var(--ph-s-6) var(--ph-s-5);
   }
 
   .ctaRow {
@@ -689,6 +686,10 @@
   }
 
   .programme {
-    padding: var(--ph-s-7) var(--ph-s-4);
+    padding: var(--ph-s-7) var(--ph-s-5);
+  }
+
+  .callSection {
+    padding: var(--ph-s-7) var(--ph-s-5);
   }
 }

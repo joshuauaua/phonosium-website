@@ -97,6 +97,11 @@
   --ph-dur-fast: 120ms;
   --ph-dur-base: 180ms;
   --ph-dur-slow: 420ms;
+
+  /* ---- Breakpoints (for documentation) ---- */
+  /* Mobile: base styles, no media query needed */
+  /* Tablet: @media (min-width: 640px) */
+  /* Desktop: @media (min-width: 1024px) */
 }
 
 /* ============================================================
