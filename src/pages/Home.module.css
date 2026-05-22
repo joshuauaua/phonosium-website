@@ -422,7 +422,8 @@
   background: transparent;
   border: 1px solid var(--ph-ink);
   color: var(--ph-ink);
-  padding: 8px 12px;
+  padding: 11px 16px;
+  min-height: 44px;
   border-radius: var(--ph-r-1);
   cursor: pointer;
   font-size: var(--ph-fs-body);
