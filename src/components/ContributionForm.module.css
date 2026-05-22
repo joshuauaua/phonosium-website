@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--ph-s-6);
-  animation: fadeIn var(--ph-dur-base) var(--ph-ease);
+  animation: fadeIn var(--ph-dur-base) var(--ph-ease-out);
 }
 
 @keyframes fadeIn {
@@ -33,7 +33,7 @@
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  animation: modalIn var(--ph-dur-slow) var(--ph-ease);
+  animation: modalIn var(--ph-dur-slow) var(--ph-ease-out);
 }
 
 @keyframes modalIn {
@@ -53,9 +53,11 @@
   color: var(--ph-stone);
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 12px;
+  min-width: 44px;
+  min-height: 44px;
   line-height: 1;
-  transition: color var(--ph-dur-base) var(--ph-ease);
+  transition: color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .closeBtn:hover {
@@ -121,7 +123,7 @@
   border-radius: 0;
   color: var(--ph-ink);
   outline: none;
-  transition: border-color var(--ph-dur-base) var(--ph-ease);
+  transition: border-color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .input:focus,
@@ -156,9 +158,9 @@
   letter-spacing: var(--ph-ls-caps);
   cursor: pointer;
   transition:
-    background var(--ph-dur-base) var(--ph-ease),
-    color var(--ph-dur-base) var(--ph-ease),
-    border-color var(--ph-dur-base) var(--ph-ease);
+    background var(--ph-dur-base) var(--ph-ease-out),
+    color var(--ph-dur-base) var(--ph-ease-out),
+    border-color var(--ph-dur-base) var(--ph-ease-out);
   border-radius: var(--ph-r-1);
 }
 
@@ -192,7 +194,7 @@
   border-radius: 0;
   padding: var(--ph-s-6) var(--ph-s-5);
   text-align: center;
-  transition: border-color var(--ph-dur-base) var(--ph-ease);
+  transition: border-color var(--ph-dur-base) var(--ph-ease-out);
   cursor: pointer;
 }
 
@@ -228,14 +230,15 @@
 
 .btnAddLink,
 .btnRemoveLink {
-  padding: 8px 12px;
+  padding: 12px 16px;
+  min-height: 44px;
   font-family: var(--ph-font-sans);
   font-size: var(--ph-fs-body-sm);
   cursor: pointer;
   border-radius: var(--ph-r-1);
   transition:
-    background var(--ph-dur-base) var(--ph-ease),
-    color var(--ph-dur-base) var(--ph-ease);
+    background var(--ph-dur-base) var(--ph-ease-out),
+    color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .btnAddLink {
@@ -278,9 +281,9 @@
   border-radius: var(--ph-r-1);
   cursor: pointer;
   transition:
-    background var(--ph-dur-base) var(--ph-ease),
-    color var(--ph-dur-base) var(--ph-ease),
-    border-color var(--ph-dur-base) var(--ph-ease);
+    background var(--ph-dur-base) var(--ph-ease-out),
+    color var(--ph-dur-base) var(--ph-ease-out),
+    border-color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .tagButton:hover {
