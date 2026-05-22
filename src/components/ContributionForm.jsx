@@ -8,7 +8,7 @@ export default function ContributionForm({ onClose }) {
     // Artist Info
     artistName: '',
     artistEmail: '',
-    links: [''],
+    links: [{ url: '', type: '' }],
     location: '',
     artistDescription: '',
     // Piece Info
@@ -76,16 +76,19 @@ export default function ContributionForm({ onClose }) {
     setFormData(prev => ({ ...prev, agreedToTerms: e.target.checked }))
   }
 
-  const handleLinkChange = (index, value) => {
+  const handleLinkChange = (index, field, value) => {
     setFormData(prev => {
       const newLinks = [...prev.links]
-      newLinks[index] = value
+      newLinks[index] = { ...newLinks[index], [field]: value }
       return { ...prev, links: newLinks }
     })
   }
 
   const addLink = () => {
-    setFormData(prev => ({ ...prev, links: [...prev.links, ''] }))
+    setFormData(prev => ({
+      ...prev,
+      links: [...prev.links, { url: '', type: '' }],
+    }))
   }
 
   const removeLink = index => {
@@ -334,21 +337,33 @@ export default function ContributionForm({ onClose }) {
                 <div className={styles.field}>
                   <label className={styles.label}>Links</label>
                   {formData.links.map((link, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        marginBottom: '0.5rem',
-                      }}
-                    >
+                    <div key={index} className={styles.linkRow}>
                       <input
                         type="url"
                         className={styles.input}
                         placeholder="https://..."
-                        value={link}
-                        onChange={e => handleLinkChange(index, e.target.value)}
+                        value={link.url}
+                        onChange={e =>
+                          handleLinkChange(index, 'url', e.target.value)
+                        }
                       />
+                      <select
+                        className={styles.linkTypeSelect}
+                        value={link.type}
+                        onChange={e =>
+                          handleLinkChange(index, 'type', e.target.value)
+                        }
+                        aria-label={`Link type for link ${index + 1}`}
+                      >
+                        <option value="">Type</option>
+                        <option value="Portfolio">Portfolio</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="SoundCloud">SoundCloud</option>
+                        <option value="Bandcamp">Bandcamp</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Spotify">Spotify</option>
+                        <option value="Other">Other</option>
+                      </select>
                       {formData.links.length > 1 && (
                         <button
                           type="button"
@@ -561,12 +576,14 @@ export default function ContributionForm({ onClose }) {
                       {formData.artistEmail || 'Not provided'}
                     </span>
                   </div>
-                  {formData.links.filter(l => l).length > 0 && (
+                  {formData.links.filter(l => l.url).length > 0 && (
                     <div className={styles.reviewSection}>
                       <span className={styles.reviewLabel}>Links</span>
                       <span className={styles.reviewValue}>
-                        {formData.links.filter(l => l).length} link
-                        {formData.links.filter(l => l).length !== 1 ? 's' : ''}
+                        {formData.links
+                          .filter(l => l.url)
+                          .map(l => `${l.url}${l.type ? ` (${l.type})` : ''}`)
+                          .join(', ')}
                       </span>
                     </div>
                   )}
