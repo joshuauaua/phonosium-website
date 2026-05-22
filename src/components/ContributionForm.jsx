@@ -581,10 +581,7 @@ export default function ContributionForm({ onClose }) {
                       <span className={styles.reviewValue}>
                         {formData.links
                           .filter(l => l.url)
-                          .map(
-                            (l, i) =>
-                              `${l.url}${l.type ? ` (${l.type})` : ''}`
-                          )
+                          .map(l => `${l.url}${l.type ? ` (${l.type})` : ''}`)
                           .join(', ')}
                       </span>
                     </div>
