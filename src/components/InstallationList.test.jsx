@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { testAccessibility } from '../test/axe-utils'
 import InstallationList from './InstallationList'
 
 const mockInstallations = [
@@ -199,5 +200,33 @@ describe('InstallationList', () => {
 
     expect(screen.getByText(/0 installations/)).toBeInTheDocument()
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
+  })
+
+  it('has no accessibility violations', async () => {
+    const handleSelect = vi.fn()
+    const { container } = render(
+      <InstallationList
+        installations={mockInstallations}
+        selectedId={null}
+        onSelect={handleSelect}
+      />
+    )
+    await testAccessibility(container)
+  })
+
+  it('list items are keyboard accessible', () => {
+    const handleSelect = vi.fn()
+    render(
+      <InstallationList
+        installations={mockInstallations}
+        selectedId={null}
+        onSelect={handleSelect}
+      />
+    )
+
+    const buttons = screen.getAllByRole('button')
+    buttons.forEach(button => {
+      expect(button).toHaveAttribute('aria-pressed')
+    })
   })
 })

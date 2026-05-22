@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
+import { testAccessibility } from '../test/axe-utils'
+import { assertAllTouchTargetsAccessible } from '../test/touch-target-utils'
 import Contributor from './Contributor'
 
 describe('Contributor', () => {
@@ -122,5 +124,23 @@ describe('Contributor', () => {
     await user.click(closeButton)
 
     expect(screen.queryByText('Artist Information')).not.toBeInTheDocument()
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+    await testAccessibility(container)
+  })
+
+  it('all interactive elements meet touch target size requirements', () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+    assertAllTouchTargetsAccessible(container)
   })
 })
