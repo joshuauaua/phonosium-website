@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
+import { testAccessibility } from '../test/axe-utils'
 import Contributor from './Contributor'
 
 describe('Contributor', () => {
@@ -127,5 +128,14 @@ describe('Contributor', () => {
       },
       { timeout: 300 }
     )
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+    await testAccessibility(container)
   })
 })

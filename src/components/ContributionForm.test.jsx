@@ -368,4 +368,38 @@ describe('ContributionForm', () => {
       expect(screen.getByText('Add Samples (Multiple)')).toBeInTheDocument()
     })
   })
+
+  describe('Accessibility', () => {
+    it('all form inputs have accessible labels', () => {
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      expect(
+        screen.getByPlaceholderText(/your name or alias/i)
+      ).toBeInTheDocument()
+      expect(
+        screen.getByPlaceholderText(/email@example.com/i)
+      ).toBeInTheDocument()
+      expect(
+        screen.getByPlaceholderText(/tell us about yourself/i)
+      ).toBeInTheDocument()
+      expect(screen.getByPlaceholderText(/city, country/i)).toBeInTheDocument()
+    })
+
+    it('submit button state changes based on terms agreement', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const termsCheckbox = screen.getByRole('checkbox')
+      const submitButton = screen.getByRole('button', { name: /submit/i })
+
+      expect(submitButton).toBeDisabled()
+
+      await user.click(termsCheckbox)
+
+      expect(submitButton).toBeEnabled()
+    })
+  })
 })

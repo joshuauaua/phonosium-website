@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { testAccessibility } from '../../test/axe-utils'
 import Gallery from './Gallery'
 
 describe('Gallery', () => {
@@ -116,6 +117,11 @@ describe('Gallery', () => {
     images.forEach(image => {
       expect(image).toHaveAttribute('loading', 'lazy')
     })
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Gallery />)
+    await testAccessibility(container)
   })
 
   describe('Touch swipe navigation', () => {
