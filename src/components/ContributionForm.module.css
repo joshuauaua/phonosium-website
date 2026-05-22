@@ -142,6 +142,30 @@
   resize: vertical;
 }
 
+.input.error,
+.textarea.error {
+  border-color: #dc2626;
+}
+
+.input.error:focus,
+.textarea.error:focus {
+  border-color: #dc2626;
+}
+
+.fileInputWrapper.error {
+  border-color: #dc2626;
+}
+
+.fieldError {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--ph-s-2);
+  font-size: var(--ph-fs-body-sm);
+  color: #dc2626;
+  font-family: var(--ph-font-sans);
+}
+
 .footer {
   padding: var(--ph-s-5) var(--ph-s-6);
   background: rgba(0, 0, 0, 0.3);
@@ -396,12 +420,15 @@
 .btnNext:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background: var(--ph-mist);
+  border-color: var(--ph-mist);
+  color: var(--ph-stone);
 }
 
 .btnNext:disabled:hover {
-  background: var(--ph-orange);
-  border-color: var(--ph-orange);
-  color: var(--ph-paper);
+  background: var(--ph-mist);
+  border-color: var(--ph-mist);
+  color: var(--ph-stone);
 }
 
 .errorMessage {
