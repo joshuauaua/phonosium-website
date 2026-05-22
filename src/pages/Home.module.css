@@ -33,13 +33,13 @@
 
 .o {
   color: var(--ph-orange);
-  transition: font-style var(--ph-dur-base) var(--ph-ease);
+  transition: font-style var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .soundLetter {
   transition:
-    color var(--ph-dur-base) var(--ph-ease),
-    font-style var(--ph-dur-base) var(--ph-ease);
+    color var(--ph-dur-base) var(--ph-ease-out),
+    font-style var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .headline:hover .soundLetter,
@@ -49,8 +49,8 @@
 
 .lead {
   font-size: var(--ph-fs-lead);
-  line-height: 1.4;
-  max-width: 640px;
+  line-height: 1.6;
+  max-width: 520px;
   margin-top: var(--ph-s-6);
   font-weight: var(--ph-fw-regular);
   color: var(--ph-graphite);
@@ -82,7 +82,7 @@
   color: var(--ph-ink);
   border-radius: var(--ph-r-1);
   cursor: pointer;
-  transition: background var(--ph-dur-base) var(--ph-ease);
+  transition: background var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .btnAccent:hover {
@@ -107,8 +107,8 @@
   border-radius: var(--ph-r-1);
   cursor: pointer;
   transition:
-    background var(--ph-dur-base) var(--ph-ease),
-    color var(--ph-dur-base) var(--ph-ease);
+    background var(--ph-dur-base) var(--ph-ease-out),
+    color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .btnOutline:hover {
@@ -156,7 +156,7 @@
   background: var(--ph-ink);
   color: var(--ph-paper);
   align-items: center;
-  transition: grid-template-columns var(--ph-dur-base) var(--ph-ease);
+  transition: grid-template-columns var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .liveBandExpanded {
@@ -188,7 +188,7 @@
   height: 8px;
   border-radius: 999px;
   background: var(--ph-orange);
-  animation: pulse 1.6s var(--ph-ease) infinite;
+  animation: pulse 1.6s var(--ph-ease-out) infinite;
 }
 
 @keyframes pulse {
@@ -237,7 +237,7 @@
   text-transform: uppercase;
   justify-self: end;
   cursor: pointer;
-  transition: background var(--ph-dur-base) var(--ph-ease);
+  transition: background var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .listenBtn:hover {
@@ -376,7 +376,7 @@
   text-transform: uppercase;
   color: var(--ph-orange);
   text-decoration: none;
-  transition: color var(--ph-dur-base) var(--ph-ease);
+  transition: color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .trackLink:hover {
@@ -422,11 +422,12 @@
   background: transparent;
   border: 1px solid var(--ph-ink);
   color: var(--ph-ink);
-  padding: 8px 12px;
+  padding: 11px 16px;
+  min-height: 44px;
   border-radius: var(--ph-r-1);
   cursor: pointer;
   font-size: var(--ph-fs-body);
-  transition: background var(--ph-dur-base) var(--ph-ease);
+  transition: background var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .dayButton:hover {
@@ -438,7 +439,7 @@
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--ph-ink);
-  transition: background var(--ph-dur-base) var(--ph-ease);
+  transition: background var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .chRow {
@@ -502,7 +503,7 @@
 .chArrow {
   font-size: 24px;
   text-align: right;
-  transition: transform var(--ph-dur-base) var(--ph-ease);
+  transition: transform var(--ph-dur-base) var(--ph-ease-out);
   color: var(--ph-ink);
 }
 
@@ -552,6 +553,8 @@
 
 .callSubtitle {
   font-size: var(--ph-fs-lead);
+  line-height: 1.6;
+  max-width: 600px;
   color: var(--ph-graphite);
   margin: 0;
 }
@@ -566,7 +569,7 @@
   color: var(--ph-orange);
   text-decoration: none;
   font-weight: var(--ph-fw-semibold);
-  transition: color var(--ph-dur-base) var(--ph-ease);
+  transition: color var(--ph-dur-base) var(--ph-ease-out);
 }
 
 .callContact a:hover {
@@ -615,7 +618,7 @@
   color: var(--ph-ink);
   border-radius: var(--ph-r-1);
   cursor: pointer;
-  transition: background var(--ph-dur-base) var(--ph-ease);
+  transition: background var(--ph-dur-base) var(--ph-ease-out);
   margin-top: var(--ph-s-4);
 }
 
