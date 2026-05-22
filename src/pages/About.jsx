@@ -24,7 +24,8 @@ export default function About() {
               Frihamnstorget
             </a>
             , this network of PVC pipes is your portal to sonic exploration.
-            Phonosium is a crowdsourced, interactive sound installation powered by{' '}
+            Phonosium is a crowdsourced, interactive sound installation powered
+            by{' '}
             <a
               href="https://bela.io/"
               target="_blank"
@@ -33,8 +34,8 @@ export default function About() {
             >
               Bela.io
             </a>
-            , continuously looping 24/7 submissions from sound artists, explorers,
-            and tinkerers worldwide.
+            , continuously looping 24/7 submissions from sound artists,
+            explorers, and tinkerers worldwide.
           </p>
         </section>
 
