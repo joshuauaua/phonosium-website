@@ -76,10 +76,13 @@ export default function About() {
           <Gallery />
         </section>
 
-        <section className={styles.section}>
-          <p className={styles.body}>
-            24/7 global soundscapes, captured in a container.
-          </p>
+        <section className={styles.quote}>
+          <div className={styles.quoteInner}>
+            <div className={styles.quoteLabel}>About</div>
+            <blockquote className={styles.blockquote}>
+              24/7 global soundscapes, captured in a container.
+            </blockquote>
+          </div>
         </section>
 
         <section className={styles.section}>
