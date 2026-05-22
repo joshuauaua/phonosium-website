@@ -8,7 +8,7 @@
 }
 
 .title {
-  font-size: 64px;
+  font-size: clamp(40px, 6vw, 64px);
   font-weight: var(--ph-fw-black);
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -49,7 +49,7 @@
 }
 
 .sectionTitle {
-  font-size: 64px;
+  font-size: clamp(40px, 6vw, 64px);
   font-weight: var(--ph-fw-black);
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -149,11 +149,6 @@
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
-  .title,
-  .sectionTitle {
-    font-size: 40px;
-  }
-
   .quoteInner {
     grid-template-columns: 1fr;
   }
