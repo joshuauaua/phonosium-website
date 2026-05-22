@@ -132,6 +132,7 @@ export default function Gallery() {
 
       <div
         className={styles.imageContainer}
+        data-testid="gallery-container"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
