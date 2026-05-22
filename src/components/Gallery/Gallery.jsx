@@ -111,6 +111,7 @@ export default function Gallery() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxIndex])
 
   const visibleImages = GALLERY_IMAGES.slice(
