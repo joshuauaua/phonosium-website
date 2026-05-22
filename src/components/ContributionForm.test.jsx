@@ -368,7 +368,9 @@ describe('ContributionForm', () => {
     it('all form inputs have accessible labels', () => {
       render(<ContributionForm onClose={mockOnClose} />)
 
-      expect(screen.getByPlaceholderText(/your name or alias/i)).toBeInTheDocument()
+      expect(
+        screen.getByPlaceholderText(/your name or alias/i)
+      ).toBeInTheDocument()
       expect(
         screen.getByPlaceholderText(/email@example.com/i)
       ).toBeInTheDocument()
