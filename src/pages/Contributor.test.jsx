@@ -36,13 +36,11 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    expect(screen.getByText('About the Installation')).toBeInTheDocument()
+    expect(screen.getByText('What to Submit')).toBeInTheDocument()
     expect(
-      screen.getByText(
-        /Phonosium is a crowdsourced interactive sound installation/
-      )
+      screen.getByText(/Submitting a piece to Phonosium involves sending/)
     ).toBeInTheDocument()
-    expect(screen.getByText(/6-speaker system/)).toBeInTheDocument()
+    expect(screen.getByText(/living installation/)).toBeInTheDocument()
   })
 
   it('displays submission requirements section', () => {
@@ -52,7 +50,9 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    expect(screen.getByText('Submission Requirements')).toBeInTheDocument()
+    expect(
+      screen.getByText('Submission Requirements/Criteria')
+    ).toBeInTheDocument()
     expect(screen.getByText(/One loop \(max 20 MB\)/)).toBeInTheDocument()
     expect(screen.getByText(/Up to 24 samples/)).toBeInTheDocument()
     expect(screen.getByText(/Demo audio/)).toBeInTheDocument()
