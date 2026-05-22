@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './Gallery.module.css'
 
 const GALLERY_IMAGES = [
@@ -66,13 +66,13 @@ export default function Gallery() {
 
   const maxIndex = Math.max(0, GALLERY_IMAGES.length - imagesPerView)
 
-  const goToPrevious = useCallback(() => {
+  const goToPrevious = () => {
     setCurrentIndex(prevIndex => Math.max(0, prevIndex - 1))
-  }, [])
+  }
 
-  const goToNext = useCallback(() => {
+  const goToNext = () => {
     setCurrentIndex(prevIndex => Math.min(maxIndex, prevIndex + 1))
-  }, [maxIndex])
+  }
 
   const handleTouchStart = e => {
     touchStartX.current = e.touches[0].clientX
@@ -111,7 +111,7 @@ export default function Gallery() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [maxIndex, goToNext, goToPrevious])
+  }, [maxIndex])
 
   const visibleImages = GALLERY_IMAGES.slice(
     currentIndex,
