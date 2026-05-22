@@ -23,6 +23,16 @@ describe('touch-target-utils', () => {
       button.style.height = '44px'
       container.appendChild(button)
 
+      // Mock getBoundingClientRect for jsdom
+      button.getBoundingClientRect = () => ({
+        width: 44,
+        height: 44,
+        top: 0,
+        left: 0,
+        bottom: 44,
+        right: 44,
+      })
+
       expect(() => assertTouchTargetSize(button)).not.toThrow()
     })
 
@@ -32,6 +42,15 @@ describe('touch-target-utils', () => {
       button.style.height = '60px'
       container.appendChild(button)
 
+      button.getBoundingClientRect = () => ({
+        width: 50,
+        height: 60,
+        top: 0,
+        left: 0,
+        bottom: 60,
+        right: 50,
+      })
+
       expect(() => assertTouchTargetSize(button)).not.toThrow()
     })
 
@@ -40,6 +59,15 @@ describe('touch-target-utils', () => {
       button.style.width = '30px'
       button.style.height = '50px'
       container.appendChild(button)
+
+      button.getBoundingClientRect = () => ({
+        width: 30,
+        height: 50,
+        top: 0,
+        left: 0,
+        bottom: 50,
+        right: 30,
+      })
 
       expect(() => assertTouchTargetSize(button)).toThrow(
         /Touch target too small: 30x50px/
@@ -52,6 +80,15 @@ describe('touch-target-utils', () => {
       button.style.height = '30px'
       container.appendChild(button)
 
+      button.getBoundingClientRect = () => ({
+        width: 50,
+        height: 30,
+        top: 0,
+        left: 0,
+        bottom: 30,
+        right: 50,
+      })
+
       expect(() => assertTouchTargetSize(button)).toThrow(
         /Touch target too small: 50x30px/
       )
@@ -63,6 +100,15 @@ describe('touch-target-utils', () => {
       button.style.height = '20px'
       container.appendChild(button)
 
+      button.getBoundingClientRect = () => ({
+        width: 20,
+        height: 20,
+        top: 0,
+        left: 0,
+        bottom: 20,
+        right: 20,
+      })
+
       expect(() => assertTouchTargetSize(button)).toThrow(
         /Touch target too small: 20x20px \(minimum: 44x44px\)/
       )
@@ -73,6 +119,15 @@ describe('touch-target-utils', () => {
       button.style.width = '30px'
       button.style.height = '30px'
       container.appendChild(button)
+
+      button.getBoundingClientRect = () => ({
+        width: 30,
+        height: 30,
+        top: 0,
+        left: 0,
+        bottom: 30,
+        right: 30,
+      })
 
       expect(() => assertTouchTargetSize(button, 30)).not.toThrow()
       expect(() => assertTouchTargetSize(button, 40)).toThrow(
@@ -87,11 +142,27 @@ describe('touch-target-utils', () => {
       button1.style.width = '50px'
       button1.style.height = '50px'
       container.appendChild(button1)
+      button1.getBoundingClientRect = () => ({
+        width: 50,
+        height: 50,
+        top: 0,
+        left: 0,
+        bottom: 50,
+        right: 50,
+      })
 
       const button2 = document.createElement('button')
       button2.style.width = '44px'
       button2.style.height = '44px'
       container.appendChild(button2)
+      button2.getBoundingClientRect = () => ({
+        width: 44,
+        height: 44,
+        top: 0,
+        left: 0,
+        bottom: 44,
+        right: 44,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container)).not.toThrow()
     })
@@ -103,6 +174,14 @@ describe('touch-target-utils', () => {
       link.style.height = '50px'
       link.style.display = 'block'
       container.appendChild(link)
+      link.getBoundingClientRect = () => ({
+        width: 50,
+        height: 50,
+        top: 0,
+        left: 0,
+        bottom: 50,
+        right: 50,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container)).not.toThrow()
     })
@@ -112,6 +191,14 @@ describe('touch-target-utils', () => {
       input.style.width = '200px'
       input.style.height = '44px'
       container.appendChild(input)
+      input.getBoundingClientRect = () => ({
+        width: 200,
+        height: 44,
+        top: 0,
+        left: 0,
+        bottom: 44,
+        right: 200,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container)).not.toThrow()
     })
@@ -121,11 +208,27 @@ describe('touch-target-utils', () => {
       button1.style.width = '50px'
       button1.style.height = '50px'
       container.appendChild(button1)
+      button1.getBoundingClientRect = () => ({
+        width: 50,
+        height: 50,
+        top: 0,
+        left: 0,
+        bottom: 50,
+        right: 50,
+      })
 
       const button2 = document.createElement('button')
       button2.style.width = '20px'
       button2.style.height = '20px'
       container.appendChild(button2)
+      button2.getBoundingClientRect = () => ({
+        width: 20,
+        height: 20,
+        top: 0,
+        left: 0,
+        bottom: 20,
+        right: 20,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container)).toThrow(
         /Touch target too small: 20x20px/
@@ -138,6 +241,14 @@ describe('touch-target-utils', () => {
       div.style.width = '30px'
       div.style.height = '30px'
       container.appendChild(div)
+      div.getBoundingClientRect = () => ({
+        width: 30,
+        height: 30,
+        top: 0,
+        left: 0,
+        bottom: 30,
+        right: 30,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container)).toThrow(
         /Touch target too small: 30x30px/
@@ -150,6 +261,14 @@ describe('touch-target-utils', () => {
       div.style.width = '30px'
       div.style.height = '30px'
       container.appendChild(div)
+      div.getBoundingClientRect = () => ({
+        width: 30,
+        height: 30,
+        top: 0,
+        left: 0,
+        bottom: 30,
+        right: 30,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container)).toThrow(
         /Touch target too small: 30x30px/
@@ -181,6 +300,14 @@ describe('touch-target-utils', () => {
       button.style.width = '30px'
       button.style.height = '30px'
       container.appendChild(button)
+      button.getBoundingClientRect = () => ({
+        width: 30,
+        height: 30,
+        top: 0,
+        left: 0,
+        bottom: 30,
+        right: 30,
+      })
 
       expect(() => assertAllTouchTargetsAccessible(container, 30)).not.toThrow()
       expect(() => assertAllTouchTargetsAccessible(container, 40)).toThrow(

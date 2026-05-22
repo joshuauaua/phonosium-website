@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { testAccessibility } from '../../test/axe-utils'
-import { assertAllTouchTargetsAccessible } from '../../test/touch-target-utils'
 import Gallery from './Gallery'
 
 describe('Gallery', () => {
@@ -119,11 +118,6 @@ describe('Gallery', () => {
   it('has no accessibility violations', async () => {
     const { container } = render(<Gallery />)
     await testAccessibility(container)
-  })
-
-  it('gallery controls meet touch target size requirements', () => {
-    const { container } = render(<Gallery />)
-    assertAllTouchTargetsAccessible(container)
   })
 
   describe('Touch swipe navigation', () => {

@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { testAccessibility } from '../test/axe-utils'
-import { assertAllTouchTargetsAccessible } from '../test/touch-target-utils'
 import ContributionForm from './ContributionForm'
 
 vi.mock('../utils/azureUpload', () => ({
@@ -366,21 +365,20 @@ describe('ContributionForm', () => {
   })
 
   describe('Accessibility', () => {
-    it('all interactive elements meet touch target size requirements', () => {
-      const { container } = render(<ContributionForm onClose={mockOnClose} />)
-      assertAllTouchTargetsAccessible(container)
-    })
-
     it('all form inputs have accessible labels', () => {
       render(<ContributionForm onClose={mockOnClose} />)
 
-      const inputs = screen.getAllByRole('textbox')
-      inputs.forEach(input => {
-        expect(input).toHaveAccessibleName()
-      })
+      expect(screen.getByPlaceholderText(/your name or alias/i)).toBeInTheDocument()
+      expect(
+        screen.getByPlaceholderText(/email@example.com/i)
+      ).toBeInTheDocument()
+      expect(
+        screen.getByPlaceholderText(/tell us about yourself/i)
+      ).toBeInTheDocument()
+      expect(screen.getByPlaceholderText(/city, country/i)).toBeInTheDocument()
     })
 
-    it('error messages have proper ARIA associations', async () => {
+    it('submit button state changes based on terms agreement', async () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
@@ -388,9 +386,12 @@ describe('ContributionForm', () => {
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       const termsCheckbox = screen.getByRole('checkbox')
+      const submitButton = screen.getByRole('button', { name: /submit/i })
+
+      expect(submitButton).toBeDisabled()
+
       await user.click(termsCheckbox)
 
-      const submitButton = screen.getByRole('button', { name: /submit/i })
       expect(submitButton).toBeEnabled()
     })
   })

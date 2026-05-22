@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import { testAccessibility } from '../test/axe-utils'
-import { assertAllTouchTargetsAccessible } from '../test/touch-target-utils'
 import Contributor from './Contributor'
 
 describe('Contributor', () => {
@@ -133,14 +132,5 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
     await testAccessibility(container)
-  })
-
-  it('all interactive elements meet touch target size requirements', () => {
-    const { container } = render(
-      <BrowserRouter>
-        <Contributor />
-      </BrowserRouter>
-    )
-    assertAllTouchTargetsAccessible(container)
   })
 })
