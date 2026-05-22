@@ -81,6 +81,7 @@
 
 .content {
   padding: var(--ph-s-7) var(--ph-s-6);
+  max-width: 650px;
 }
 
 .stepTitle {
