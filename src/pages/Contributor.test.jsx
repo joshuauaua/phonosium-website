@@ -36,7 +36,8 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    expect(screen.getByText('What to Submit')).toBeInTheDocument()
+    const whatToSubmitElements = screen.getAllByText('What to Submit')
+    expect(whatToSubmitElements.length).toBe(2)
     expect(
       screen.getByText(/Submitting a piece to Phonosium involves/)
     ).toBeInTheDocument()
@@ -54,7 +55,8 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    expect(screen.getByText('What to Submit')).toBeInTheDocument()
+    const whatToSubmitElements = screen.getAllByText('What to Submit')
+    expect(whatToSubmitElements.length).toBe(2)
     expect(screen.getByText('Submission Criteria')).toBeInTheDocument()
     expect(screen.getByText(/One loop file/)).toBeInTheDocument()
     expect(screen.getByText(/Up to 24 sample files/)).toBeInTheDocument()
