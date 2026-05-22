@@ -30,13 +30,13 @@ export default function Contributor() {
         </section>
 
         <section className={styles.description}>
-          <h2 className={styles.descriptionTitle}>About the Installation</h2>
+          <h2 className={styles.descriptionTitle}>What to Submit</h2>
           <p className={styles.descriptionText}>
-            Phonosium is a crowdsourced interactive sound installation where
-            visitors can experience a dynamic soundscape built from
-            contributions around the world. Each contributor provides audio
-            loops and samples that are played through our 6-speaker system,
-            creating a unique sonic environment shaped by the community.
+            Submitting a piece to Phonosium involves sending at least 1 loop
+            (20MB max) and up to 24 individual samples. Accepted submissions
+            will be added to a schedule and played consistently as part of the
+            interactive Phonosium sound installation at Frihamnstorget in
+            Stockholm.
           </p>
           <p className={styles.descriptionText}>
             Your submission becomes part of the living installation, triggered
@@ -47,7 +47,9 @@ export default function Contributor() {
         </section>
 
         <section className={styles.criteria}>
-          <h2 className={styles.criteriaTitle}>Submission Requirements</h2>
+          <h2 className={styles.criteriaTitle}>
+            Submission Requirements/Criteria
+          </h2>
           <ul className={styles.criteriaList}>
             <li>
               One loop (max 20 MB) — 44.1 kHz · 16-bit · saved as loop.wav
