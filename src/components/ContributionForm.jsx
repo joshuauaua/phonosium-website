@@ -28,10 +28,12 @@ export default function ContributionForm({ onClose }) {
   const [submitError, setSubmitError] = useState(null)
   const [uploadProgress, setUploadProgress] = useState({})
   const [fieldErrors, setFieldErrors] = useState({})
+  const [isExiting, setIsExiting] = useState(false)
 
   const step1Ref = useRef(null)
   const step2Ref = useRef(null)
   const step3Ref = useRef(null)
+  const closeTimeoutRef = useRef(null)
 
   useEffect(() => {
     if (step === 1 && step1Ref.current) {
@@ -42,6 +44,21 @@ export default function ContributionForm({ onClose }) {
       step3Ref.current.focus()
     }
   }, [step])
+
+  const handleClose = useCallback(() => {
+    setIsExiting(true)
+    closeTimeoutRef.current = setTimeout(() => {
+      onClose()
+    }, 200)
+  }, [onClose])
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current)
+      }
+    }
+  }, [])
 
   // Predefined options
   const availableTags = [
@@ -343,8 +360,14 @@ export default function ContributionForm({ onClose }) {
 
   if (isSubmitted) {
     return (
-      <div className={styles.overlay} onClick={onClose}>
-        <div className={styles.formWrapper} onClick={e => e.stopPropagation()}>
+      <div
+        className={`${styles.overlay} ${isExiting ? styles.overlayExit : ''}`}
+        onClick={handleClose}
+      >
+        <div
+          className={`${styles.formWrapper} ${isExiting ? styles.formWrapperExit : ''}`}
+          onClick={e => e.stopPropagation()}
+        >
           <div className={styles.content}>
             <div className={styles.successMessage}>
               <div className={styles.successIcon}>✓</div>
@@ -356,7 +379,7 @@ export default function ContributionForm({ onClose }) {
               <button
                 className={`${styles.btn} ${styles.btnNext}`}
                 style={{ marginTop: '2rem' }}
-                onClick={onClose}
+                onClick={handleClose}
               >
                 Close
               </button>
@@ -368,8 +391,14 @@ export default function ContributionForm({ onClose }) {
   }
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.formWrapper} onClick={e => e.stopPropagation()}>
+    <div
+      className={`${styles.overlay} ${isExiting ? styles.overlayExit : ''}`}
+      onClick={handleClose}
+    >
+      <div
+        className={`${styles.formWrapper} ${isExiting ? styles.formWrapperExit : ''}`}
+        onClick={e => e.stopPropagation()}
+      >
         <div className={styles.header}>
           <span className={styles.stepIndicator}>Step {step} of 3</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
@@ -386,7 +415,7 @@ export default function ContributionForm({ onClose }) {
                 />
               ))}
             </div>
-            <button className={styles.closeBtn} onClick={onClose}>
+            <button className={styles.closeBtn} onClick={handleClose}>
               ×
             </button>
           </div>

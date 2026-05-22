@@ -35,7 +35,12 @@ describe('ContributionForm', () => {
     const closeButton = screen.getByRole('button', { name: '×' })
     await user.click(closeButton)
 
-    expect(mockOnClose).toHaveBeenCalled()
+    await waitFor(
+      () => {
+        expect(mockOnClose).toHaveBeenCalled()
+      },
+      { timeout: 300 }
+    )
   })
 
   describe('Step 1: Artist Information', () => {
