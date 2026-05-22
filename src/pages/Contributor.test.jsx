@@ -36,11 +36,16 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    expect(screen.getByText('What to Submit')).toBeInTheDocument()
+    const whatToSubmitElements = screen.getAllByText('What to Submit')
+    expect(whatToSubmitElements.length).toBe(2)
     expect(
-      screen.getByText(/Submitting a piece to Phonosium involves sending/)
+      screen.getByText(/Submitting a piece to Phonosium involves/)
     ).toBeInTheDocument()
-    expect(screen.getByText(/living installation/)).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        /Your submission becomes part of the living installation/
+      )
+    ).toBeInTheDocument()
   })
 
   it('displays submission requirements section', () => {
@@ -50,14 +55,16 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    expect(
-      screen.getByText('Submission Requirements/Criteria')
-    ).toBeInTheDocument()
-    expect(screen.getByText(/One loop \(max 20 MB\)/)).toBeInTheDocument()
-    expect(screen.getByText(/Up to 24 samples/)).toBeInTheDocument()
-    expect(screen.getByText(/Demo audio/)).toBeInTheDocument()
+    const whatToSubmitElements = screen.getAllByText('What to Submit')
+    expect(whatToSubmitElements.length).toBe(2)
+    expect(screen.getByText('Submission Criteria')).toBeInTheDocument()
+    expect(screen.getByText(/One loop file/)).toBeInTheDocument()
+    expect(screen.getByText(/Up to 24 sample files/)).toBeInTheDocument()
+    expect(screen.getByText(/Demo audio link/)).toBeInTheDocument()
     expect(screen.getByText(/Title and description/)).toBeInTheDocument()
     expect(screen.getByText(/Links to your work/)).toBeInTheDocument()
+    expect(screen.getByText(/Audio format: 44\.1 kHz/)).toBeInTheDocument()
+    expect(screen.getByText(/Loop file: max 20 MB/)).toBeInTheDocument()
   })
 
   it('displays "Apply now" button', () => {

@@ -46,23 +46,30 @@ export default function Contributor() {
           </p>
         </section>
 
-        <section className={styles.criteria}>
-          <h2 className={styles.criteriaTitle}>
-            Submission Requirements/Criteria
-          </h2>
-          <ul className={styles.criteriaList}>
-            <li>
-              One loop (max 20 MB) — 44.1 kHz · 16-bit · saved as loop.wav
-            </li>
-            <li>Up to 24 samples (1–6 seconds each) — balanced gain levels</li>
-            <li>
-              Demo audio: your loop with triggered samples (uploaded to
-              Phonosium Soundcloud)
-            </li>
-            <li>Cover image for your piece</li>
-            <li>Title and description of your piece</li>
-            <li>Links to your work</li>
-          </ul>
+        <section className={styles.requirementsContainer}>
+          <div className={styles.requirementsGrid}>
+            <div className={styles.requirementCard}>
+              <h2 className={styles.cardTitle}>What to Submit</h2>
+              <ul className={styles.cardList}>
+                <li>Cover image for your piece</li>
+                <li>One loop file (loop.wav)</li>
+                <li>Up to 24 sample files</li>
+                <li>Demo audio link (Soundcloud)</li>
+                <li>Title and description</li>
+                <li>Links to your work</li>
+              </ul>
+            </div>
+
+            <div className={styles.requirementCard}>
+              <h2 className={styles.cardTitle}>Submission Criteria</h2>
+              <ul className={styles.cardList}>
+                <li>Audio format: 44.1 kHz, 16-bit WAV</li>
+                <li>Loop file: max 20 MB</li>
+                <li>Sample files: 1–6 seconds each</li>
+                <li>Balanced gain levels across all files</li>
+              </ul>
+            </div>
+          </div>
         </section>
 
         <section className={styles.applySection}>
