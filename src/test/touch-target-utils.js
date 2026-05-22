@@ -34,8 +34,12 @@ export function assertAllTouchTargetsAccessible(container, minSize = 44) {
   )
 
   interactiveElements.forEach(el => {
-    if (el.offsetParent !== null) {
-      // Skip hidden elements
+    // Skip explicitly hidden elements
+    const computedStyle = window.getComputedStyle(el)
+    const isHidden =
+      computedStyle.display === 'none' || computedStyle.visibility === 'hidden'
+
+    if (!isHidden) {
       assertTouchTargetSize(el, minSize)
     }
   })
