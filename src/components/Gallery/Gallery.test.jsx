@@ -11,10 +11,11 @@ describe('Gallery', () => {
 
   it('displays first image by default', () => {
     render(<Gallery />)
-    const firstImage = screen.getByAltText(
+    const images = screen.getAllByRole('img')
+    expect(images[0]).toHaveAttribute(
+      'alt',
       'PVC pipes and construction materials laid out on rooftop'
     )
-    expect(firstImage).toBeInTheDocument()
   })
 
   it('has previous and next navigation buttons', () => {
@@ -31,10 +32,11 @@ describe('Gallery', () => {
 
     fireEvent.click(nextButton)
 
-    const secondImage = screen.getByAltText(
+    const images = screen.getAllByRole('img')
+    const alts = images.map(img => img.alt)
+    expect(alts).toContain(
       'Overhead view of workbench with electronics, laptop and tools'
     )
-    expect(secondImage).toBeInTheDocument()
   })
 
   it('goes back to previous image when previous button is clicked', () => {
@@ -45,10 +47,11 @@ describe('Gallery', () => {
     fireEvent.click(nextButton)
     fireEvent.click(prevButton)
 
-    const firstImage = screen.getByAltText(
+    const images = screen.getAllByRole('img')
+    const alts = images.map(img => img.alt)
+    expect(alts).toContain(
       'PVC pipes and construction materials laid out on rooftop'
     )
-    expect(firstImage).toBeInTheDocument()
   })
 
   it('wraps around to last image when clicking previous on first image', () => {
@@ -91,10 +94,11 @@ describe('Gallery', () => {
     fireEvent.click(thirdIndicator)
 
     // Position 3 shows images 3, 4, 5
-    const imageAtPosition3 = screen.getByAltText(
+    const images = screen.getAllByRole('img')
+    const alts = images.map(img => img.alt)
+    expect(alts).toContain(
       'Multiple containers at Frihamnstorget waterfront location'
     )
-    expect(imageAtPosition3).toBeInTheDocument()
   })
 
   it('images have proper alt text', () => {
@@ -117,7 +121,7 @@ describe('Gallery', () => {
   describe('Touch swipe navigation', () => {
     it('advances to next image on left swipe', () => {
       render(<Gallery />)
-      const imageContainer = screen.getAllByRole('img')[0].parentElement
+      const imageContainer = screen.getByTestId('gallery-container')
 
       // Simulate left swipe (start at 200, end at 100)
       fireEvent.touchStart(imageContainer, {
@@ -128,15 +132,16 @@ describe('Gallery', () => {
       })
       fireEvent.touchEnd(imageContainer)
 
-      const secondImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'Overhead view of workbench with electronics, laptop and tools'
       )
-      expect(secondImage).toBeInTheDocument()
     })
 
     it('goes to previous image on right swipe', () => {
       render(<Gallery />)
-      const imageContainer = screen.getAllByRole('img')[0].parentElement
+      const imageContainer = screen.getByTestId('gallery-container')
 
       // First go to second image
       const nextButton = screen.getByLabelText('Next image')
@@ -151,15 +156,16 @@ describe('Gallery', () => {
       })
       fireEvent.touchEnd(imageContainer)
 
-      const firstImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'PVC pipes and construction materials laid out on rooftop'
       )
-      expect(firstImage).toBeInTheDocument()
     })
 
     it('does not navigate on small swipe below threshold', () => {
       render(<Gallery />)
-      const imageContainer = screen.getAllByRole('img')[0].parentElement
+      const imageContainer = screen.getByTestId('gallery-container')
 
       // Simulate small swipe (only 30px, below 50px threshold)
       fireEvent.touchStart(imageContainer, {
@@ -171,15 +177,16 @@ describe('Gallery', () => {
       fireEvent.touchEnd(imageContainer)
 
       // Should still show first image
-      const firstImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'PVC pipes and construction materials laid out on rooftop'
       )
-      expect(firstImage).toBeInTheDocument()
     })
 
     it('wraps to last image on right swipe from first image', () => {
       render(<Gallery />)
-      const imageContainer = screen.getAllByRole('img')[0].parentElement
+      const imageContainer = screen.getByTestId('gallery-container')
 
       // Simulate right swipe (going backwards) from first image
       fireEvent.touchStart(imageContainer, {
@@ -191,15 +198,16 @@ describe('Gallery', () => {
       fireEvent.touchEnd(imageContainer)
 
       // Should stay at first position (no wrapping)
-      const firstImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'PVC pipes and construction materials laid out on rooftop'
       )
-      expect(firstImage).toBeInTheDocument()
     })
 
     it('wraps to first image on left swipe from last image', () => {
       render(<Gallery />)
-      const imageContainer = screen.getAllByRole('img')[0].parentElement
+      const imageContainer = screen.getByTestId('gallery-container')
       const nextButton = screen.getByLabelText('Next image')
 
       // Navigate to last position (6)
@@ -208,10 +216,11 @@ describe('Gallery', () => {
       }
 
       // Verify we're at the last position showing the last image
-      const lastImage = screen.getByAltText(
+      let images = screen.getAllByRole('img')
+      let alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'Detail of fabrication process with precision equipment'
       )
-      expect(lastImage).toBeInTheDocument()
 
       // Simulate left swipe (trying to go forward)
       fireEvent.touchStart(imageContainer, {
@@ -223,7 +232,11 @@ describe('Gallery', () => {
       fireEvent.touchEnd(imageContainer)
 
       // Should stay at last position (no wrapping)
-      expect(lastImage).toBeInTheDocument()
+      images = screen.getAllByRole('img')
+      alts = images.map(img => img.alt)
+      expect(alts).toContain(
+        'Detail of fabrication process with precision equipment'
+      )
     })
   })
 
@@ -233,10 +246,11 @@ describe('Gallery', () => {
 
       fireEvent.keyDown(window, { key: 'ArrowRight' })
 
-      const secondImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'Overhead view of workbench with electronics, laptop and tools'
       )
-      expect(secondImage).toBeInTheDocument()
     })
 
     it('goes back to previous image when left arrow key is pressed', () => {
@@ -245,10 +259,11 @@ describe('Gallery', () => {
       fireEvent.keyDown(window, { key: 'ArrowRight' })
       fireEvent.keyDown(window, { key: 'ArrowLeft' })
 
-      const firstImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'PVC pipes and construction materials laid out on rooftop'
       )
-      expect(firstImage).toBeInTheDocument()
     })
 
     it('wraps to last image when left arrow is pressed on first image', () => {
@@ -257,10 +272,11 @@ describe('Gallery', () => {
       fireEvent.keyDown(window, { key: 'ArrowLeft' })
 
       // Should stay at first position (no wrapping)
-      const firstImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'PVC pipes and construction materials laid out on rooftop'
       )
-      expect(firstImage).toBeInTheDocument()
     })
 
     it('wraps to first image when right arrow is pressed on last image', () => {
@@ -272,19 +288,21 @@ describe('Gallery', () => {
       }
 
       // Verify at last position
-      const lastImage = screen.getByAltText(
+      let images = screen.getAllByRole('img')
+      let alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'Detail of fabrication process with precision equipment'
       )
-      expect(lastImage).toBeInTheDocument()
 
       // Try to go forward again (should stay at last position)
       fireEvent.keyDown(window, { key: 'ArrowRight' })
 
       // Should still show last image (no wrapping)
-      const stillLastImage = screen.getByAltText(
+      images = screen.getAllByRole('img')
+      alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'Detail of fabrication process with precision equipment'
       )
-      expect(stillLastImage).toBeInTheDocument()
     })
 
     it('does not navigate when other keys are pressed', () => {
@@ -294,10 +312,11 @@ describe('Gallery', () => {
       fireEvent.keyDown(window, { key: 'Enter' })
       fireEvent.keyDown(window, { key: 'Space' })
 
-      const firstImage = screen.getByAltText(
+      const images = screen.getAllByRole('img')
+      const alts = images.map(img => img.alt)
+      expect(alts).toContain(
         'PVC pipes and construction materials laid out on rooftop'
       )
-      expect(firstImage).toBeInTheDocument()
     })
   })
 })
