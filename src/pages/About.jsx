@@ -7,15 +7,14 @@ export default function About() {
     <>
       <SEO
         title="About"
-        description="A living, breathing sound installation bridging the physical and digital. Wrapped around a shipping container at Frihamnstorget, this network of PVC pipes serves as an interactive interface for sonic exploration."
+        description="Wrapped around a shipping container at Frihamnstorget, this network of PVC pipes is your portal to sonic exploration. Phonosium is a crowdsourced, interactive sound installation powered by Bela.io, continuously looping 24/7 submissions from sound artists, explorers, and tinkerers worldwide."
         path="/about"
       />
       <main className={styles.main}>
         <section className={styles.hero}>
           <h1 className={styles.title}>About.</h1>
           <p className={styles.lead}>
-            A living, breathing sound installation that bridges the physical and
-            digital. Wrapped around a shipping container at{' '}
+            Wrapped around a shipping container at{' '}
             <a
               href="https://www.frihamnstorget.se/"
               target="_blank"
@@ -24,8 +23,18 @@ export default function About() {
             >
               Frihamnstorget
             </a>
-            , this network of PVC pipes serves as an interactive interface for
-            sonic exploration.
+            , this network of PVC pipes is your portal to sonic exploration.
+            Phonosium is a crowdsourced, interactive sound installation powered by{' '}
+            <a
+              href="https://bela.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              Bela.io
+            </a>
+            , continuously looping 24/7 submissions from sound artists, explorers,
+            and tinkerers worldwide.
           </p>
         </section>
 
@@ -66,14 +75,10 @@ export default function About() {
           <Gallery />
         </section>
 
-        <section className={styles.quote}>
-          <div className={styles.quoteInner}>
-            <div className={styles.quoteLabel}>About</div>
-            <blockquote className={styles.blockquote}>
-              &ldquo;It is not a concert. It is a structure{' '}
-              <em>thinking out loud</em>, and we happen to be near it.&rdquo;
-            </blockquote>
-          </div>
+        <section className={styles.section}>
+          <p className={styles.body}>
+            24/7 global soundscapes, captured in a container.
+          </p>
         </section>
 
         <section className={styles.section}>
