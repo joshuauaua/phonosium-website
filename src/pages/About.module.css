@@ -19,7 +19,7 @@
   font-size: var(--ph-fs-lead);
   line-height: 1.6;
   color: var(--ph-graphite);
-  max-width: 520px;
+  max-width: clamp(280px, 90vw, 520px);
 }
 
 .link {
@@ -60,7 +60,7 @@
   font-size: var(--ph-fs-body-lg);
   line-height: 1.6;
   color: var(--ph-graphite);
-  max-width: 65ch;
+  max-width: clamp(20ch, 90vw, 65ch);
   margin: 0 0 1em 0;
 }
 

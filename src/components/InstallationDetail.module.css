@@ -82,7 +82,7 @@
   line-height: 1.55;
   color: var(--ph-graphite);
   margin-bottom: var(--ph-s-6);
-  max-width: 65ch;
+  max-width: clamp(20ch, 90vw, 65ch);
 }
 
 .tags {
