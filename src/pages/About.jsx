@@ -62,7 +62,8 @@ export default function About() {
             </a>
             , the installation uses three microphones to capture local
             interactions while four speakers broadcast a continuous programme.
-            Each installation plays in 30-minute scheduled timeslots. Experience it in person, or listen to recordings online.
+            Each installation plays in 30-minute scheduled timeslots. Experience
+            it in person, or listen to recordings online.
           </p>
         </section>
 
