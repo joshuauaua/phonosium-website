@@ -213,6 +213,22 @@ export default function Home() {
                               {inst.year}
                             </span>
                           </div>
+                          <div className={styles.trackMetaItem}>
+                            <span className={styles.trackMetaLabel}>
+                              Duration
+                            </span>
+                            <span className={styles.trackMetaValue}>
+                              {inst.duration}
+                            </span>
+                          </div>
+                          <div className={styles.trackMetaItem}>
+                            <span className={styles.trackMetaLabel}>
+                              Medium
+                            </span>
+                            <span className={styles.trackMetaValue}>
+                              {inst.medium}
+                            </span>
+                          </div>
                         </div>
                         <div className={styles.trackTags}>
                           {inst.tags?.map(tag => (
