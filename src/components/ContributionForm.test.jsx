@@ -131,8 +131,8 @@ describe('ContributionForm', () => {
         screen.getByRole('button', { name: 'algorithm' })
       ).toBeInTheDocument()
       expect(
-        screen.getAllByRole('button', { name: 'field recording' })
-      ).toHaveLength(2)
+        screen.getByRole('button', { name: 'field recording' })
+      ).toBeInTheDocument()
     })
 
     it('allows selecting and deselecting tags', async () => {
