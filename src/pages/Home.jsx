@@ -39,7 +39,7 @@ export default function Home() {
           <div className={styles.heroContent}>
             <h1 className={styles.headline}>
               a space for <span className={styles.soundLetter}>s</span>
-              <span className={styles.o}>&#9675;</span>
+              <span className={styles.soundLetter}>o</span>
               <span className={styles.soundLetter}>u</span>
               <span className={styles.soundLetter}>n</span>
               <span className={styles.soundLetter}>d</span>.
@@ -266,7 +266,7 @@ export default function Home() {
 
           <button
             className={styles.btnApplyNow}
-            onClick={() => navigate('/contributor')}
+            onClick={() => navigate('/contribute')}
           >
             Learn more
           </button>

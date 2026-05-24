@@ -31,20 +31,15 @@
   margin: 0;
 }
 
-.o {
-  color: var(--ph-orange);
-  transition: font-style var(--ph-dur-base) var(--ph-ease-out);
-}
-
 .soundLetter {
   transition:
     color var(--ph-dur-base) var(--ph-ease-out),
     font-style var(--ph-dur-base) var(--ph-ease-out);
 }
 
-.headline:hover .soundLetter,
-.headline:hover .o {
+.headline:hover .soundLetter {
   color: var(--ph-orange);
+  font-style: italic;
 }
 
 .lead {
