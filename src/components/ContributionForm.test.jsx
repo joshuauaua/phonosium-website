@@ -172,6 +172,123 @@ describe('ContributionForm', () => {
       expect(screen.getByText('Review and Terms')).toBeInTheDocument()
       expect(screen.getByText(/step 3 of 3/i)).toBeInTheDocument()
     })
+
+    it('displays custom tag input field', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      expect(
+        screen.getByPlaceholderText(/type custom tag and press enter/i)
+      ).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument()
+    })
+
+    it('adds a custom tag via Enter key', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const customTagInput = screen.getByPlaceholderText(
+        /type custom tag and press enter/i
+      )
+      await user.type(customTagInput, 'my-custom-tag{Enter}')
+
+      expect(
+        screen.getByRole('button', { name: 'my-custom-tag' })
+      ).toBeInTheDocument()
+    })
+
+    it('adds a custom tag via Add button', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const customTagInput = screen.getByPlaceholderText(
+        /type custom tag and press enter/i
+      )
+      await user.type(customTagInput, 'another-tag')
+
+      const addButton = screen.getByRole('button', { name: 'Add' })
+      await user.click(addButton)
+
+      expect(
+        screen.getByRole('button', { name: 'another-tag' })
+      ).toBeInTheDocument()
+    })
+
+    it('prevents duplicate tags (case-insensitive)', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const customTagInput = screen.getByPlaceholderText(
+        /type custom tag and press enter/i
+      )
+      await user.type(customTagInput, 'duplicate{Enter}')
+      await user.type(customTagInput, 'DUPLICATE{Enter}')
+
+      const duplicateTags = screen.getAllByRole('button', {
+        name: 'duplicate',
+      })
+      expect(duplicateTags).toHaveLength(1)
+    })
+
+    it('trims whitespace from custom tags', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const customTagInput = screen.getByPlaceholderText(
+        /type custom tag and press enter/i
+      )
+      await user.type(customTagInput, '  spaced-tag  {Enter}')
+
+      expect(
+        screen.getByRole('button', { name: 'spaced-tag' })
+      ).toBeInTheDocument()
+    })
+
+    it('custom tags appear in the review section (step 3)', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const customTagInput = screen.getByPlaceholderText(
+        /type custom tag and press enter/i
+      )
+      await user.type(customTagInput, 'review-test-tag{Enter}')
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      expect(screen.getByText('Review and Terms')).toBeInTheDocument()
+      expect(screen.getByText(/review-test-tag/)).toBeInTheDocument()
+    })
+
+    it('custom tags can be removed like predefined tags', async () => {
+      const user = userEvent.setup()
+      render(<ContributionForm onClose={mockOnClose} />)
+
+      await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      const customTagInput = screen.getByPlaceholderText(
+        /type custom tag and press enter/i
+      )
+      await user.type(customTagInput, 'removable-tag{Enter}')
+
+      const customTag = screen.getByRole('button', { name: 'removable-tag' })
+      expect(customTag.className).toContain('tagButtonActive')
+
+      await user.click(customTag)
+
+      expect(customTag.className).not.toContain('tagButtonActive')
+    })
   })
 
   describe('Step 3: Review and Terms', () => {
