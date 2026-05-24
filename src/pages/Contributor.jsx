@@ -30,20 +30,56 @@ export default function Contributor() {
         </section>
 
         <section className={styles.description}>
-          <h2 className={styles.descriptionTitle}>What to Submit</h2>
+          <h2 className={styles.descriptionTitle}>How it Works</h2>
           <p className={styles.descriptionText}>
-            Submitting a piece to Phonosium involves sending at least 1 loop
-            (20MB max) and up to 24 individual samples. Accepted submissions
-            will be added to a schedule and played consistently as part of the
-            interactive Phonosium sound installation at Frihamnstorget in
-            Stockholm.
+            Phonosium is a crowdsourced, interactive sound installation built
+            from PVC pipes wrapped around a shipping container. We invite sound
+            artists, music producers, and audio tinkerers worldwide to shape its
+            sonic landscape. Selected works will receive a dedicated, recurring
+            live slot on our seasonal schedule.
           </p>
-          <p className={styles.descriptionText}>
-            Your submission becomes part of the living installation, triggered
-            and layered with other contributions to form an ever-evolving
-            composition. This is an opportunity to share your sonic perspective
-            and contribute to a collective auditory experience.
-          </p>
+
+          <div className={styles.howItWorksSection}>
+            <h3 className={styles.sectionNumber}>1. The Instrument</h3>
+            <ul className={styles.detailList}>
+              <li>
+                <strong>Inputs:</strong> 3 electret microphones that capture
+                live audience interaction and environmental sounds.
+              </li>
+              <li>
+                <strong>Brain:</strong> A Bela IO Microcontroller that processes
+                audio and triggers sounds with ultra-low latency.
+              </li>
+              <li>
+                <strong>Outputs:</strong> 4 outdoor speakers that project the
+                experience back into the space.
+              </li>
+            </ul>
+
+            <h3 className={styles.sectionNumber}>2. Submission Structure</h3>
+            <p className={styles.descriptionText}>
+              Your audio package must consist of:
+            </p>
+            <ul className={styles.detailList}>
+              <li>
+                <strong>The Ambient Loop:</strong> A continuous, foundational
+                audio bed that sets the mood for your slot.
+              </li>
+              <li>
+                <strong>Interactive Samples (Up to 24):</strong> Individual
+                sounds triggered via the microphones when the public interacts
+                with the physical structure.
+              </li>
+            </ul>
+
+            <h3 className={styles.sectionNumber}>3. The Creative Challenge</h3>
+            <p className={styles.descriptionText}>
+              We are looking for conceptual, intentional pieces. The artistic
+              challenge lies in how your 24 interactive samples converse with
+              your foundational loop, balancing your compositional design with
+              unpredictable, real-world public interaction.
+            </p>
+          </div>
         </section>
 
         <section className={styles.requirementsContainer}>
