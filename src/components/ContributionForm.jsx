@@ -28,6 +28,7 @@ export default function ContributionForm({ onClose }) {
   const [uploadProgress, setUploadProgress] = useState({})
   const [fieldErrors, setFieldErrors] = useState({})
   const [isExiting, setIsExiting] = useState(false)
+  const [customTagInput, setCustomTagInput] = useState('')
 
   const step1Ref = useRef(null)
   const step2Ref = useRef(null)
@@ -159,6 +160,37 @@ export default function ContributionForm({ onClose }) {
         ? prev.tags.filter(t => t !== tag)
         : [...prev.tags, tag],
     }))
+  }
+
+  const handleCustomTagInputChange = e => {
+    setCustomTagInput(e.target.value)
+  }
+
+  const addCustomTag = () => {
+    const trimmedTag = customTagInput.trim().toLowerCase()
+
+    if (!trimmedTag) {
+      return
+    }
+
+    // Check for duplicates (case-insensitive)
+    if (formData.tags.some(tag => tag.toLowerCase() === trimmedTag)) {
+      setCustomTagInput('')
+      return
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      tags: [...prev.tags, trimmedTag],
+    }))
+    setCustomTagInput('')
+  }
+
+  const handleCustomTagKeyDown = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addCustomTag()
+    }
   }
 
   const handleLoopFileChange = e => {
@@ -560,6 +592,35 @@ export default function ContributionForm({ onClose }) {
                         {tag}
                       </button>
                     ))}
+                    {formData.tags
+                      .filter(tag => !availableTags.includes(tag))
+                      .map(tag => (
+                        <button
+                          key={tag}
+                          type="button"
+                          className={`${styles.tagButton} ${styles.tagButtonCustom} ${styles.tagButtonActive}`}
+                          onClick={() => toggleTag(tag)}
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                  </div>
+                  <div className={styles.customTagInputWrapper}>
+                    <input
+                      type="text"
+                      className={styles.customTagInput}
+                      placeholder="Type custom tag and press Enter"
+                      value={customTagInput}
+                      onChange={handleCustomTagInputChange}
+                      onKeyDown={handleCustomTagKeyDown}
+                    />
+                    <button
+                      type="button"
+                      className={styles.btnAddCustomTag}
+                      onClick={addCustomTag}
+                    >
+                      Add
+                    </button>
                   </div>
                 </div>
 
