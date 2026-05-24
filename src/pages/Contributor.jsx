@@ -2,6 +2,7 @@ import { useState } from 'react'
 import SEO from '../components/SEO'
 import styles from './Contributor.module.css'
 import ContributionForm from '../components/ContributionForm'
+import ExpandableSection from '../components/ExpandableSection'
 
 export default function Contributor() {
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
@@ -40,45 +41,49 @@ export default function Contributor() {
           </p>
 
           <div className={styles.howItWorksSection}>
-            <h3 className={styles.sectionNumber}>1. The Instrument</h3>
-            <ul className={styles.detailList}>
-              <li>
-                <strong>Inputs:</strong> 3 electret microphones that capture
-                live audience interaction and environmental sounds.
-              </li>
-              <li>
-                <strong>Brain:</strong> A Bela IO Microcontroller that processes
-                audio and triggers sounds with ultra-low latency.
-              </li>
-              <li>
-                <strong>Outputs:</strong> 4 outdoor speakers that project the
-                experience back into the space.
-              </li>
-            </ul>
+            <ExpandableSection number={1} title="The Installation">
+              <ul className={styles.detailList}>
+                <li>
+                  <strong>Inputs:</strong> 3 electret microphones that capture
+                  live audience interaction and environmental sounds.
+                </li>
+                <li>
+                  <strong>Brain:</strong> A Bela IO Microcontroller that
+                  processes audio and triggers sounds with ultra-low latency.
+                </li>
+                <li>
+                  <strong>Outputs:</strong> 4 outdoor speakers that project the
+                  experience back into the space.
+                </li>
+              </ul>
+            </ExpandableSection>
 
-            <h3 className={styles.sectionNumber}>2. Submission Structure</h3>
-            <p className={styles.descriptionText}>
-              Your audio package must consist of:
-            </p>
-            <ul className={styles.detailList}>
-              <li>
-                <strong>The Ambient Loop:</strong> A continuous, foundational
-                audio bed that sets the mood for your slot.
-              </li>
-              <li>
-                <strong>Interactive Samples (Up to 24):</strong> Individual
-                sounds triggered via the microphones when the public interacts
-                with the physical structure.
-              </li>
-            </ul>
+            <ExpandableSection number={2} title="The Submission">
+              <p className={styles.descriptionText}>
+                Your submission must consist of:
+              </p>
+              <ul className={styles.detailList}>
+                <li>
+                  <strong>An Ambient Loop:</strong> A continuous, foundational
+                  loop that will continuously loop from the beginning to the end
+                  of your slot
+                </li>
+                <li>
+                  <strong>Interactive Samples:</strong> Up to 24 individual
+                  sounds that get triggered when the public interacts with the
+                  physical structure
+                </li>
+              </ul>
+            </ExpandableSection>
 
-            <h3 className={styles.sectionNumber}>3. The Creative Challenge</h3>
-            <p className={styles.descriptionText}>
-              We are looking for conceptual, intentional pieces. The artistic
-              challenge lies in how your 24 interactive samples converse with
-              your foundational loop, balancing your compositional design with
-              unpredictable, real-world public interaction.
-            </p>
+            <ExpandableSection number={3} title="The Creative Challenge">
+              <p className={styles.descriptionText}>
+                We are looking for conceptual, intentional pieces. The artistic
+                challenge lies in how your 24 interactive samples converse with
+                your foundational loop, balancing your compositional design with
+                unpredictable, real-world public interaction.
+              </p>
+            </ExpandableSection>
           </div>
         </section>
 
@@ -87,11 +92,15 @@ export default function Contributor() {
             <div className={styles.requirementCard}>
               <h2 className={styles.cardTitle}>What to Submit</h2>
               <ul className={styles.cardList}>
-                <li>Cover image for your piece</li>
-                <li>One loop file (loop.wav)</li>
-                <li>Up to 24 sample files</li>
-                <li>Demo audio link (Soundcloud)</li>
                 <li>Title and description</li>
+                <li>Cover image for your piece</li>
+                <li>Loop file (loop.wav)</li>
+                <li>Sample files (up to 24 allowed)</li>
+                <li>
+                  Demo audio: Please provide a recording that demonstrates how
+                  your piece sounds, including both the loop layer and the top
+                  samples. This will be uploaded to our SoundCloud.
+                </li>
                 <li>Links to your work</li>
               </ul>
             </div>
