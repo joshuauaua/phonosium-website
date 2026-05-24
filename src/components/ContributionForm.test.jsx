@@ -360,6 +360,10 @@ describe('ContributionForm', () => {
         screen.getByPlaceholderText(/mechanical echoes/i),
         'Test Piece'
       )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
+        'Test description'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       expect(screen.getByText('Review and Terms')).toBeInTheDocument()
@@ -372,7 +376,24 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      await user.type(
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
+        'Test description'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       const termsCheckbox = screen.getByRole('checkbox')
@@ -391,7 +412,24 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      await user.type(
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
+        'Test description'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       const submitButton = screen.getByRole('button', { name: /submit/i })
@@ -402,7 +440,24 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      await user.type(
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
+        'Test description'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       const termsCheckbox = screen.getByRole('checkbox')
@@ -494,6 +549,14 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       expect(screen.getByText('Upload Loop (WAV)')).toBeInTheDocument()
@@ -503,6 +566,14 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       expect(screen.getByText('Upload Cover Image')).toBeInTheDocument()
@@ -512,6 +583,14 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       expect(screen.getByText('Add Samples (Multiple)')).toBeInTheDocument()
@@ -538,7 +617,24 @@ describe('ContributionForm', () => {
       const user = userEvent.setup()
       render(<ContributionForm onClose={mockOnClose} />)
 
+      await user.type(
+        screen.getByPlaceholderText(/your name or alias/i),
+        'Test Artist'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/email@example.com/i),
+        'test@example.com'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
+
+      await user.type(
+        screen.getByPlaceholderText(/mechanical echoes/i),
+        'Test Piece'
+      )
+      await user.type(
+        screen.getByPlaceholderText(/describe your piece/i),
+        'Test description'
+      )
       await user.click(screen.getByRole('button', { name: /next step/i }))
 
       const termsCheckbox = screen.getByRole('checkbox')
