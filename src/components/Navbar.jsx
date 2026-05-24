@@ -24,7 +24,7 @@ export default function Navbar() {
           PHONOSIUM · STOCKHOLM · {dateStr}
         </span>
         <span className={styles.stripRight}>
-          CROWDSOURCED SOUND INSTALLATION
+          A CROWDSOURCED SOUND INSTALLATION
         </span>
       </div>
 
@@ -65,7 +65,7 @@ export default function Navbar() {
             About
           </NavLink>
           <NavLink
-            to="/contributor"
+            to="/contribute"
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }

@@ -62,12 +62,8 @@ export default function About() {
             </a>
             , the installation uses three microphones to capture local
             interactions while four speakers broadcast a continuous programme.
-            Each installation plays in 30-minute scheduled timeslots. Listen
-            live online or experience it in person.
-          </p>
-          <p className={styles.body}>
-            Visit the installation in person at Frihamnstorget — it's open 24/7
-            — or listen to recordings online from this site.
+            Each installation plays in 30-minute scheduled timeslots. Experience
+            it in person, or listen to recordings online.
           </p>
         </section>
 
@@ -78,7 +74,6 @@ export default function About() {
 
         <section className={styles.quote}>
           <div className={styles.quoteInner}>
-            <div className={styles.quoteLabel}>About</div>
             <blockquote className={styles.blockquote}>
               24/7 global soundscapes, captured in a container.
             </blockquote>
@@ -89,7 +84,7 @@ export default function About() {
           <h2 className={styles.sectionTitle}>Contribute</h2>
           <p className={styles.body}>
             Submissions are now open — contribute your sounds via our{' '}
-            <a href="/contributor" className={styles.link}>
+            <a href="/contribute" className={styles.link}>
               open call
             </a>
             , or contribute code to the{' '}
@@ -101,7 +96,7 @@ export default function About() {
             >
               GitHub repository
             </a>
-            . All contributions are reviewed by the collective.
+            .
           </p>
         </section>
 
