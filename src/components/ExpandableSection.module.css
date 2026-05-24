@@ -1,5 +1,5 @@
 .expandableSection {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .header {
@@ -8,15 +8,17 @@
   justify-content: space-between;
   align-items: center;
   background: none;
-  border: none;
-  padding: 0;
+  border: 1px solid var(--ph-ink);
+  padding: var(--ph-s-4) var(--ph-s-5);
   cursor: pointer;
   text-align: left;
-  transition: opacity 0.2s ease;
+  border-radius: var(--ph-r-1);
+  transition: background 0.2s ease, opacity 0.2s ease;
 }
 
 .header:hover {
-  opacity: 0.8;
+  background: var(--ph-orange-tint);
+  opacity: 1;
 }
 
 .header:focus {
@@ -27,14 +29,14 @@
 .title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #e0e0e0;
+  color: var(--ph-ink);
   margin: 0;
 }
 
 .icon {
   display: flex;
   align-items: center;
-  color: #e0e0e0;
+  color: var(--ph-ink);
   font-size: 1.25rem;
   transition: transform 0.3s ease;
 }
