@@ -43,9 +43,98 @@ describe('Contributor', () => {
         /Phonosium is a crowdsourced, interactive sound installation/
       )
     ).toBeInTheDocument()
-    expect(screen.getByText('1. The Instrument')).toBeInTheDocument()
-    expect(screen.getByText('2. Submission Structure')).toBeInTheDocument()
+    expect(screen.getByText('1. The Installation')).toBeInTheDocument()
+    expect(screen.getByText('2. The Submission')).toBeInTheDocument()
     expect(screen.getByText('3. The Creative Challenge')).toBeInTheDocument()
+  })
+
+  it('displays expandable sections with chevron icons', () => {
+    render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+
+    const expandButtons = screen.getAllByRole('button', {
+      name: /The Installation|The Submission|The Creative Challenge/,
+    })
+    expect(expandButtons).toHaveLength(3)
+
+    expandButtons.forEach(button => {
+      expect(button).toHaveAttribute('aria-expanded', 'false')
+    })
+  })
+
+  it('expands and collapses sections when clicked', async () => {
+    const user = userEvent.setup()
+    render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+
+    const installationButton = screen.getByRole('button', {
+      name: /1\. The Installation/,
+    })
+
+    expect(installationButton).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByText(/3 electret microphones/)).not.toBeVisible()
+
+    await user.click(installationButton)
+
+    await waitFor(() => {
+      expect(installationButton).toHaveAttribute('aria-expanded', 'true')
+    })
+  })
+
+  it('allows multiple sections to be expanded simultaneously', async () => {
+    const user = userEvent.setup()
+    render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+
+    const installationButton = screen.getByRole('button', {
+      name: /1\. The Installation/,
+    })
+    const submissionButton = screen.getByRole('button', {
+      name: /2\. The Submission/,
+    })
+
+    await user.click(installationButton)
+    await user.click(submissionButton)
+
+    await waitFor(() => {
+      expect(installationButton).toHaveAttribute('aria-expanded', 'true')
+      expect(submissionButton).toHaveAttribute('aria-expanded', 'true')
+    })
+  })
+
+  it('supports keyboard navigation for expandable sections', async () => {
+    const user = userEvent.setup()
+    render(
+      <BrowserRouter>
+        <Contributor />
+      </BrowserRouter>
+    )
+
+    const installationButton = screen.getByRole('button', {
+      name: /1\. The Installation/,
+    })
+
+    installationButton.focus()
+    await user.keyboard('{Enter}')
+
+    await waitFor(() => {
+      expect(installationButton).toHaveAttribute('aria-expanded', 'true')
+    })
+
+    await user.keyboard(' ')
+
+    await waitFor(() => {
+      expect(installationButton).toHaveAttribute('aria-expanded', 'false')
+    })
   })
 
   it('displays submission requirements section', () => {
@@ -57,11 +146,23 @@ describe('Contributor', () => {
 
     expect(screen.getByText('What to Submit')).toBeInTheDocument()
     expect(screen.getByText('Submission Criteria')).toBeInTheDocument()
-    expect(screen.getByText(/One loop file/)).toBeInTheDocument()
-    expect(screen.getByText(/Up to 24 sample files/)).toBeInTheDocument()
-    expect(screen.getByText(/Demo audio link/)).toBeInTheDocument()
-    expect(screen.getByText(/Title and description/)).toBeInTheDocument()
-    expect(screen.getByText(/Links to your work/)).toBeInTheDocument()
+
+    const whatToSubmitList = screen
+      .getByText('What to Submit')
+      .closest('div')
+      .querySelector('ul')
+    const listItems = Array.from(whatToSubmitList.querySelectorAll('li'))
+
+    expect(listItems[0]).toHaveTextContent(/Title and description/)
+    expect(listItems[1]).toHaveTextContent(/Cover image/)
+    expect(listItems[2]).toHaveTextContent(/Loop file \(loop\.wav\)/)
+    expect(listItems[3]).toHaveTextContent(/Sample files \(up to 24 allowed\)/)
+    expect(listItems[4]).toHaveTextContent(
+      /Demo audio: Please provide a recording that demonstrates how your piece sounds/
+    )
+    expect(listItems[4]).toHaveTextContent(/uploaded to our SoundCloud/)
+    expect(listItems[5]).toHaveTextContent(/Links to your work/)
+
     expect(screen.getByText(/Audio format: 44\.1 kHz/)).toBeInTheDocument()
     expect(screen.getByText(/Loop file: max 20 MB/)).toBeInTheDocument()
   })
