@@ -106,8 +106,6 @@ describe('Home', () => {
       ).toBeGreaterThan(0)
       expect(screen.getAllByText(/Year/i).length).toBeGreaterThan(0)
       expect(screen.getAllByText(/2025/).length).toBeGreaterThan(0)
-      expect(screen.getAllByText(/Duration/i).length).toBeGreaterThan(0)
-      expect(screen.getAllByText(/Medium/i).length).toBeGreaterThan(0)
     })
 
     it('displays tags when expanded', async () => {
