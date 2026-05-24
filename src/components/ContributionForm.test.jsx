@@ -287,7 +287,9 @@ describe('ContributionForm', () => {
 
       await user.click(customTag)
 
-      expect(customTag.className).not.toContain('tagButtonActive')
+      expect(
+        screen.queryByRole('button', { name: 'removable-tag' })
+      ).not.toBeInTheDocument()
     })
   })
 
