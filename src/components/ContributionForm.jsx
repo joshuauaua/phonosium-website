@@ -19,7 +19,6 @@ export default function ContributionForm({ onClose }) {
     loopFile: null,
     samplesFiles: [],
     coverImage: null,
-    medium: [],
     // Terms
     agreedToTerms: false,
   })
@@ -84,19 +83,6 @@ export default function ContributionForm({ onClose }) {
     'archive',
     'west africa',
     'transmission',
-  ]
-
-  const availableMediums = [
-    'Algorithmic composition',
-    'field recording',
-    '8-channel spatial audio',
-    'Stereo + subwoofer',
-    'Live electronics',
-    '4-channel audio',
-    'Contact microphones',
-    'binaural audio',
-    'Archival audio',
-    'radio transmission',
   ]
 
   const validateEmail = email => {
@@ -172,15 +158,6 @@ export default function ContributionForm({ onClose }) {
       tags: prev.tags.includes(tag)
         ? prev.tags.filter(t => t !== tag)
         : [...prev.tags, tag],
-    }))
-  }
-
-  const toggleMedium = medium => {
-    setFormData(prev => ({
-      ...prev,
-      medium: prev.medium.includes(medium)
-        ? prev.medium.filter(m => m !== medium)
-        : [...prev.medium, medium],
     }))
   }
 
@@ -340,7 +317,6 @@ export default function ContributionForm({ onClose }) {
             subtitle: formData.subtitle,
             pieceDescription: formData.pieceDescription,
             tags: formData.tags,
-            medium: formData.medium,
             agreedToTerms: formData.agreedToTerms,
           },
           blobReferences
@@ -689,22 +665,6 @@ export default function ContributionForm({ onClose }) {
                     </div>
                   )}
                 </div>
-
-                <div className={styles.field}>
-                  <label className={styles.label}>Medium</label>
-                  <div className={styles.tagGrid}>
-                    {availableMediums.map(medium => (
-                      <button
-                        key={medium}
-                        type="button"
-                        className={`${styles.tagButton} ${formData.medium.includes(medium) ? styles.tagButtonActive : ''}`}
-                        onClick={() => toggleMedium(medium)}
-                      >
-                        {medium}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
             )}
 
@@ -767,14 +727,6 @@ export default function ContributionForm({ onClose }) {
                       <span className={styles.reviewLabel}>Tags</span>
                       <span className={styles.reviewValue}>
                         {formData.tags.join(', ')}
-                      </span>
-                    </div>
-                  )}
-                  {formData.medium.length > 0 && (
-                    <div className={styles.reviewSection}>
-                      <span className={styles.reviewLabel}>Medium</span>
-                      <span className={styles.reviewValue}>
-                        {formData.medium.join(', ')}
                       </span>
                     </div>
                   )}
