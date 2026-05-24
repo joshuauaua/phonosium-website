@@ -91,6 +91,32 @@ export default function ContributionForm({ onClose }) {
     return re.test(email)
   }
 
+  const validateStep = currentStep => {
+    const errors = {}
+
+    if (currentStep === 1) {
+      if (!formData.artistName.trim()) {
+        errors.artistName = 'Artist name is required'
+      }
+      if (!formData.artistEmail.trim()) {
+        errors.artistEmail = 'Email is required'
+      } else if (!validateEmail(formData.artistEmail)) {
+        errors.artistEmail = 'Please enter a valid email address'
+      }
+    }
+
+    if (currentStep === 2) {
+      if (!formData.pieceName.trim()) {
+        errors.pieceName = 'Piece name is required'
+      }
+      if (!formData.pieceDescription.trim()) {
+        errors.pieceDescription = 'Piece description is required'
+      }
+    }
+
+    return errors
+  }
+
   const formatFileSize = bytes => {
     if (bytes === 0) return '0 Bytes'
     const k = 1024
@@ -283,7 +309,15 @@ export default function ContributionForm({ onClose }) {
     }
   }
 
-  const nextStep = () => setStep(prev => Math.min(prev + 1, 3))
+  const nextStep = () => {
+    const errors = validateStep(step)
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
+      return
+    }
+    setFieldErrors({})
+    setStep(prev => Math.min(prev + 1, 3))
+  }
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1))
 
   const handleSubmit = useCallback(
@@ -437,19 +471,30 @@ export default function ContributionForm({ onClose }) {
                   Artist Information
                 </h2>
                 <div className={styles.field}>
-                  <label className={styles.label}>Your Name</label>
+                  <label className={styles.label}>
+                    Your Name{' '}
+                    <span style={{ color: 'var(--ph-orange)' }}>*</span>
+                  </label>
                   <input
                     type="text"
                     name="artistName"
-                    className={styles.input}
+                    className={`${styles.input} ${fieldErrors.artistName ? styles.error : ''}`}
                     placeholder="Your name or alias"
                     value={formData.artistName}
                     onChange={handleInputChange}
                     required
                   />
+                  {fieldErrors.artistName && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.artistName}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label}>Your Email</label>
+                  <label className={styles.label}>
+                    Your Email{' '}
+                    <span style={{ color: 'var(--ph-orange)' }}>*</span>
+                  </label>
                   <input
                     type="email"
                     name="artistEmail"
@@ -545,16 +590,24 @@ export default function ContributionForm({ onClose }) {
                   Piece Information
                 </h2>
                 <div className={styles.field}>
-                  <label className={styles.label}>Name of Piece</label>
+                  <label className={styles.label}>
+                    Name of Piece{' '}
+                    <span style={{ color: 'var(--ph-orange)' }}>*</span>
+                  </label>
                   <input
                     type="text"
                     name="pieceName"
-                    className={styles.input}
+                    className={`${styles.input} ${fieldErrors.pieceName ? styles.error : ''}`}
                     placeholder="e.g. Mechanical Echoes"
                     value={formData.pieceName}
                     onChange={handleInputChange}
                     required
                   />
+                  {fieldErrors.pieceName && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.pieceName}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label}>Subtitle</label>
@@ -568,15 +621,23 @@ export default function ContributionForm({ onClose }) {
                   />
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label}>Short Description</label>
+                  <label className={styles.label}>
+                    Short Description{' '}
+                    <span style={{ color: 'var(--ph-orange)' }}>*</span>
+                  </label>
                   <textarea
                     name="pieceDescription"
-                    className={styles.textarea}
+                    className={`${styles.textarea} ${fieldErrors.pieceDescription ? styles.error : ''}`}
                     placeholder="Describe your piece..."
                     value={formData.pieceDescription}
                     onChange={handleInputChange}
                     required
                   />
+                  {fieldErrors.pieceDescription && (
+                    <div className={styles.fieldError}>
+                      {fieldErrors.pieceDescription}
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.field}>
