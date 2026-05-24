@@ -39,7 +39,9 @@ describe('Contributor', () => {
 
     expect(screen.getByText('How it Works')).toBeInTheDocument()
     expect(
-      screen.getByText(/Phonosium is a crowdsourced, interactive sound installation/)
+      screen.getByText(
+        /Phonosium is a crowdsourced, interactive sound installation/
+      )
     ).toBeInTheDocument()
     expect(screen.getByText('1. The Instrument')).toBeInTheDocument()
     expect(screen.getByText('2. Submission Structure')).toBeInTheDocument()
