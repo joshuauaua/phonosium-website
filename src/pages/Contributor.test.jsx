@@ -37,16 +37,13 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    const whatToSubmitElements = screen.getAllByText('What to Submit')
-    expect(whatToSubmitElements.length).toBe(2)
+    expect(screen.getByText('How it Works')).toBeInTheDocument()
     expect(
-      screen.getByText(/Submitting a piece to Phonosium involves/)
+      screen.getByText(/Phonosium is a crowdsourced, interactive sound installation/)
     ).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        /Your submission becomes part of the living installation/
-      )
-    ).toBeInTheDocument()
+    expect(screen.getByText('1. The Instrument')).toBeInTheDocument()
+    expect(screen.getByText('2. Submission Structure')).toBeInTheDocument()
+    expect(screen.getByText('3. The Creative Challenge')).toBeInTheDocument()
   })
 
   it('displays submission requirements section', () => {
@@ -56,8 +53,7 @@ describe('Contributor', () => {
       </BrowserRouter>
     )
 
-    const whatToSubmitElements = screen.getAllByText('What to Submit')
-    expect(whatToSubmitElements.length).toBe(2)
+    expect(screen.getByText('What to Submit')).toBeInTheDocument()
     expect(screen.getByText('Submission Criteria')).toBeInTheDocument()
     expect(screen.getByText(/One loop file/)).toBeInTheDocument()
     expect(screen.getByText(/Up to 24 sample files/)).toBeInTheDocument()
