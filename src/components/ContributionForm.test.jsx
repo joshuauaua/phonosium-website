@@ -113,7 +113,6 @@ describe('ContributionForm', () => {
         screen.getByText(/samples file input \(wav or zip\)/i)
       ).toBeInTheDocument()
       expect(screen.getByText(/image of piece \(cover\)/i)).toBeInTheDocument()
-      expect(screen.getByText(/medium/i)).toBeInTheDocument()
     })
 
     it('displays tag buttons for selection', async () => {
@@ -150,23 +149,6 @@ describe('ContributionForm', () => {
       await user.click(generativeTag)
 
       expect(generativeTag.className).not.toContain('tagButtonActive')
-    })
-
-    it('displays medium buttons for selection', async () => {
-      const user = userEvent.setup()
-      render(<ContributionForm onClose={mockOnClose} />)
-
-      await user.click(screen.getByRole('button', { name: /next step/i }))
-
-      expect(
-        screen.getByRole('button', { name: 'Algorithmic composition' })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByRole('button', { name: '8-channel spatial audio' })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByRole('button', { name: 'Live electronics' })
-      ).toBeInTheDocument()
     })
 
     it('navigates back to step 1 when Back button is clicked', async () => {

@@ -101,7 +101,7 @@ export default function Home() {
             <div className={styles.liveTitle}>{current?.title}</div>
             <div className={styles.liveSub}>
               {formatTime(START_TIME + (current?.id - 1) * 30)} ·{' '}
-              {current?.duration} · {current?.artist?.name}
+              {current?.artist?.name}
             </div>
           </div>
           <div className={styles.waveContainer}>
@@ -179,7 +179,6 @@ export default function Home() {
                     </div>
                     <div className={styles.chTitle}>{inst.title}</div>
                     <div className={styles.chMeta}>{inst.artist.name}</div>
-                    <div className={styles.chTime}>{inst.duration}</div>
                     <div className={styles.chArrow}>
                       {isExpanded ? '×' : inst.id === selectedId ? '●' : '→'}
                     </div>
@@ -212,22 +211,6 @@ export default function Home() {
                             <span className={styles.trackMetaLabel}>Year</span>
                             <span className={styles.trackMetaValue}>
                               {inst.year}
-                            </span>
-                          </div>
-                          <div className={styles.trackMetaItem}>
-                            <span className={styles.trackMetaLabel}>
-                              Duration
-                            </span>
-                            <span className={styles.trackMetaValue}>
-                              {inst.duration}
-                            </span>
-                          </div>
-                          <div className={styles.trackMetaItem}>
-                            <span className={styles.trackMetaLabel}>
-                              Medium
-                            </span>
-                            <span className={styles.trackMetaValue}>
-                              {inst.medium}
                             </span>
                           </div>
                         </div>
