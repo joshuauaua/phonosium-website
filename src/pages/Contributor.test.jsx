@@ -78,12 +78,19 @@ describe('Contributor', () => {
     })
 
     expect(installationButton).toHaveAttribute('aria-expanded', 'false')
-    expect(screen.queryByText(/3 electret microphones/)).not.toBeVisible()
 
     await user.click(installationButton)
 
     await waitFor(() => {
       expect(installationButton).toHaveAttribute('aria-expanded', 'true')
+    })
+
+    expect(screen.getByText(/3 electret microphones/)).toBeInTheDocument()
+
+    await user.click(installationButton)
+
+    await waitFor(() => {
+      expect(installationButton).toHaveAttribute('aria-expanded', 'false')
     })
   })
 
