@@ -85,7 +85,6 @@ export default function ContributionForm({ onClose }) {
     'transmission',
   ]
 
-
   const validateEmail = email => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return re.test(email)
@@ -161,7 +160,6 @@ export default function ContributionForm({ onClose }) {
         : [...prev.tags, tag],
     }))
   }
-
 
   const handleLoopFileChange = e => {
     const file = e.target.files[0]
