@@ -350,6 +350,64 @@
   font-weight: var(--ph-fw-semibold);
 }
 
+.tagButtonCustom {
+  border-style: dashed;
+}
+
+.tagButtonCustom.tagButtonActive {
+  background: transparent;
+  border-color: var(--ph-orange);
+  color: var(--ph-orange);
+  border-style: dashed;
+}
+
+.customTagInputWrapper {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  align-items: stretch;
+}
+
+.customTagInput {
+  flex: 1;
+  padding: 8px 12px;
+  font-family: var(--ph-font-sans);
+  font-size: var(--ph-fs-body-sm);
+  background: transparent;
+  border: 1px solid var(--ph-stone);
+  border-radius: var(--ph-r-1);
+  color: var(--ph-paper);
+  outline: none;
+  transition: border-color var(--ph-dur-base) var(--ph-ease-out);
+}
+
+.customTagInput:focus {
+  border-color: var(--ph-orange);
+}
+
+.customTagInput::placeholder {
+  color: var(--ph-stone);
+}
+
+.btnAddCustomTag {
+  padding: 8px 16px;
+  font-family: var(--ph-font-sans);
+  font-size: var(--ph-fs-body-sm);
+  background: transparent;
+  border: 1px solid var(--ph-orange);
+  color: var(--ph-orange);
+  border-radius: var(--ph-r-1);
+  cursor: pointer;
+  transition:
+    background var(--ph-dur-base) var(--ph-ease-out),
+    color var(--ph-dur-base) var(--ph-ease-out);
+}
+
+.btnAddCustomTag:hover {
+  background: var(--ph-orange);
+  color: var(--ph-paper);
+}
+
 .fileList {
   margin-top: 1rem;
   display: flex;
