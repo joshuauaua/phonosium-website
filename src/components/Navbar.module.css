@@ -56,12 +56,21 @@
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 900;
   font-size: 28px;
   letter-spacing: -0.04em;
   line-height: 0.86;
   text-decoration: none;
   color: var(--ph-ink);
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  display: block;
 }
 
 .brandO {
@@ -159,6 +168,11 @@
 
   .stripRight {
     display: none;
+  }
+
+  .logo {
+    width: 28px;
+    height: 28px;
   }
 
   .hamburger {
