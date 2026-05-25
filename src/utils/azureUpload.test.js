@@ -7,7 +7,9 @@ describe('azureUpload utilities', () => {
 
   beforeEach(() => {
     globalThis.fetch = vi.fn()
-    logErrorSpy = vi.spyOn(errorTracking, 'logError').mockImplementation(() => {})
+    logErrorSpy = vi
+      .spyOn(errorTracking, 'logError')
+      .mockImplementation(() => {})
   })
 
   afterEach(() => {
@@ -56,7 +58,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 400,
         statusText: 'Bad Request',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
       })
 
       await expect(
@@ -124,7 +127,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 500,
         statusText: 'Internal Server Error',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
       })
 
       await expect(submitFormData({}, {})).rejects.toThrow(
@@ -137,7 +141,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 400,
         statusText: 'Bad Request',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Missing fields' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Missing fields' })),
       })
 
       const formData = { submissionId: 'sub-123' }

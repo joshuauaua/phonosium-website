@@ -4,19 +4,19 @@ import { logError } from './errorTracking.js'
 describe('errorTracking', () => {
   beforeEach(() => {
     // Mock fetch
-    global.fetch = vi.fn(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
         status: 204,
-      }),
+      })
     )
 
     // Mock navigator.sendBeacon
-    global.navigator.sendBeacon = vi.fn(() => true)
+    globalThis.navigator.sendBeacon = vi.fn(() => true)
 
     // Mock window.location
-    delete global.window.location
-    global.window.location = { href: 'http://localhost:5173/contribute' }
+    delete globalThis.window.location
+    globalThis.window.location = { href: 'http://localhost:5173/contribute' }
   })
 
   afterEach(() => {
@@ -33,7 +33,7 @@ describe('errorTracking', () => {
       expect(navigator.sendBeacon).toHaveBeenCalledTimes(1)
       expect(navigator.sendBeacon).toHaveBeenCalledWith(
         '/api/log',
-        expect.any(Blob),
+        expect.any(Blob)
       )
 
       // Verify blob content
@@ -73,7 +73,7 @@ describe('errorTracking', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           keepalive: true,
-        }),
+        })
       )
     })
 
@@ -92,13 +92,13 @@ describe('errorTracking', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           keepalive: true,
-        }),
+        })
       )
     })
 
     it('handles fetch network errors gracefully', async () => {
       delete navigator.sendBeacon
-      global.fetch = vi.fn(() => Promise.reject(new Error('Network error')))
+      globalThis.fetch = vi.fn(() => Promise.reject(new Error('Network error')))
 
       // Should not throw
       expect(() => {
@@ -125,7 +125,7 @@ describe('errorTracking', () => {
         const data = JSON.parse(reader.result)
         expect(data.metadata.userAgent).toBe(userAgent)
         expect(data.metadata.timestamp).toMatch(
-          /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+          /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/
         )
       }
       reader.readAsText(blob)
