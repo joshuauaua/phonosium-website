@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { requestUploadUrl, submitFormData, uploadFileToBlob } from './azureUpload'
+import {
+  requestUploadUrl,
+  submitFormData,
+  uploadFileToBlob,
+} from './azureUpload'
 
 describe('azureUpload utilities', () => {
   beforeEach(() => {
@@ -52,7 +56,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 400,
         statusText: 'Bad Request',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
       })
 
       await expect(
@@ -209,7 +214,10 @@ describe('azureUpload utilities', () => {
         'PUT',
         'https://storage.blob.core.windows.net/test?sas=token'
       )
-      expect(mockXHR.setRequestHeader).toHaveBeenCalledWith('x-ms-blob-type', 'BlockBlob')
+      expect(mockXHR.setRequestHeader).toHaveBeenCalledWith(
+        'x-ms-blob-type',
+        'BlockBlob'
+      )
       expect(mockXHR.send).toHaveBeenCalledWith(file)
     })
 
@@ -326,7 +334,9 @@ describe('azureUpload utilities', () => {
       mockXHR.statusText = 'Forbidden'
       loadHandler()
 
-      await expect(uploadPromise).rejects.toThrow('Upload failed with status 403')
+      await expect(uploadPromise).rejects.toThrow(
+        'Upload failed with status 403'
+      )
       expect(mockXHR.send).toHaveBeenCalledTimes(1)
     })
 
@@ -401,7 +411,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 500,
         statusText: 'Internal Server Error',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
       })
 
       await expect(submitFormData({}, {})).rejects.toThrow(

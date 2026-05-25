@@ -54,7 +54,10 @@ async function withRetry(operation, operationName = 'operation') {
       const statusCode = error.statusCode || error.status
 
       // Check if we should retry
-      if (attempt < RETRY_CONFIG.maxRetries && isRetryableError(error, statusCode)) {
+      if (
+        attempt < RETRY_CONFIG.maxRetries &&
+        isRetryableError(error, statusCode)
+      ) {
         const delay = getBackoffDelay(attempt)
         console.warn(
           `${operationName} failed (attempt ${attempt + 1}/${RETRY_CONFIG.maxRetries + 1}):`,
@@ -73,7 +76,10 @@ async function withRetry(operation, operationName = 'operation') {
             `${operationName} failed after ${RETRY_CONFIG.maxRetries + 1} attempts: ${error.message}`
           )
         } else {
-          console.error(`${operationName} failed with non-retryable error:`, error.message)
+          console.error(
+            `${operationName} failed with non-retryable error:`,
+            error.message
+          )
           throw error
         }
       }
