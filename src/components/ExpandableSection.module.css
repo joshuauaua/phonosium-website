@@ -13,7 +13,9 @@
   cursor: pointer;
   text-align: left;
   border-radius: var(--ph-r-1);
-  transition: background 0.2s ease, opacity 0.2s ease;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .header:hover {
