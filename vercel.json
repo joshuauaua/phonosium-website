@@ -12,6 +12,10 @@
     {
       "source": "/api/submissions/submit",
       "destination": "/api/submit"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

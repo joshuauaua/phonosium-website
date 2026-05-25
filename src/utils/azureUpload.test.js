@@ -51,7 +51,8 @@ describe('azureUpload utilities', () => {
       globalThis.fetch.mockResolvedValueOnce({
         ok: false,
         status: 400,
-        json: () => Promise.resolve({ error: 'Invalid file type' }),
+        statusText: 'Bad Request',
+        text: () => Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
       })
 
       await expect(
@@ -90,7 +91,8 @@ describe('azureUpload utilities', () => {
       globalThis.fetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
-        json: () => Promise.resolve({ error: 'Internal server error' }),
+        statusText: 'Internal Server Error',
+        text: () => Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
       })
 
       await expect(submitFormData({}, {})).rejects.toThrow(
