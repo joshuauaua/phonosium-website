@@ -34,7 +34,8 @@ export default function Contributor() {
           <h2 className={styles.descriptionTitle}>How it Works</h2>
           <p className={styles.descriptionText}>
             Phonosium is a crowdsourced, interactive sound installation built
-            from PVC pipes wrapped around a shipping container. We invite sound
+            from PVC pipes wrapped around a shipping container. As a brain, it has the Bela IO Microcontroller to process audio,
+            playing a continuous loop while triggering samples on demand by public interaction. We invite sound
             artists, music producers, and audio tinkerers worldwide to shape its
             sonic landscape. Selected works will receive a dedicated, recurring
             live slot on our seasonal schedule.
@@ -69,9 +70,9 @@ export default function Contributor() {
                   of your slot
                 </li>
                 <li>
-                  <strong>Interactive Samples:</strong> Up to 24 individual
+                  <strong>Interactive Sample Bank:</strong> Up to 24 individual
                   sounds that get triggered when the public interacts with the
-                  physical structure
+                  physical structure. 1-6 seconds each.
                 </li>
               </ul>
             </ExpandableSection>
@@ -79,7 +80,7 @@ export default function Contributor() {
             <ExpandableSection number={3} title="The Creative Challenge">
               <p className={styles.descriptionText}>
                 We are looking for conceptual, intentional pieces. The artistic
-                challenge lies in how your 24 interactive samples converse with
+                challenge lies in how your interactive samples converse with
                 your foundational loop, balancing your compositional design with
                 unpredictable, real-world public interaction.
               </p>
