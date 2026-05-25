@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contributor from './pages/Contributor'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contribute" element={<Contributor />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
