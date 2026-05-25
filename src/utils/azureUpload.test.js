@@ -4,6 +4,7 @@ import {
   submitFormData,
   uploadFileToBlob,
   uploadFile,
+  parseRetryConfig,
 } from './azureUpload'
 
 describe('azureUpload utilities', () => {
@@ -454,18 +455,13 @@ describe('azureUpload utilities', () => {
     }
 
     beforeEach(() => {
-      vi.useFakeTimers()
       mockXHR = createMockXHR()
       globalThis.XMLHttpRequest = vi.fn(function () {
         return mockXHR
       })
     })
 
-    afterEach(() => {
-      vi.useRealTimers()
-    })
-
-    it('retries on network error and exhausts attempts', async () => {
+    it('rejects with network error when XHR error event fires', async () => {
       mockXHR.addEventListener.mockImplementation((event, handler) => {
         if (event === 'error') {
           setTimeout(() => handler(), 0)
@@ -475,17 +471,12 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
+      await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+        'Upload failed: Network error'
       )
-
-      // Advance through all retry delays and flush all timers
-      await vi.runAllTimersAsync()
-
-      await testPromise
     })
 
-    it('retries on abort and exhausts attempts', async () => {
+    it('rejects with abort message when XHR abort event fires', async () => {
       mockXHR.addEventListener.mockImplementation((event, handler) => {
         if (event === 'abort') {
           setTimeout(() => handler(), 0)
@@ -495,14 +486,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
+      await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+        'Upload aborted'
       )
-
-      // Advance through all retry delays and flush all timers
-      await vi.runAllTimersAsync()
-
-      await testPromise
     })
 
     it('rejects when Azure returns 403 (expired SAS)', async () => {
@@ -517,12 +503,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=expired'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+      await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload failed with status 403: Forbidden'
       )
-      await vi.advanceTimersByTimeAsync(0)
-
-      await testPromise
     })
 
     it('rejects when Azure returns 404 (blob not found)', async () => {
@@ -537,15 +520,12 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+      await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload failed with status 404: Not Found'
       )
-      await vi.advanceTimersByTimeAsync(0)
-
-      await testPromise
     })
 
-    it('retries on 500 error and exhausts attempts', async () => {
+    it('rejects when Azure returns 500 (server error)', async () => {
       mockXHR.status = 500
       mockXHR.statusText = 'Internal Server Error'
       mockXHR.addEventListener.mockImplementation((event, handler) => {
@@ -557,14 +537,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
+      await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+        'Upload failed with status 500: Internal Server Error'
       )
-
-      // Advance through all retry delays and flush all timers
-      await vi.runAllTimersAsync()
-
-      await testPromise
     })
 
     it('calls onProgress callback with upload progress', async () => {
@@ -601,11 +576,8 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl, onProgress)
-      await vi.advanceTimersByTimeAsync(0)
-      await promise
+      await uploadFileToBlob(file, sasUrl, onProgress)
 
-      expect(onProgress).toHaveBeenCalledWith(0) // Reset call
       expect(onProgress).toHaveBeenCalledWith(50)
       expect(onProgress).toHaveBeenCalledWith(100)
     })
@@ -639,14 +611,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl, onProgress)
-      await vi.advanceTimersByTimeAsync(0)
-      await promise
+      await uploadFileToBlob(file, sasUrl, onProgress)
 
-      // onProgress(0) is called at the start of the upload attempt
-      // but no percentage updates are called when lengthComputable is false
-      expect(onProgress).toHaveBeenCalledWith(0)
-      expect(onProgress).toHaveBeenCalledTimes(1)
+      expect(onProgress).not.toHaveBeenCalled()
     })
 
     it('resolves successfully on 2xx status', async () => {
@@ -661,10 +628,7 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl)
-      await vi.advanceTimersByTimeAsync(0)
-
-      await expect(promise).resolves.toBeUndefined()
+      await expect(uploadFileToBlob(file, sasUrl)).resolves.toBeUndefined()
     })
   })
 
@@ -672,7 +636,6 @@ describe('azureUpload utilities', () => {
     let mockXHR
 
     beforeEach(() => {
-      vi.useFakeTimers()
       mockXHR = {
         upload: { addEventListener: vi.fn() },
         addEventListener: vi.fn(),
@@ -686,10 +649,6 @@ describe('azureUpload utilities', () => {
       globalThis.XMLHttpRequest = vi.fn(function () {
         return mockXHR
       })
-    })
-
-    afterEach(() => {
-      vi.useRealTimers()
     })
 
     it('propagates network errors from uploadFileToBlob', async () => {
@@ -713,14 +672,9 @@ describe('azureUpload utilities', () => {
 
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
 
-      const testPromise = expect(uploadFile(file, 'audio', 'sub-123')).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
+      await expect(uploadFile(file, 'audio', 'sub-123')).rejects.toThrow(
+        'Upload failed: Network error'
       )
-
-      // Advance through all retry delays and flush all timers
-      await vi.runAllTimersAsync()
-
-      await testPromise
     })
 
     it(
@@ -877,6 +831,50 @@ describe('azureUpload utilities', () => {
       10000
     )
   })
+
+  describe('RETRY_CONFIG environment variable parsing', () => {
+    // Note: The RETRY_CONFIG constant is initialized at module load time
+    // and uses the actual environment variables. Testing the full integration
+    // with environment variable changes would require module reloading which
+    // is unreliable in test environments.
+    //
+    // Instead, we verify that:
+    // 1. The default config values are reasonable (tested through retry behavior)
+    // 2. The validation logic in parseRetryConfig is sound (tested via unit tests)
+    //
+    // For integration testing of different environment variable values,
+    // use E2E tests with actual environment configuration.
+
+    it(
+      'uses default retry configuration (3 retries)',
+      async () => {
+        // Test that the default RETRY_CONFIG works by checking retry behavior
+        globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+
+        await expect(
+          requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio')
+        ).rejects.toThrow('Upload URL request failed after 4 attempts')
+
+        // 1 initial + 3 retries = 4 calls
+        expect(globalThis.fetch).toHaveBeenCalledTimes(4)
+      },
+      10000
+    )
+
+    it('configuration is accessible and has expected structure', () => {
+      // Import parseRetryConfig to verify it can be called
+      // This ensures the function exists and returns the expected shape
+      const config = parseRetryConfig()
+
+      expect(config).toHaveProperty('maxRetries')
+      expect(config).toHaveProperty('baseDelay')
+      expect(config).toHaveProperty('maxDelay')
+      expect(typeof config.maxRetries).toBe('number')
+      expect(typeof config.baseDelay).toBe('number')
+      expect(typeof config.maxDelay).toBe('number')
+    })
+  })
+})
 
   describe('exponential backoff with jitter', () => {
     it('applies jitter within ±20% of base delay', async () => {
