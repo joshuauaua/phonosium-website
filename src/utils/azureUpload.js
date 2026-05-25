@@ -2,8 +2,9 @@ const API_BASE_URL = import.meta.env.VITE_AZURE_FUNCTIONS_URL || '/api'
 
 /**
  * Parse and validate retry configuration from environment variables
+ * @internal Exported for testing only
  */
-function parseRetryConfig() {
+export function parseRetryConfig() {
   const maxRetries = parseInt(
     import.meta.env.VITE_UPLOAD_MAX_RETRIES || '3',
     10
