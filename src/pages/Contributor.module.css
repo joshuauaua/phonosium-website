@@ -214,6 +214,19 @@
   transform: scale(0.98);
 }
 
+.logoSection {
+  padding: var(--ph-s-9) var(--ph-s-6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.octopusLogo {
+  width: 64px;
+  height: auto;
+  opacity: 0.9;
+}
+
 @media (max-width: 600px) {
   .hero,
   .criteria,
@@ -225,5 +238,9 @@
 
   .requirementCard {
     padding: var(--ph-s-5);
+  }
+
+  .logoSection {
+    padding: var(--ph-s-7) var(--ph-s-4);
   }
 }
