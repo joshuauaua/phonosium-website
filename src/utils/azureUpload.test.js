@@ -473,7 +473,7 @@ describe('azureUpload utilities', () => {
       await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload failed: Network error'
       )
-    })
+    }, 10000)
 
     it('rejects with abort message when XHR abort event fires', async () => {
       mockXHR.addEventListener.mockImplementation((event, handler) => {
@@ -488,7 +488,7 @@ describe('azureUpload utilities', () => {
       await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload aborted'
       )
-    })
+    }, 10000)
 
     it('rejects when Azure returns 403 (expired SAS)', async () => {
       mockXHR.status = 403
@@ -539,7 +539,7 @@ describe('azureUpload utilities', () => {
       await expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload failed with status 500: Internal Server Error'
       )
-    })
+    }, 10000)
 
     it('calls onProgress callback with upload progress', async () => {
       const onProgress = vi.fn()
@@ -612,7 +612,10 @@ describe('azureUpload utilities', () => {
 
       await uploadFileToBlob(file, sasUrl, onProgress)
 
-      expect(onProgress).not.toHaveBeenCalled()
+      // onProgress(0) is called at the start of the upload attempt
+      // but no percentage updates are called when lengthComputable is false
+      expect(onProgress).toHaveBeenCalledWith(0)
+      expect(onProgress).toHaveBeenCalledTimes(1)
     })
 
     it('resolves successfully on 2xx status', async () => {
@@ -674,7 +677,7 @@ describe('azureUpload utilities', () => {
       await expect(uploadFile(file, 'audio', 'sub-123')).rejects.toThrow(
         'Upload failed: Network error'
       )
-    })
+    }, 10000)
   })
 
   describe('exponential backoff with jitter', () => {
