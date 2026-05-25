@@ -476,9 +476,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      const testPromise = expect(
+        uploadFileToBlob(file, sasUrl)
+      ).rejects.toThrow('Blob upload failed after 4 attempts')
       await vi.runAllTimersAsync()
       await testPromise
     })
@@ -493,9 +493,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      const testPromise = expect(
+        uploadFileToBlob(file, sasUrl)
+      ).rejects.toThrow('Blob upload failed after 4 attempts')
       await vi.runAllTimersAsync()
       await testPromise
     })
@@ -512,9 +512,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=expired'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Upload failed with status 403: Forbidden'
-      )
+      const testPromise = expect(
+        uploadFileToBlob(file, sasUrl)
+      ).rejects.toThrow('Upload failed with status 403: Forbidden')
       await vi.advanceTimersByTimeAsync(0)
       await testPromise
     })
@@ -531,9 +531,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Upload failed with status 404: Not Found'
-      )
+      const testPromise = expect(
+        uploadFileToBlob(file, sasUrl)
+      ).rejects.toThrow('Upload failed with status 404: Not Found')
       await vi.advanceTimersByTimeAsync(0)
       await testPromise
     })
@@ -550,9 +550,9 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      const testPromise = expect(
+        uploadFileToBlob(file, sasUrl)
+      ).rejects.toThrow('Blob upload failed after 4 attempts')
       await vi.runAllTimersAsync()
       await testPromise
     })
@@ -689,101 +689,91 @@ describe('azureUpload utilities', () => {
 
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
 
-      const testPromise = expect(uploadFile(file, 'audio', 'sub-123')).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      const testPromise = expect(
+        uploadFile(file, 'audio', 'sub-123')
+      ).rejects.toThrow('Blob upload failed after 4 attempts')
       await vi.runAllTimersAsync()
       await testPromise
     })
 
-    it(
-      'calls onRetry callback with correct parameters during retry',
-      async () => {
-        const onRetry = vi.fn()
+    it('calls onRetry callback with correct parameters during retry', async () => {
+      const onRetry = vi.fn()
 
-        globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
-        globalThis.fetch.mockResolvedValueOnce({
-          ok: true,
-          json: () =>
-            Promise.resolve({
-              uploadUrl:
-                'https://storage.blob.core.windows.net/test?sas=token',
-              blobName: 'id/test.wav',
-              submissionId: 'id',
-            }),
+      globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
+
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          setTimeout(() => handler(), 0)
+        }
+      })
+
+      await uploadFile(
+        new File(['test'], 'test.wav', { type: 'audio/wav' }),
+        'audio',
+        'sub-123',
+        null,
+        onRetry,
+        null
+      )
+
+      expect(onRetry).toHaveBeenCalledTimes(1)
+      expect(onRetry).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attempt: 1,
+          maxAttempts: 4,
+          delay: 1000,
+          error: 'Network error: Network failure',
+          operationName: 'Upload URL request',
         })
+      )
+    }, 10000)
 
-        mockXHR.addEventListener.mockImplementation((event, handler) => {
-          if (event === 'load') {
-            setTimeout(() => handler(), 0)
-          }
+    it('calls onRetrySuccess callback when retry succeeds', async () => {
+      const onRetrySuccess = vi.fn()
+
+      globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
+
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          setTimeout(() => handler(), 0)
+        }
+      })
+
+      await uploadFile(
+        new File(['test'], 'test.wav', { type: 'audio/wav' }),
+        'audio',
+        'sub-123',
+        null,
+        null,
+        onRetrySuccess
+      )
+
+      expect(onRetrySuccess).toHaveBeenCalledTimes(1)
+      expect(onRetrySuccess).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attempt: 2,
+          operationName: 'Upload URL request',
         })
-
-        await uploadFile(
-          new File(['test'], 'test.wav', { type: 'audio/wav' }),
-          'audio',
-          'sub-123',
-          null,
-          onRetry,
-          null
-        )
-
-        expect(onRetry).toHaveBeenCalledTimes(1)
-        expect(onRetry).toHaveBeenCalledWith(
-          expect.objectContaining({
-            attempt: 1,
-            maxAttempts: 4,
-            delay: 1000,
-            error: 'Network error: Network failure',
-            operationName: 'Upload URL request',
-          })
-        )
-      },
-      10000
-    )
-
-    it(
-      'calls onRetrySuccess callback when retry succeeds',
-      async () => {
-        const onRetrySuccess = vi.fn()
-
-        globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
-        globalThis.fetch.mockResolvedValueOnce({
-          ok: true,
-          json: () =>
-            Promise.resolve({
-              uploadUrl:
-                'https://storage.blob.core.windows.net/test?sas=token',
-              blobName: 'id/test.wav',
-              submissionId: 'id',
-            }),
-        })
-
-        mockXHR.addEventListener.mockImplementation((event, handler) => {
-          if (event === 'load') {
-            setTimeout(() => handler(), 0)
-          }
-        })
-
-        await uploadFile(
-          new File(['test'], 'test.wav', { type: 'audio/wav' }),
-          'audio',
-          'sub-123',
-          null,
-          null,
-          onRetrySuccess
-        )
-
-        expect(onRetrySuccess).toHaveBeenCalledTimes(1)
-        expect(onRetrySuccess).toHaveBeenCalledWith(
-          expect.objectContaining({
-            attempt: 2,
-            operationName: 'Upload URL request',
-          })
-        )
-      },
-      10000
-    )
+      )
+    }, 10000)
 
     it('does not call onRetry or onRetrySuccess on first successful attempt', async () => {
       const onRetry = vi.fn()
@@ -818,37 +808,32 @@ describe('azureUpload utilities', () => {
       expect(onRetrySuccess).not.toHaveBeenCalled()
     })
 
-    it(
-      'does not call callbacks if not provided (backward compatibility)',
-      async () => {
-        globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
-        globalThis.fetch.mockResolvedValueOnce({
-          ok: true,
-          json: () =>
-            Promise.resolve({
-              uploadUrl:
-                'https://storage.blob.core.windows.net/test?sas=token',
-              blobName: 'id/test.wav',
-              submissionId: 'id',
-            }),
-        })
+    it('does not call callbacks if not provided (backward compatibility)', async () => {
+      globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
 
-        mockXHR.addEventListener.mockImplementation((event, handler) => {
-          if (event === 'load') {
-            setTimeout(() => handler(), 0)
-          }
-        })
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          setTimeout(() => handler(), 0)
+        }
+      })
 
-        await expect(
-          uploadFile(
-            new File(['test'], 'test.wav', { type: 'audio/wav' }),
-            'audio',
-            'sub-123'
-          )
-        ).resolves.not.toThrow()
-      },
-      10000
-    )
+      await expect(
+        uploadFile(
+          new File(['test'], 'test.wav', { type: 'audio/wav' }),
+          'audio',
+          'sub-123'
+        )
+      ).resolves.not.toThrow()
+    }, 10000)
   })
 
   describe('RETRY_CONFIG environment variable parsing', () => {
@@ -864,21 +849,17 @@ describe('azureUpload utilities', () => {
     // For integration testing of different environment variable values,
     // use E2E tests with actual environment configuration.
 
-    it(
-      'uses default retry configuration (3 retries)',
-      async () => {
-        // Test that the default RETRY_CONFIG works by checking retry behavior
-        globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+    it('uses default retry configuration (3 retries)', async () => {
+      // Test that the default RETRY_CONFIG works by checking retry behavior
+      globalThis.fetch.mockRejectedValue(new Error('Network failure'))
 
-        await expect(
-          requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio')
-        ).rejects.toThrow('Upload URL request failed after 4 attempts')
+      await expect(
+        requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio')
+      ).rejects.toThrow('Upload URL request failed after 4 attempts')
 
-        // 1 initial + 3 retries = 4 calls
-        expect(globalThis.fetch).toHaveBeenCalledTimes(4)
-      },
-      10000
-    )
+      // 1 initial + 3 retries = 4 calls
+      expect(globalThis.fetch).toHaveBeenCalledTimes(4)
+    }, 10000)
 
     it('configuration is accessible and has expected structure', () => {
       // Import parseRetryConfig to verify it can be called
