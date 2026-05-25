@@ -52,7 +52,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 400,
         statusText: 'Bad Request',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
       })
 
       await expect(
@@ -92,7 +93,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 500,
         statusText: 'Internal Server Error',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
       })
 
       await expect(submitFormData({}, {})).rejects.toThrow(
