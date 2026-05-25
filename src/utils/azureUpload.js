@@ -36,8 +36,17 @@ function getBackoffDelay(attemptNumber) {
 
 /**
  * Utility function to retry an async operation with exponential backoff
+ * @param {Function} operation - The async operation to retry
+ * @param {string} operationName - Name for logging
+ * @param {Function} onRetry - Optional callback when retry occurs
+ * @param {Function} onRetrySuccess - Optional callback when retry succeeds
  */
-async function withRetry(operation, operationName = 'operation') {
+async function withRetry(
+  operation,
+  operationName = 'operation',
+  onRetry = null,
+  onRetrySuccess = null
+) {
   let lastError
 
   for (let attempt = 0; attempt <= RETRY_CONFIG.maxRetries; attempt++) {
@@ -47,6 +56,12 @@ async function withRetry(operation, operationName = 'operation') {
         console.log(
           `${operationName} succeeded on attempt ${attempt + 1}/${RETRY_CONFIG.maxRetries + 1}`
         )
+        if (onRetrySuccess) {
+          onRetrySuccess({
+            attempt: attempt + 1,
+            operationName,
+          })
+        }
       }
       return result
     } catch (error) {
@@ -64,6 +79,17 @@ async function withRetry(operation, operationName = 'operation') {
           error.message,
           `- Retrying in ${delay}ms...`
         )
+
+        if (onRetry) {
+          onRetry({
+            attempt: attempt + 1,
+            maxAttempts: RETRY_CONFIG.maxRetries + 1,
+            delay,
+            error: error.message,
+            operationName,
+          })
+        }
+
         await new Promise(resolve => setTimeout(resolve, delay))
       } else {
         // Either exhausted retries or non-retryable error
@@ -94,119 +120,144 @@ export async function requestUploadUrl(
   fileType,
   fileSize,
   category,
-  submissionId
+  submissionId,
+  onRetry = null,
+  onRetrySuccess = null
 ) {
-  return withRetry(async () => {
-    let response
-    try {
-      response = await fetch(`${API_BASE_URL}/submissions/upload-url`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fileName,
-          fileType,
-          fileSize,
-          category,
-          submissionId,
-        }),
-      })
-    } catch (networkError) {
-      // Network error (no response received)
-      const error = new Error(`Network error: ${networkError.message}`)
-      error.statusCode = null
-      throw error
-    }
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      let errorMessage = `Upload URL request failed: ${response.status}`
-
+  return withRetry(
+    async () => {
+      let response
       try {
-        const error = JSON.parse(errorText)
-        errorMessage = error.error || errorMessage
-      } catch {
-        // If not JSON, use the text or status
-        errorMessage = errorText || errorMessage
+        response = await fetch(`${API_BASE_URL}/submissions/upload-url`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fileName,
+            fileType,
+            fileSize,
+            category,
+            submissionId,
+          }),
+        })
+      } catch (networkError) {
+        // Network error (no response received)
+        const error = new Error(`Network error: ${networkError.message}`)
+        error.statusCode = null
+        throw error
       }
 
-      console.error('requestUploadUrl failed:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText,
-      })
+      if (!response.ok) {
+        const errorText = await response.text()
+        let errorMessage = `Upload URL request failed: ${response.status}`
 
-      const error = new Error(errorMessage)
-      error.statusCode = response.status
-      throw error
-    }
+        try {
+          const error = JSON.parse(errorText)
+          errorMessage = error.error || errorMessage
+        } catch {
+          // If not JSON, use the text or status
+          errorMessage = errorText || errorMessage
+        }
 
-    return response.json()
-  }, 'Upload URL request')
+        console.error('requestUploadUrl failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText,
+        })
+
+        const error = new Error(errorMessage)
+        error.statusCode = response.status
+        throw error
+      }
+
+      return response.json()
+    },
+    'Upload URL request',
+    onRetry,
+    onRetrySuccess
+  )
 }
 
-export async function uploadFileToBlob(file, sasUrl, onProgress) {
-  return withRetry(async () => {
-    // Reset progress to 0 on each retry attempt
-    if (onProgress) {
-      onProgress(0)
-    }
+export async function uploadFileToBlob(
+  file,
+  sasUrl,
+  onProgress,
+  onRetry = null,
+  onRetrySuccess = null
+) {
+  return withRetry(
+    async () => {
+      // Reset progress to 0 on each retry attempt
+      if (onProgress) {
+        onProgress(0)
+      }
 
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest()
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
 
-      xhr.upload.addEventListener('progress', event => {
-        if (event.lengthComputable && onProgress) {
-          onProgress(Math.round((event.loaded / event.total) * 100))
-        }
-      })
-
-      xhr.addEventListener('error', () => {
-        console.error('Upload XHR error:', {
-          status: xhr.status,
-          statusText: xhr.statusText,
-          responseText: xhr.responseText,
+        xhr.upload.addEventListener('progress', event => {
+          if (event.lengthComputable && onProgress) {
+            onProgress(Math.round((event.loaded / event.total) * 100))
+          }
         })
-        const error = new Error('Upload failed: Network error')
-        error.statusCode = null
-        reject(error)
-      })
 
-      xhr.addEventListener('abort', () => {
-        console.error('Upload XHR aborted')
-        const error = new Error('Upload aborted')
-        error.statusCode = null
-        reject(error)
-      })
-
-      xhr.addEventListener('load', () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          resolve()
-        } else {
-          console.error('Upload XHR failed:', {
+        xhr.addEventListener('error', () => {
+          console.error('Upload XHR error:', {
             status: xhr.status,
             statusText: xhr.statusText,
             responseText: xhr.responseText,
           })
-          const error = new Error(
-            `Upload failed with status ${xhr.status}: ${xhr.statusText}`
-          )
-          error.statusCode = xhr.status
+          const error = new Error('Upload failed: Network error')
+          error.statusCode = null
           reject(error)
-        }
-      })
+        })
 
-      xhr.open('PUT', sasUrl)
-      xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob')
-      xhr.setRequestHeader(
-        'Content-Type',
-        file.type || 'application/octet-stream'
-      )
-      xhr.send(file)
-    })
-  }, 'Blob upload')
+        xhr.addEventListener('abort', () => {
+          console.error('Upload XHR aborted')
+          const error = new Error('Upload aborted')
+          error.statusCode = null
+          reject(error)
+        })
+
+        xhr.addEventListener('load', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve()
+          } else {
+            console.error('Upload XHR failed:', {
+              status: xhr.status,
+              statusText: xhr.statusText,
+              responseText: xhr.responseText,
+            })
+            const error = new Error(
+              `Upload failed with status ${xhr.status}: ${xhr.statusText}`
+            )
+            error.statusCode = xhr.status
+            reject(error)
+          }
+        })
+
+        xhr.open('PUT', sasUrl)
+        xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob')
+        xhr.setRequestHeader(
+          'Content-Type',
+          file.type || 'application/octet-stream'
+        )
+        xhr.send(file)
+      })
+    },
+    'Blob upload',
+    onRetry,
+    onRetrySuccess
+  )
 }
 
-export async function uploadFile(file, category, submissionId, onProgress) {
+export async function uploadFile(
+  file,
+  category,
+  submissionId,
+  onProgress,
+  onRetry = null,
+  onRetrySuccess = null
+) {
   const {
     uploadUrl,
     blobName,
@@ -216,10 +267,12 @@ export async function uploadFile(file, category, submissionId, onProgress) {
     file.type,
     file.size,
     category,
-    submissionId
+    submissionId,
+    onRetry,
+    onRetrySuccess
   )
 
-  await uploadFileToBlob(file, uploadUrl, onProgress)
+  await uploadFileToBlob(file, uploadUrl, onProgress, onRetry, onRetrySuccess)
 
   return { blobName, submissionId: id }
 }
