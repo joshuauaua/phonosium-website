@@ -1,3 +1,5 @@
+import { logError } from './errorTracking.js'
+
 const API_BASE_URL = import.meta.env.VITE_AZURE_FUNCTIONS_URL || '/api'
 
 export async function requestUploadUrl(
@@ -37,6 +39,17 @@ export async function requestUploadUrl(
       body: errorText,
     })
 
+    logError('upload_url_request_failed', errorMessage, {
+      status: response.status,
+      statusText: response.statusText,
+      responseBody: errorText,
+      fileName,
+      fileType,
+      fileSize,
+      category,
+      submissionId,
+    })
+
     throw new Error(errorMessage)
   }
 
@@ -59,11 +72,24 @@ export async function uploadFileToBlob(file, sasUrl, onProgress) {
         statusText: xhr.statusText,
         responseText: xhr.responseText,
       })
+      logError('upload_xhr_error', 'Upload failed: Network error', {
+        status: xhr.status,
+        statusText: xhr.statusText,
+        responseText: xhr.responseText,
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size,
+      })
       reject(new Error('Upload failed: Network error'))
     })
 
     xhr.addEventListener('abort', () => {
       console.error('Upload XHR aborted')
+      logError('upload_xhr_aborted', 'Upload aborted', {
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size,
+      })
       reject(new Error('Upload aborted'))
     })
 
@@ -75,6 +101,14 @@ export async function uploadFileToBlob(file, sasUrl, onProgress) {
           status: xhr.status,
           statusText: xhr.statusText,
           responseText: xhr.responseText,
+        })
+        logError('upload_xhr_failed', `Upload failed with status ${xhr.status}`, {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          responseText: xhr.responseText,
+          fileName: file.name,
+          fileType: file.type,
+          fileSize: file.size,
         })
         reject(
           new Error(
@@ -137,6 +171,14 @@ export async function submitFormData(formData, blobReferences) {
       status: response.status,
       statusText: response.statusText,
       body: errorText,
+    })
+
+    logError('submission_failed', errorMessage, {
+      status: response.status,
+      statusText: response.statusText,
+      responseBody: errorText,
+      submissionId: formData.submissionId,
+      blobCount: blobReferences?.length || 0,
     })
 
     throw new Error(errorMessage)
