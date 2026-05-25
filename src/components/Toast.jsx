@@ -46,9 +46,13 @@ export default function Toast({
       className={`${styles.toast} ${styles[type]}`}
       role="alert"
       aria-live="polite"
+      data-type={type}
+      data-testid="toast"
     >
       <div className={styles.content}>
-        <span className={styles.icon}>{getIcon()}</span>
+        <span className={styles.icon} data-testid="toast-icon">
+          {getIcon()}
+        </span>
         <div className={styles.text}>
           <div className={styles.message}>{message}</div>
           {description && (

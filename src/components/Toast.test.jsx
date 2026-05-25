@@ -32,31 +32,27 @@ describe('Toast', () => {
   })
 
   it('shows correct styling for info type', () => {
-    const { container } = render(<Toast message="Info message" type="info" />)
-    const toast = container.querySelector('.toast')
-    expect(toast).toHaveClass('info')
+    render(<Toast message="Info message" type="info" />)
+    const toast = screen.getByTestId('toast')
+    expect(toast).toHaveAttribute('data-type', 'info')
   })
 
   it('shows correct styling for warning type', () => {
-    const { container } = render(
-      <Toast message="Warning message" type="warning" />
-    )
-    const toast = container.querySelector('.toast')
-    expect(toast).toHaveClass('warning')
+    render(<Toast message="Warning message" type="warning" />)
+    const toast = screen.getByTestId('toast')
+    expect(toast).toHaveAttribute('data-type', 'warning')
   })
 
   it('shows correct styling for success type', () => {
-    const { container } = render(
-      <Toast message="Success message" type="success" />
-    )
-    const toast = container.querySelector('.toast')
-    expect(toast).toHaveClass('success')
+    render(<Toast message="Success message" type="success" />)
+    const toast = screen.getByTestId('toast')
+    expect(toast).toHaveAttribute('data-type', 'success')
   })
 
   it('shows correct styling for error type', () => {
-    const { container } = render(<Toast message="Error message" type="error" />)
-    const toast = container.querySelector('.toast')
-    expect(toast).toHaveClass('error')
+    render(<Toast message="Error message" type="error" />)
+    const toast = screen.getByTestId('toast')
+    expect(toast).toHaveAttribute('data-type', 'error')
   })
 
   it('calls onDismiss when dismiss button clicked', () => {
@@ -136,17 +132,17 @@ describe('Toast', () => {
   })
 
   it('has correct icon for each type', () => {
-    const { rerender, container } = render(<Toast message="Test" type="info" />)
-    expect(container.querySelector('.icon')).toHaveTextContent('ℹ️')
+    const { rerender } = render(<Toast message="Test" type="info" />)
+    expect(screen.getByTestId('toast-icon')).toHaveTextContent('ℹ️')
 
     rerender(<Toast message="Test" type="warning" />)
-    expect(container.querySelector('.icon')).toHaveTextContent('⚠️')
+    expect(screen.getByTestId('toast-icon')).toHaveTextContent('⚠️')
 
     rerender(<Toast message="Test" type="success" />)
-    expect(container.querySelector('.icon')).toHaveTextContent('✓')
+    expect(screen.getByTestId('toast-icon')).toHaveTextContent('✓')
 
     rerender(<Toast message="Test" type="error" />)
-    expect(container.querySelector('.icon')).toHaveTextContent('✗')
+    expect(screen.getByTestId('toast-icon')).toHaveTextContent('✗')
   })
 
   it('has proper ARIA attributes', () => {
