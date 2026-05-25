@@ -679,7 +679,9 @@ describe('azureUpload utilities', () => {
 
   describe('RETRY_CONFIG environment variable parsing', () => {
     const originalEnv = { ...import.meta.env }
-    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const consoleWarnSpy = vi
+      .spyOn(console, 'warn')
+      .mockImplementation(() => {})
 
     afterEach(() => {
       // Restore original environment
@@ -693,7 +695,7 @@ describe('azureUpload utilities', () => {
       consoleWarnSpy.mockClear()
     })
 
-    it('uses defaults when environment variables are not set', () => {
+    it('uses defaults when environment variables are not set', async () => {
       // Clear any existing env vars
       delete import.meta.env.VITE_UPLOAD_MAX_RETRIES
       delete import.meta.env.VITE_UPLOAD_BASE_DELAY
