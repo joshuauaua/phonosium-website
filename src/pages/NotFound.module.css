@@ -1,0 +1,130 @@
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 70vh;
+  overflow: hidden;
+}
+
+.waveBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: var(--ph-s-8) var(--ph-s-6);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.errorCode {
+  font-family: var(--ph-font-sans);
+  font-size: clamp(120px, 20vw, 188px);
+  font-weight: var(--ph-fw-black);
+  letter-spacing: var(--ph-ls-display);
+  line-height: 0.88;
+  color: var(--ph-orange);
+  opacity: 0.15;
+  margin-bottom: var(--ph-s-4);
+  user-select: none;
+}
+
+.title {
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: var(--ph-fw-black);
+  letter-spacing: var(--ph-ls-headline);
+  line-height: 1;
+  margin: 0 0 var(--ph-s-5);
+  color: var(--ph-ink);
+}
+
+.description {
+  font-size: var(--ph-fs-lead);
+  line-height: 1.6;
+  color: var(--ph-fg-lead);
+  margin: 0 0 var(--ph-s-7);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.actions {
+  display: flex;
+  gap: var(--ph-s-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ph-s-3);
+  padding: 14px 22px;
+  font-family: var(--ph-font-sans);
+  font-size: var(--ph-fs-body);
+  font-weight: var(--ph-fw-semibold);
+  letter-spacing: var(--ph-ls-caps);
+  text-transform: uppercase;
+  background: var(--ph-orange);
+  border: 1px solid var(--ph-orange);
+  color: var(--ph-ink);
+  border-radius: var(--ph-r-1);
+  cursor: pointer;
+  transition:
+    background var(--ph-dur-base) var(--ph-ease-out),
+    border-color var(--ph-dur-base) var(--ph-ease-out);
+}
+
+.btnPrimary:hover {
+  background: var(--ph-orange-deep);
+  border-color: var(--ph-orange-deep);
+  color: var(--ph-paper);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ph-s-3);
+  padding: 14px 22px;
+  font-family: var(--ph-font-sans);
+  font-size: var(--ph-fs-body);
+  font-weight: var(--ph-fw-semibold);
+  letter-spacing: var(--ph-ls-caps);
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--ph-ink);
+  color: var(--ph-ink);
+  border-radius: var(--ph-r-1);
+  cursor: pointer;
+  transition:
+    background var(--ph-dur-base) var(--ph-ease-out),
+    color var(--ph-dur-base) var(--ph-ease-out);
+}
+
+.btnSecondary:hover {
+  background: var(--ph-ink);
+  color: var(--ph-paper);
+}
+
+@media (max-width: 640px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
