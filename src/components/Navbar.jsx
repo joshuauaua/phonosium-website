@@ -30,11 +30,6 @@ export default function Navbar() {
 
       <nav className={styles.nav}>
         <NavLink to="/" className={styles.brand} onClick={closeMenu}>
-          <img
-            src="/octopus-logo.svg"
-            alt="Phonosium logo"
-            className={styles.logo}
-          />
           phon<span className={styles.brandO}>o</span>sium
         </NavLink>
 

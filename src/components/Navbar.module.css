@@ -67,12 +67,6 @@
   color: var(--ph-ink);
 }
 
-.logo {
-  width: 32px;
-  height: 32px;
-  display: block;
-}
-
 .brandO {
   font-style: normal;
   color: var(--ph-orange);
@@ -168,11 +162,6 @@
 
   .stripRight {
     display: none;
-  }
-
-  .logo {
-    width: 28px;
-    height: 28px;
   }
 
   .hamburger {
