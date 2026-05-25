@@ -9,8 +9,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px var(--ph-s-6);
-  background: var(--ph-ink);
-  color: var(--ph-paper);
+  background: var(--ph-orange);
+  color: var(--ph-ink);
   font-family: var(--ph-font-mono);
   font-size: var(--ph-fs-mono-xs);
   letter-spacing: 0.12em;
@@ -24,7 +24,7 @@
 }
 
 .stripRight {
-  color: rgba(250, 247, 242, 0.85);
+  color: rgba(20, 17, 14, 0.75);
 }
 
 .dot {
