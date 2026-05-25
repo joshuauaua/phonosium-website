@@ -691,5 +691,132 @@ describe('azureUpload utilities', () => {
         'Upload failed: Network error'
       )
     })
+
+    it('calls onRetry callback with correct parameters during retry', async () => {
+      const onRetry = vi.fn()
+
+      globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
+
+      const mockXHR = createMockXHR()
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          mockXHR.status = 200
+          setTimeout(() => handler(), 0)
+        }
+      })
+
+      const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
+      await uploadFile(file, 'audio', 'sub-123', null, onRetry, null)
+
+      expect(onRetry).toHaveBeenCalledTimes(1)
+      expect(onRetry).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attempt: 1,
+          maxAttempts: 4,
+          delay: 1000,
+          error: 'Network error: Network failure',
+          operationName: 'Upload URL request',
+        })
+      )
+    })
+
+    it('calls onRetrySuccess callback when retry succeeds', async () => {
+      const onRetrySuccess = vi.fn()
+
+      globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
+
+      const mockXHR = createMockXHR()
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          mockXHR.status = 200
+          setTimeout(() => handler(), 0)
+        }
+      })
+
+      const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
+      await uploadFile(file, 'audio', 'sub-123', null, null, onRetrySuccess)
+
+      expect(onRetrySuccess).toHaveBeenCalledTimes(1)
+      expect(onRetrySuccess).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attempt: 2,
+          operationName: 'Upload URL request',
+        })
+      )
+    })
+
+    it('does not call onRetry or onRetrySuccess on first successful attempt', async () => {
+      const onRetry = vi.fn()
+      const onRetrySuccess = vi.fn()
+
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
+
+      const mockXHR = createMockXHR()
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          mockXHR.status = 200
+          setTimeout(() => handler(), 0)
+        }
+      })
+
+      const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
+      await uploadFile(file, 'audio', 'sub-123', null, onRetry, onRetrySuccess)
+
+      expect(onRetry).not.toHaveBeenCalled()
+      expect(onRetrySuccess).not.toHaveBeenCalled()
+    })
+
+    it('does not call callbacks if not provided (backward compatibility)', async () => {
+      globalThis.fetch.mockRejectedValueOnce(new Error('Network failure'))
+      globalThis.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            uploadUrl: 'https://storage.blob.core.windows.net/test?sas=token',
+            blobName: 'id/test.wav',
+            submissionId: 'id',
+          }),
+      })
+
+      const mockXHR = createMockXHR()
+      mockXHR.addEventListener.mockImplementation((event, handler) => {
+        if (event === 'load') {
+          mockXHR.status = 200
+          setTimeout(() => handler(), 0)
+        }
+      })
+
+      const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
+
+      await expect(
+        uploadFile(file, 'audio', 'sub-123')
+      ).resolves.not.toThrow()
+    })
   })
 })
