@@ -78,10 +78,11 @@ describe('azureUpload utilities', () => {
 
       expect(logErrorSpy).toHaveBeenCalledWith(
         'upload_url_request_failed',
-        expect.stringContaining('Upload URL request failed'),
+        'Server error',
         expect.objectContaining({
           status: 500,
           statusText: 'Internal Server Error',
+          responseBody: 'Server error',
           fileName: 'test.wav',
           fileType: 'audio/wav',
           fileSize: 1024,
