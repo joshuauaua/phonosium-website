@@ -27,11 +27,15 @@ function isRetryableError(error, statusCode) {
 }
 
 /**
- * Calculate exponential backoff delay
+ * Calculate exponential backoff delay with randomized jitter
+ * Jitter adds ±20% variance to prevent thundering herd problems
  */
 function getBackoffDelay(attemptNumber) {
-  const delay = RETRY_CONFIG.baseDelay * Math.pow(2, attemptNumber)
-  return Math.min(delay, RETRY_CONFIG.maxDelay)
+  const baseDelay = RETRY_CONFIG.baseDelay * Math.pow(2, attemptNumber)
+  // Apply jitter: random factor between 0.8 and 1.2 (±20%)
+  const jitter = 0.8 + Math.random() * 0.4
+  const delayWithJitter = baseDelay * jitter
+  return Math.min(delayWithJitter, RETRY_CONFIG.maxDelay)
 }
 
 /**

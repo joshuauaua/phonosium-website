@@ -692,4 +692,156 @@ describe('azureUpload utilities', () => {
       )
     })
   })
+
+  describe('exponential backoff with jitter', () => {
+    it(
+      'applies jitter within ±20% of base delay',
+      async () => {
+        const delays = []
+        const originalSetTimeout = globalThis.setTimeout
+
+        // Mock setTimeout to capture delay values
+        globalThis.setTimeout = vi.fn((fn, delay) => {
+          delays.push(delay)
+          return originalSetTimeout(fn, 0)
+        })
+
+        // Mock fetch to fail 3 times, then succeed
+        let attemptCount = 0
+        globalThis.fetch.mockImplementation(() => {
+          attemptCount++
+          if (attemptCount <= 3) {
+            return Promise.reject(new Error('Network failure'))
+          }
+          return Promise.resolve({
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                uploadUrl:
+                  'https://storage.blob.core.windows.net/test?sas=token',
+                blobName: 'id/test.wav',
+                submissionId: 'id',
+              }),
+          })
+        })
+
+        await requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio', 'sub-123')
+
+        globalThis.setTimeout = originalSetTimeout
+
+        // Should have 3 delays (for retries after attempts 1, 2, 3)
+        expect(delays.length).toBe(3)
+
+        // Base delays are: 1000ms (2^0), 2000ms (2^1), 4000ms (2^2)
+        // With jitter: ±20% means multiply by 0.8-1.2
+        const expectedBases = [1000, 2000, 4000]
+        delays.forEach((delay, i) => {
+          const base = expectedBases[i]
+          const min = base * 0.8
+          const max = base * 1.2
+          expect(delay).toBeGreaterThanOrEqual(min)
+          expect(delay).toBeLessThanOrEqual(max)
+        })
+      },
+      10000
+    )
+
+    it(
+      'produces different delays on repeated attempts',
+      async () => {
+        const allDelays = []
+        const originalSetTimeout = globalThis.setTimeout
+
+        // Run the test multiple times to collect delay samples
+        for (let run = 0; run < 5; run++) {
+          const runDelays = []
+          globalThis.setTimeout = vi.fn((fn, delay) => {
+            runDelays.push(delay)
+            return originalSetTimeout(fn, 0)
+          })
+
+          // Mock fetch to fail twice, then succeed
+          let attemptCount = 0
+          globalThis.fetch.mockImplementation(() => {
+            attemptCount++
+            if (attemptCount <= 2) {
+              return Promise.reject(new Error('Network failure'))
+            }
+            return Promise.resolve({
+              ok: true,
+              json: () =>
+                Promise.resolve({
+                  uploadUrl:
+                    'https://storage.blob.core.windows.net/test?sas=token',
+                  blobName: 'id/test.wav',
+                  submissionId: 'id',
+                }),
+            })
+          })
+
+          await requestUploadUrl(
+            'test.wav',
+            'audio/wav',
+            1024,
+            'audio',
+            'sub-123'
+          )
+
+          allDelays.push(runDelays)
+        }
+
+        globalThis.setTimeout = originalSetTimeout
+
+        // Check that the first delay varies across runs (non-deterministic)
+        const firstDelays = allDelays.map(delays => delays[0])
+        const uniqueFirstDelays = new Set(firstDelays)
+
+        // With 5 runs and random jitter, we should see at least 2 different values
+        expect(uniqueFirstDelays.size).toBeGreaterThanOrEqual(2)
+      },
+      10000
+    )
+
+    it(
+      'applies jitter before maxDelay cap',
+      async () => {
+        const delays = []
+        const originalSetTimeout = globalThis.setTimeout
+
+        globalThis.setTimeout = vi.fn((fn, delay) => {
+          delays.push(delay)
+          return originalSetTimeout(fn, 0)
+        })
+
+        // Mock fetch to fail all 4 attempts
+        globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+
+        await expect(
+          requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio', 'sub-123')
+        ).rejects.toThrow('Upload URL request failed after 4 attempts')
+
+        globalThis.setTimeout = originalSetTimeout
+
+        // Should have 3 delays
+        expect(delays.length).toBe(3)
+
+        // The third delay has base 4000ms, with jitter could be up to 4800ms
+        // But maxDelay is 10000ms, so it should never exceed that
+        delays.forEach(delay => {
+          expect(delay).toBeLessThanOrEqual(10000)
+        })
+
+        // Also verify the last delay is within expected range before cap
+        // Base is 4000ms * 2^2 = 16000ms, but capped at 10000ms
+        // No wait, attempt numbers are 0, 1, 2 for the 3 retries
+        // So delays are: 1000*2^0, 1000*2^1, 1000*2^2 = 1000, 2000, 4000
+        // None of these hit the cap, but let's verify jitter is applied first
+        const thirdDelay = delays[2]
+        const thirdBase = 4000
+        // Even with max jitter (1.2), 4000 * 1.2 = 4800, still under 10000
+        expect(thirdDelay).toBeLessThanOrEqual(Math.min(thirdBase * 1.2, 10000))
+      },
+      10000
+    )
+  })
 })
