@@ -76,7 +76,11 @@ export async function uploadFileToBlob(file, sasUrl, onProgress) {
           statusText: xhr.statusText,
           responseText: xhr.responseText,
         })
-        reject(new Error(`Upload failed with status ${xhr.status}: ${xhr.statusText}`))
+        reject(
+          new Error(
+            `Upload failed with status ${xhr.status}: ${xhr.statusText}`
+          )
+        )
       }
     })
 
