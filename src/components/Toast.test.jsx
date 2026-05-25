@@ -32,9 +32,7 @@ describe('Toast', () => {
   })
 
   it('shows correct styling for info type', () => {
-    const { container } = render(
-      <Toast message="Info message" type="info" />
-    )
+    const { container } = render(<Toast message="Info message" type="info" />)
     const toast = container.querySelector('.toast')
     expect(toast).toHaveClass('info')
   })
@@ -56,22 +54,14 @@ describe('Toast', () => {
   })
 
   it('shows correct styling for error type', () => {
-    const { container } = render(
-      <Toast message="Error message" type="error" />
-    )
+    const { container } = render(<Toast message="Error message" type="error" />)
     const toast = container.querySelector('.toast')
     expect(toast).toHaveClass('error')
   })
 
   it('calls onDismiss when dismiss button clicked', () => {
     const onDismiss = vi.fn()
-    render(
-      <Toast
-        message="Test message"
-        type="info"
-        onDismiss={onDismiss}
-      />
-    )
+    render(<Toast message="Test message" type="info" onDismiss={onDismiss} />)
 
     const dismissButton = screen.getByLabelText('Dismiss notification')
     fireEvent.click(dismissButton)
@@ -146,9 +136,7 @@ describe('Toast', () => {
   })
 
   it('has correct icon for each type', () => {
-    const { rerender, container } = render(
-      <Toast message="Test" type="info" />
-    )
+    const { rerender, container } = render(<Toast message="Test" type="info" />)
     expect(container.querySelector('.icon')).toHaveTextContent('ℹ️')
 
     rerender(<Toast message="Test" type="warning" />)

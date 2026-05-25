@@ -372,7 +372,8 @@ export default function ContributionForm({ onClose }) {
             formData.loopFile,
             'audio',
             submissionId,
-            progress => setUploadProgress(prev => ({ ...prev, loop: progress })),
+            progress =>
+              setUploadProgress(prev => ({ ...prev, loop: progress })),
             createRetryHandler('loop'),
             createRetrySuccessHandler('loop')
           )

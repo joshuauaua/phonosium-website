@@ -160,20 +160,16 @@ describe('azureUpload utilities', () => {
       expect(globalThis.fetch).toHaveBeenCalledTimes(2)
     })
 
-    it(
-      'exhausts retries and throws final error',
-      async () => {
-        // All 4 attempts fail (initial + 3 retries)
-        globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+    it('exhausts retries and throws final error', async () => {
+      // All 4 attempts fail (initial + 3 retries)
+      globalThis.fetch.mockRejectedValue(new Error('Network failure'))
 
-        await expect(
-          requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio', 'sub-123')
-        ).rejects.toThrow('Upload URL request failed after 4 attempts')
+      await expect(
+        requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio', 'sub-123')
+      ).rejects.toThrow('Upload URL request failed after 4 attempts')
 
-        expect(globalThis.fetch).toHaveBeenCalledTimes(4)
-      },
-      10000
-    )
+      expect(globalThis.fetch).toHaveBeenCalledTimes(4)
+    }, 10000)
   })
 
   describe('uploadFileToBlob', () => {
@@ -231,115 +227,107 @@ describe('azureUpload utilities', () => {
       expect(mockXHR.send).toHaveBeenCalledWith(file)
     })
 
-    it(
-      'retries on network error and succeeds',
-      async () => {
-        const file = new File(['test content'], 'test.wav', {
-          type: 'audio/wav',
-        })
-        const onProgress = vi.fn()
+    it('retries on network error and succeeds', async () => {
+      const file = new File(['test content'], 'test.wav', {
+        type: 'audio/wav',
+      })
+      const onProgress = vi.fn()
 
-        let attemptCount = 0
-        globalThis.XMLHttpRequest = vi.fn(function () {
-          const xhr = {
-            open: vi.fn(),
-            send: vi.fn(),
-            setRequestHeader: vi.fn(),
-            upload: {
-              addEventListener: vi.fn(),
-            },
+      let attemptCount = 0
+      globalThis.XMLHttpRequest = vi.fn(function () {
+        const xhr = {
+          open: vi.fn(),
+          send: vi.fn(),
+          setRequestHeader: vi.fn(),
+          upload: {
             addEventListener: vi.fn(),
-            status: 0,
-            statusText: '',
-            responseText: '',
-          }
+          },
+          addEventListener: vi.fn(),
+          status: 0,
+          statusText: '',
+          responseText: '',
+        }
 
-          // Trigger handlers after send is called
-          xhr.send.mockImplementation(() => {
-            attemptCount++
-            if (attemptCount === 1) {
-              // First attempt: network error
-              const errorHandler = xhr.addEventListener.mock.calls.find(
-                call => call[0] === 'error'
-              )[1]
-              errorHandler()
-            } else {
-              // Second attempt: success
-              const loadHandler = xhr.addEventListener.mock.calls.find(
-                call => call[0] === 'load'
-              )[1]
-              xhr.status = 201
-              loadHandler()
-            }
-          })
-
-          return xhr
-        })
-
-        await uploadFileToBlob(
-          file,
-          'https://storage.blob.core.windows.net/test?sas=token',
-          onProgress
-        )
-
-        expect(attemptCount).toBe(2)
-        expect(onProgress).toHaveBeenCalledWith(0) // Progress reset on retry
-      },
-      10000
-    )
-
-    it(
-      'retries on 500 error and succeeds',
-      async () => {
-        const file = new File(['test content'], 'test.wav', {
-          type: 'audio/wav',
-        })
-
-        let attemptCount = 0
-        globalThis.XMLHttpRequest = vi.fn(function () {
-          const xhr = {
-            open: vi.fn(),
-            send: vi.fn(),
-            setRequestHeader: vi.fn(),
-            upload: {
-              addEventListener: vi.fn(),
-            },
-            addEventListener: vi.fn(),
-            status: 0,
-            statusText: '',
-            responseText: '',
-          }
-
-          xhr.send.mockImplementation(() => {
-            attemptCount++
+        // Trigger handlers after send is called
+        xhr.send.mockImplementation(() => {
+          attemptCount++
+          if (attemptCount === 1) {
+            // First attempt: network error
+            const errorHandler = xhr.addEventListener.mock.calls.find(
+              call => call[0] === 'error'
+            )[1]
+            errorHandler()
+          } else {
+            // Second attempt: success
             const loadHandler = xhr.addEventListener.mock.calls.find(
               call => call[0] === 'load'
             )[1]
-
-            if (attemptCount === 1) {
-              // First attempt: 500 error
-              xhr.status = 500
-              xhr.statusText = 'Internal Server Error'
-              loadHandler()
-            } else {
-              // Second attempt: success
-              xhr.status = 201
-              loadHandler()
-            }
-          })
-
-          return xhr
+            xhr.status = 201
+            loadHandler()
+          }
         })
 
-        await uploadFileToBlob(
-          file,
-          'https://storage.blob.core.windows.net/test?sas=token'
-        )
+        return xhr
+      })
 
-        expect(attemptCount).toBe(2)
-      },
-      10000
-    )
+      await uploadFileToBlob(
+        file,
+        'https://storage.blob.core.windows.net/test?sas=token',
+        onProgress
+      )
+
+      expect(attemptCount).toBe(2)
+      expect(onProgress).toHaveBeenCalledWith(0) // Progress reset on retry
+    }, 10000)
+
+    it('retries on 500 error and succeeds', async () => {
+      const file = new File(['test content'], 'test.wav', {
+        type: 'audio/wav',
+      })
+
+      let attemptCount = 0
+      globalThis.XMLHttpRequest = vi.fn(function () {
+        const xhr = {
+          open: vi.fn(),
+          send: vi.fn(),
+          setRequestHeader: vi.fn(),
+          upload: {
+            addEventListener: vi.fn(),
+          },
+          addEventListener: vi.fn(),
+          status: 0,
+          statusText: '',
+          responseText: '',
+        }
+
+        xhr.send.mockImplementation(() => {
+          attemptCount++
+          const loadHandler = xhr.addEventListener.mock.calls.find(
+            call => call[0] === 'load'
+          )[1]
+
+          if (attemptCount === 1) {
+            // First attempt: 500 error
+            xhr.status = 500
+            xhr.statusText = 'Internal Server Error'
+            loadHandler()
+          } else {
+            // Second attempt: success
+            xhr.status = 201
+            loadHandler()
+          }
+        })
+
+        return xhr
+      })
+
+      await uploadFileToBlob(
+        file,
+        'https://storage.blob.core.windows.net/test?sas=token'
+      )
+
+      expect(attemptCount).toBe(2)
+    }, 10000)
 
     it('does not retry on 403 error (invalid SAS token)', async () => {
       const file = new File(['test content'], 'test.wav', { type: 'audio/wav' })
@@ -365,50 +353,46 @@ describe('azureUpload utilities', () => {
       expect(mockXHR.send).toHaveBeenCalledTimes(1)
     })
 
-    it(
-      'exhausts retries on persistent network errors',
-      async () => {
-        const file = new File(['test content'], 'test.wav', {
-          type: 'audio/wav',
-        })
+    it('exhausts retries on persistent network errors', async () => {
+      const file = new File(['test content'], 'test.wav', {
+        type: 'audio/wav',
+      })
 
-        let attemptCount = 0
-        globalThis.XMLHttpRequest = vi.fn(function () {
-          const xhr = {
-            open: vi.fn(),
-            send: vi.fn(),
-            setRequestHeader: vi.fn(),
-            upload: {
-              addEventListener: vi.fn(),
-            },
+      let attemptCount = 0
+      globalThis.XMLHttpRequest = vi.fn(function () {
+        const xhr = {
+          open: vi.fn(),
+          send: vi.fn(),
+          setRequestHeader: vi.fn(),
+          upload: {
             addEventListener: vi.fn(),
-            status: 0,
-            statusText: '',
-            responseText: '',
-          }
+          },
+          addEventListener: vi.fn(),
+          status: 0,
+          statusText: '',
+          responseText: '',
+        }
 
-          xhr.send.mockImplementation(() => {
-            attemptCount++
-            const errorHandler = xhr.addEventListener.mock.calls.find(
-              call => call[0] === 'error'
-            )[1]
-            errorHandler()
-          })
-
-          return xhr
+        xhr.send.mockImplementation(() => {
+          attemptCount++
+          const errorHandler = xhr.addEventListener.mock.calls.find(
+            call => call[0] === 'error'
+          )[1]
+          errorHandler()
         })
 
-        await expect(
-          uploadFileToBlob(
-            file,
-            'https://storage.blob.core.windows.net/test?sas=token'
-          )
-        ).rejects.toThrow('Blob upload failed after 4 attempts')
+        return xhr
+      })
 
-        expect(attemptCount).toBe(4) // initial + 3 retries
-      },
-      10000
-    )
+      await expect(
+        uploadFileToBlob(
+          file,
+          'https://storage.blob.core.windows.net/test?sas=token'
+        )
+      ).rejects.toThrow('Blob upload failed after 4 attempts')
+
+      expect(attemptCount).toBe(4) // initial + 3 retries
+    }, 10000)
   })
 
   describe('submitFormData', () => {
@@ -706,7 +690,20 @@ describe('azureUpload utilities', () => {
           }),
       })
 
-      const mockXHR = createMockXHR()
+      const mockXHR = {
+        open: vi.fn(),
+        send: vi.fn(),
+        setRequestHeader: vi.fn(),
+        upload: {
+          addEventListener: vi.fn(),
+        },
+        addEventListener: vi.fn(),
+        status: 0,
+        statusText: '',
+        responseText: '',
+      }
+      globalThis.XMLHttpRequest = vi.fn(() => mockXHR)
+
       mockXHR.addEventListener.mockImplementation((event, handler) => {
         if (event === 'load') {
           mockXHR.status = 200
@@ -743,7 +740,20 @@ describe('azureUpload utilities', () => {
           }),
       })
 
-      const mockXHR = createMockXHR()
+      const mockXHR = {
+        open: vi.fn(),
+        send: vi.fn(),
+        setRequestHeader: vi.fn(),
+        upload: {
+          addEventListener: vi.fn(),
+        },
+        addEventListener: vi.fn(),
+        status: 0,
+        statusText: '',
+        responseText: '',
+      }
+      globalThis.XMLHttpRequest = vi.fn(() => mockXHR)
+
       mockXHR.addEventListener.mockImplementation((event, handler) => {
         if (event === 'load') {
           mockXHR.status = 200
@@ -777,7 +787,20 @@ describe('azureUpload utilities', () => {
           }),
       })
 
-      const mockXHR = createMockXHR()
+      const mockXHR = {
+        open: vi.fn(),
+        send: vi.fn(),
+        setRequestHeader: vi.fn(),
+        upload: {
+          addEventListener: vi.fn(),
+        },
+        addEventListener: vi.fn(),
+        status: 0,
+        statusText: '',
+        responseText: '',
+      }
+      globalThis.XMLHttpRequest = vi.fn(() => mockXHR)
+
       mockXHR.addEventListener.mockImplementation((event, handler) => {
         if (event === 'load') {
           mockXHR.status = 200
@@ -804,7 +827,20 @@ describe('azureUpload utilities', () => {
           }),
       })
 
-      const mockXHR = createMockXHR()
+      const mockXHR = {
+        open: vi.fn(),
+        send: vi.fn(),
+        setRequestHeader: vi.fn(),
+        upload: {
+          addEventListener: vi.fn(),
+        },
+        addEventListener: vi.fn(),
+        status: 0,
+        statusText: '',
+        responseText: '',
+      }
+      globalThis.XMLHttpRequest = vi.fn(() => mockXHR)
+
       mockXHR.addEventListener.mockImplementation((event, handler) => {
         if (event === 'load') {
           mockXHR.status = 200
@@ -814,9 +850,7 @@ describe('azureUpload utilities', () => {
 
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
 
-      await expect(
-        uploadFile(file, 'audio', 'sub-123')
-      ).resolves.not.toThrow()
+      await expect(uploadFile(file, 'audio', 'sub-123')).resolves.not.toThrow()
     })
   })
 })
