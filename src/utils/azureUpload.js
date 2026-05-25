@@ -20,10 +20,24 @@ export async function requestUploadUrl(
   })
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}))
-    throw new Error(
-      error.error || `Upload URL request failed: ${response.status}`
-    )
+    const errorText = await response.text()
+    let errorMessage = `Upload URL request failed: ${response.status}`
+
+    try {
+      const error = JSON.parse(errorText)
+      errorMessage = error.error || errorMessage
+    } catch {
+      // If not JSON, use the text or status
+      errorMessage = errorText || errorMessage
+    }
+
+    console.error('requestUploadUrl failed:', {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorText,
+    })
+
+    throw new Error(errorMessage)
   }
 
   return response.json()
@@ -39,16 +53,32 @@ export async function uploadFileToBlob(file, sasUrl, onProgress) {
       }
     })
 
+    xhr.addEventListener('error', () => {
+      console.error('Upload XHR error:', {
+        status: xhr.status,
+        statusText: xhr.statusText,
+        responseText: xhr.responseText,
+      })
+      reject(new Error('Upload failed: Network error'))
+    })
+
+    xhr.addEventListener('abort', () => {
+      console.error('Upload XHR aborted')
+      reject(new Error('Upload aborted'))
+    })
+
     xhr.addEventListener('load', () => {
       if (xhr.status >= 200 && xhr.status < 300) {
         resolve()
       } else {
-        reject(new Error(`Upload failed with status ${xhr.status}`))
+        console.error('Upload XHR failed:', {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          responseText: xhr.responseText,
+        })
+        reject(new Error(`Upload failed with status ${xhr.status}: ${xhr.statusText}`))
       }
     })
-
-    xhr.addEventListener('error', () => reject(new Error('Upload failed')))
-    xhr.addEventListener('abort', () => reject(new Error('Upload aborted')))
 
     xhr.open('PUT', sasUrl)
     xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob')
@@ -89,8 +119,23 @@ export async function submitFormData(formData, blobReferences) {
   })
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}))
-    throw new Error(error.error || `Submission failed: ${response.status}`)
+    const errorText = await response.text()
+    let errorMessage = `Submission failed: ${response.status}`
+
+    try {
+      const error = JSON.parse(errorText)
+      errorMessage = error.error || errorMessage
+    } catch {
+      errorMessage = errorText || errorMessage
+    }
+
+    console.error('submitFormData failed:', {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorText,
+    })
+
+    throw new Error(errorMessage)
   }
 
   return response.json()
