@@ -68,6 +68,30 @@ After successful deployment, update your Vercel environment variable:
 - **Upload URL Endpoint:** https://phonosium-api.azurewebsites.net/api/submissions/upload-url
 - **Submit Form Endpoint:** https://phonosium-api.azurewebsites.net/api/submissions/submit
 
+## 🔧 Upload Retry Configuration (Optional)
+
+Control upload retry behavior via environment variables:
+
+- **VITE_UPLOAD_MAX_RETRIES**: Maximum retry attempts (default: 3, range: 0-10)
+- **VITE_UPLOAD_BASE_DELAY**: Initial delay in milliseconds (default: 1000, range: 100-60000)
+- **VITE_UPLOAD_MAX_DELAY**: Maximum delay in milliseconds (default: 10000, range: baseDelay-300000)
+
+Retries use exponential backoff: delay = baseDelay × 2^attemptNumber, capped at maxDelay.
+
+Example for production (more resilient):
+```bash
+VITE_UPLOAD_MAX_RETRIES=5
+VITE_UPLOAD_BASE_DELAY=2000
+VITE_UPLOAD_MAX_DELAY=30000
+```
+
+Example for local dev (fail fast):
+```bash
+VITE_UPLOAD_MAX_RETRIES=1
+VITE_UPLOAD_BASE_DELAY=500
+VITE_UPLOAD_MAX_DELAY=5000
+```
+
 ## 🧪 Testing the Deployment
 
 After deployment completes, test the endpoints:

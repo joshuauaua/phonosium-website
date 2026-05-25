@@ -1,13 +1,34 @@
 const API_BASE_URL = import.meta.env.VITE_AZURE_FUNCTIONS_URL || '/api'
 
 /**
+ * Parse and validate retry configuration from environment variables
+ */
+function parseRetryConfig() {
+  const maxRetries = parseInt(import.meta.env.VITE_UPLOAD_MAX_RETRIES || '3', 10)
+  const baseDelay = parseInt(import.meta.env.VITE_UPLOAD_BASE_DELAY || '1000', 10)
+  const maxDelay = parseInt(import.meta.env.VITE_UPLOAD_MAX_DELAY || '10000', 10)
+
+  // Validate ranges
+  if (maxRetries < 0 || maxRetries > 10) {
+    console.warn(`Invalid VITE_UPLOAD_MAX_RETRIES (${maxRetries}), using default: 3`)
+    return { maxRetries: 3, baseDelay, maxDelay }
+  }
+  if (baseDelay < 100 || baseDelay > 60000) {
+    console.warn(`Invalid VITE_UPLOAD_BASE_DELAY (${baseDelay}), using default: 1000`)
+    return { maxRetries, baseDelay: 1000, maxDelay }
+  }
+  if (maxDelay < baseDelay || maxDelay > 300000) {
+    console.warn(`Invalid VITE_UPLOAD_MAX_DELAY (${maxDelay}), using default: 10000`)
+    return { maxRetries, baseDelay, maxDelay: 10000 }
+  }
+
+  return { maxRetries, baseDelay, maxDelay }
+}
+
+/**
  * Retry configuration for network operations
  */
-const RETRY_CONFIG = {
-  maxRetries: 3,
-  baseDelay: 1000, // 1 second
-  maxDelay: 10000, // 10 seconds
-}
+const RETRY_CONFIG = parseRetryConfig()
 
 /**
  * Check if an error is retryable

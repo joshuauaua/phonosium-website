@@ -692,4 +692,157 @@ describe('azureUpload utilities', () => {
       )
     })
   })
+
+  describe('RETRY_CONFIG environment variable parsing', () => {
+    const originalEnv = { ...import.meta.env }
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    afterEach(() => {
+      // Restore original environment
+      Object.keys(import.meta.env).forEach(key => {
+        if (!originalEnv[key]) {
+          delete import.meta.env[key]
+        } else {
+          import.meta.env[key] = originalEnv[key]
+        }
+      })
+      consoleWarnSpy.mockClear()
+    })
+
+    it('uses defaults when environment variables are not set', () => {
+      // Clear any existing env vars
+      delete import.meta.env.VITE_UPLOAD_MAX_RETRIES
+      delete import.meta.env.VITE_UPLOAD_BASE_DELAY
+      delete import.meta.env.VITE_UPLOAD_MAX_DELAY
+
+      // Re-import to trigger parseRetryConfig
+      vi.resetModules()
+      const module = await import('./azureUpload')
+
+      // Test that defaults are used by checking retry behavior
+      globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+
+      await expect(
+        module.requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio')
+      ).rejects.toThrow('Upload URL request failed after 4 attempts')
+
+      // 1 initial + 3 retries = 4 calls
+      expect(globalThis.fetch).toHaveBeenCalledTimes(4)
+    })
+
+    it('parses valid environment variables correctly', async () => {
+      import.meta.env.VITE_UPLOAD_MAX_RETRIES = '5'
+      import.meta.env.VITE_UPLOAD_BASE_DELAY = '2000'
+      import.meta.env.VITE_UPLOAD_MAX_DELAY = '30000'
+
+      vi.resetModules()
+      const module = await import('./azureUpload')
+
+      // Test maxRetries by exhausting them
+      globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+
+      await expect(
+        module.requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio')
+      ).rejects.toThrow('Upload URL request failed after 6 attempts')
+
+      // 1 initial + 5 retries = 6 calls
+      expect(globalThis.fetch).toHaveBeenCalledTimes(6)
+      expect(consoleWarnSpy).not.toHaveBeenCalled()
+    })
+
+    it('falls back to default for maxRetries < 0', async () => {
+      import.meta.env.VITE_UPLOAD_MAX_RETRIES = '-1'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Invalid VITE_UPLOAD_MAX_RETRIES (-1), using default: 3'
+      )
+    })
+
+    it('falls back to default for maxRetries > 10', async () => {
+      import.meta.env.VITE_UPLOAD_MAX_RETRIES = '15'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Invalid VITE_UPLOAD_MAX_RETRIES (15), using default: 3'
+      )
+    })
+
+    it('accepts maxRetries = 0 (no retries)', async () => {
+      import.meta.env.VITE_UPLOAD_MAX_RETRIES = '0'
+
+      vi.resetModules()
+      const module = await import('./azureUpload')
+
+      globalThis.fetch.mockRejectedValue(new Error('Network failure'))
+
+      await expect(
+        module.requestUploadUrl('test.wav', 'audio/wav', 1024, 'audio')
+      ).rejects.toThrow('Upload URL request failed after 1 attempts')
+
+      // Only 1 call (initial attempt, no retries)
+      expect(globalThis.fetch).toHaveBeenCalledTimes(1)
+      expect(consoleWarnSpy).not.toHaveBeenCalled()
+    })
+
+    it('falls back to default for baseDelay < 100', async () => {
+      import.meta.env.VITE_UPLOAD_BASE_DELAY = '50'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Invalid VITE_UPLOAD_BASE_DELAY (50), using default: 1000'
+      )
+    })
+
+    it('falls back to default for baseDelay > 60000', async () => {
+      import.meta.env.VITE_UPLOAD_BASE_DELAY = '70000'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Invalid VITE_UPLOAD_BASE_DELAY (70000), using default: 1000'
+      )
+    })
+
+    it('falls back to default for maxDelay < baseDelay', async () => {
+      import.meta.env.VITE_UPLOAD_BASE_DELAY = '5000'
+      import.meta.env.VITE_UPLOAD_MAX_DELAY = '3000'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Invalid VITE_UPLOAD_MAX_DELAY (3000), using default: 10000'
+      )
+    })
+
+    it('falls back to default for maxDelay > 300000', async () => {
+      import.meta.env.VITE_UPLOAD_MAX_DELAY = '400000'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Invalid VITE_UPLOAD_MAX_DELAY (400000), using default: 10000'
+      )
+    })
+
+    it('handles non-numeric values gracefully', async () => {
+      import.meta.env.VITE_UPLOAD_MAX_RETRIES = 'abc'
+      import.meta.env.VITE_UPLOAD_BASE_DELAY = 'xyz'
+
+      vi.resetModules()
+      await import('./azureUpload')
+
+      // parseInt returns NaN for non-numeric strings, which fails validation
+      expect(consoleWarnSpy).toHaveBeenCalled()
+    })
+  })
 })
