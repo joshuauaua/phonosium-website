@@ -14,6 +14,10 @@
       "destination": "/api/submit"
     },
     {
+      "source": "/api/log",
+      "destination": "/api/log"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
