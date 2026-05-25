@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import styles from './ContributionForm.module.css'
 import { uploadFile, submitFormData } from '../utils/azureUpload'
+import Toast from './Toast'
 
 export default function ContributionForm({ onClose }) {
   const [step, setStep] = useState(1)
@@ -26,6 +27,7 @@ export default function ContributionForm({ onClose }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
   const [uploadProgress, setUploadProgress] = useState({})
+  const [retryNotifications, setRetryNotifications] = useState({})
   const [fieldErrors, setFieldErrors] = useState({})
   const [isExiting, setIsExiting] = useState(false)
   const [customTagInput, setCustomTagInput] = useState('')
@@ -326,6 +328,39 @@ export default function ContributionForm({ onClose }) {
       setIsSubmitting(true)
       setSubmitError(null)
       setUploadProgress({})
+      setRetryNotifications({})
+
+      const createRetryHandler = fileKey => retryInfo => {
+        const { attempt, maxAttempts, delay, error } = retryInfo
+        setRetryNotifications(prev => ({
+          ...prev,
+          [fileKey]: {
+            message: `Upload retry ${attempt} of ${maxAttempts} - Retrying in ${Math.round(delay / 1000)}s...`,
+            description: error,
+            type: attempt > 2 ? 'warning' : 'info',
+            timestamp: Date.now(),
+          },
+        }))
+      }
+
+      const createRetrySuccessHandler = fileKey => () => {
+        setRetryNotifications(prev => ({
+          ...prev,
+          [fileKey]: {
+            message: 'Upload succeeded after retry',
+            description: null,
+            type: 'success',
+            timestamp: Date.now(),
+          },
+        }))
+        setTimeout(() => {
+          setRetryNotifications(prev => {
+            const next = { ...prev }
+            delete next[fileKey]
+            return next
+          })
+        }, 2000)
+      }
 
       try {
         let submissionId = null
@@ -337,7 +372,10 @@ export default function ContributionForm({ onClose }) {
             formData.loopFile,
             'audio',
             submissionId,
-            progress => setUploadProgress(prev => ({ ...prev, loop: progress }))
+            progress =>
+              setUploadProgress(prev => ({ ...prev, loop: progress })),
+            createRetryHandler('loop'),
+            createRetrySuccessHandler('loop')
           )
           submissionId = result.submissionId
           blobReferences.loop = result.blobName
@@ -352,7 +390,9 @@ export default function ContributionForm({ onClose }) {
             'audio',
             submissionId,
             progress =>
-              setUploadProgress(prev => ({ ...prev, [key]: progress }))
+              setUploadProgress(prev => ({ ...prev, [key]: progress })),
+            createRetryHandler(key),
+            createRetrySuccessHandler(key)
           )
           submissionId = submissionId || result.submissionId
           blobReferences.samples.push(result.blobName)
@@ -365,7 +405,9 @@ export default function ContributionForm({ onClose }) {
             'image',
             submissionId,
             progress =>
-              setUploadProgress(prev => ({ ...prev, cover: progress }))
+              setUploadProgress(prev => ({ ...prev, cover: progress })),
+            createRetryHandler('cover'),
+            createRetrySuccessHandler('cover')
           )
           submissionId = submissionId || result.submissionId
           blobReferences.cover = result.blobName
@@ -389,10 +431,12 @@ export default function ContributionForm({ onClose }) {
         )
 
         setIsSubmitted(true)
+        setRetryNotifications({})
       } catch (error) {
         setSubmitError(
           error.message || 'Something went wrong. Please try again.'
         )
+        setRetryNotifications({})
       } finally {
         setIsSubmitting(false)
       }
@@ -928,6 +972,22 @@ export default function ContributionForm({ onClose }) {
               )}
             </div>
           )}
+
+          {Object.entries(retryNotifications).map(([key, notification]) => (
+            <Toast
+              key={key}
+              message={notification.message}
+              description={notification.description}
+              type={notification.type}
+              onDismiss={() => {
+                setRetryNotifications(prev => {
+                  const next = { ...prev }
+                  delete next[key]
+                  return next
+                })
+              }}
+            />
+          ))}
 
           <div className={styles.footer}>
             {step > 1 ? (

@@ -1,0 +1,92 @@
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.text {
+  flex: 1;
+}
+
+.message {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.description {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.dismissButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-left: 8px;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.dismissButton:hover {
+  opacity: 1;
+}
+
+/* Type variants */
+.info {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border-left: 4px solid #1976d2;
+}
+
+.warning {
+  background-color: #fff3e0;
+  color: #e65100;
+  border-left: 4px solid #f57c00;
+}
+
+.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-left: 4px solid #4caf50;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #f44336;
+}
