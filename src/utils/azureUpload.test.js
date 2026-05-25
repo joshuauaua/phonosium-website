@@ -475,14 +475,14 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl)
+      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+        'Blob upload failed after 4 attempts'
+      )
 
       // Advance through all retry delays and flush all timers
       await vi.runAllTimersAsync()
 
-      await expect(promise).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      await testPromise
     })
 
     it('retries on abort and exhausts attempts', async () => {
@@ -495,14 +495,14 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl)
+      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+        'Blob upload failed after 4 attempts'
+      )
 
       // Advance through all retry delays and flush all timers
       await vi.runAllTimersAsync()
 
-      await expect(promise).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      await testPromise
     })
 
     it('rejects when Azure returns 403 (expired SAS)', async () => {
@@ -517,12 +517,12 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=expired'
 
-      const promise = uploadFileToBlob(file, sasUrl)
-      await vi.advanceTimersByTimeAsync(0)
-
-      await expect(promise).rejects.toThrow(
+      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload failed with status 403: Forbidden'
       )
+      await vi.advanceTimersByTimeAsync(0)
+
+      await testPromise
     })
 
     it('rejects when Azure returns 404 (blob not found)', async () => {
@@ -537,12 +537,12 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl)
-      await vi.advanceTimersByTimeAsync(0)
-
-      await expect(promise).rejects.toThrow(
+      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
         'Upload failed with status 404: Not Found'
       )
+      await vi.advanceTimersByTimeAsync(0)
+
+      await testPromise
     })
 
     it('retries on 500 error and exhausts attempts', async () => {
@@ -557,14 +557,14 @@ describe('azureUpload utilities', () => {
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
       const sasUrl = 'https://storage.blob.core.windows.net/test?sas=token'
 
-      const promise = uploadFileToBlob(file, sasUrl)
+      const testPromise = expect(uploadFileToBlob(file, sasUrl)).rejects.toThrow(
+        'Blob upload failed after 4 attempts'
+      )
 
       // Advance through all retry delays and flush all timers
       await vi.runAllTimersAsync()
 
-      await expect(promise).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      await testPromise
     })
 
     it('calls onProgress callback with upload progress', async () => {
@@ -713,14 +713,14 @@ describe('azureUpload utilities', () => {
 
       const file = new File(['test'], 'test.wav', { type: 'audio/wav' })
 
-      const promise = uploadFile(file, 'audio', 'sub-123')
+      const testPromise = expect(uploadFile(file, 'audio', 'sub-123')).rejects.toThrow(
+        'Blob upload failed after 4 attempts'
+      )
 
       // Advance through all retry delays and flush all timers
       await vi.runAllTimersAsync()
 
-      await expect(promise).rejects.toThrow(
-        'Blob upload failed after 4 attempts'
-      )
+      await testPromise
     })
   })
 
