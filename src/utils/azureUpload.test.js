@@ -477,8 +477,8 @@ describe('azureUpload utilities', () => {
 
       const promise = uploadFileToBlob(file, sasUrl)
 
-      // Advance through all retry delays
-      await vi.advanceTimersByTimeAsync(10000)
+      // Advance through all retry delays and flush all timers
+      await vi.runAllTimersAsync()
 
       await expect(promise).rejects.toThrow(
         'Blob upload failed after 4 attempts'
@@ -497,8 +497,8 @@ describe('azureUpload utilities', () => {
 
       const promise = uploadFileToBlob(file, sasUrl)
 
-      // Advance through all retry delays
-      await vi.advanceTimersByTimeAsync(10000)
+      // Advance through all retry delays and flush all timers
+      await vi.runAllTimersAsync()
 
       await expect(promise).rejects.toThrow(
         'Blob upload failed after 4 attempts'
@@ -559,8 +559,8 @@ describe('azureUpload utilities', () => {
 
       const promise = uploadFileToBlob(file, sasUrl)
 
-      // Advance through all retry delays
-      await vi.advanceTimersByTimeAsync(10000)
+      // Advance through all retry delays and flush all timers
+      await vi.runAllTimersAsync()
 
       await expect(promise).rejects.toThrow(
         'Blob upload failed after 4 attempts'
@@ -715,8 +715,8 @@ describe('azureUpload utilities', () => {
 
       const promise = uploadFile(file, 'audio', 'sub-123')
 
-      // Advance through all retry delays
-      await vi.advanceTimersByTimeAsync(10000)
+      // Advance through all retry delays and flush all timers
+      await vi.runAllTimersAsync()
 
       await expect(promise).rejects.toThrow(
         'Blob upload failed after 4 attempts'
