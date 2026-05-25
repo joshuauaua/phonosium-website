@@ -56,7 +56,9 @@ describe('NotFound', () => {
     const homeButton = screen.getByRole('button', {
       name: /return to home page/i,
     })
-    const aboutButton = screen.getByRole('button', { name: /explore projects/i })
+    const aboutButton = screen.getByRole('button', {
+      name: /explore projects/i,
+    })
 
     expect(homeButton).toHaveAttribute('aria-label', 'Return to home page')
     expect(aboutButton).toHaveAttribute('aria-label', 'Explore projects')
@@ -89,7 +91,7 @@ describe('NotFound', () => {
       render(
         <BrowserRouter>
           <NotFound />
-      </BrowserRouter>
+        </BrowserRouter>
       )
 
       const aboutButton = screen.getByRole('button', {
