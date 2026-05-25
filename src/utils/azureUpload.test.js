@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { requestUploadUrl, submitFormData, uploadFileToBlob, uploadFile } from './azureUpload'
+import {
+  requestUploadUrl,
+  submitFormData,
+  uploadFileToBlob,
+  uploadFile,
+} from './azureUpload'
 
 describe('azureUpload utilities', () => {
   beforeEach(() => {
@@ -52,7 +57,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 400,
         statusText: 'Bad Request',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Invalid file type' })),
       })
 
       await expect(
@@ -92,7 +98,8 @@ describe('azureUpload utilities', () => {
         ok: false,
         status: 500,
         statusText: 'Internal Server Error',
-        text: () => Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
+        text: () =>
+          Promise.resolve(JSON.stringify({ error: 'Internal server error' })),
       })
 
       await expect(submitFormData({}, {})).rejects.toThrow(
@@ -120,7 +127,7 @@ describe('azureUpload utilities', () => {
 
     beforeEach(() => {
       mockXHR = createMockXHR()
-      global.XMLHttpRequest = vi.fn(function() {
+      globalThis.XMLHttpRequest = vi.fn(function () {
         return mockXHR
       })
     })
@@ -221,8 +228,16 @@ describe('azureUpload utilities', () => {
           setTimeout(() => {
             // Simulate progress events before load
             if (progressHandler) {
-              progressHandler({ lengthComputable: true, loaded: 512, total: 1024 })
-              progressHandler({ lengthComputable: true, loaded: 1024, total: 1024 })
+              progressHandler({
+                lengthComputable: true,
+                loaded: 512,
+                total: 1024,
+              })
+              progressHandler({
+                lengthComputable: true,
+                loaded: 1024,
+                total: 1024,
+              })
             }
             handler()
           }, 0)
@@ -253,7 +268,11 @@ describe('azureUpload utilities', () => {
           setTimeout(() => {
             // Simulate progress event with lengthComputable=false
             if (progressHandler) {
-              progressHandler({ lengthComputable: false, loaded: 512, total: 0 })
+              progressHandler({
+                lengthComputable: false,
+                loaded: 512,
+                total: 0,
+              })
             }
             handler()
           }, 0)
@@ -298,7 +317,7 @@ describe('azureUpload utilities', () => {
         statusText: 'OK',
         responseText: '',
       }
-      global.XMLHttpRequest = vi.fn(function() {
+      globalThis.XMLHttpRequest = vi.fn(function () {
         return mockXHR
       })
     })
