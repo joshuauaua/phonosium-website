@@ -61,7 +61,7 @@ export default function Home() {
             </h1>
             <p className={styles.lead}>
               Phonosium is a crowdsourced interactive sound installation
-              physically located at Frihamnstorget in Stockholm.
+              physically located in Stockholm and digitally connected to the world.
             </p>
             <div className={styles.ctaRow}>
               <button
