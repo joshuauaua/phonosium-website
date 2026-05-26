@@ -56,9 +56,6 @@
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-weight: 900;
   font-size: 28px;
   letter-spacing: -0.04em;
