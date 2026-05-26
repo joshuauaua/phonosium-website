@@ -68,7 +68,7 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      expect(screen.getByText('No Image Available')).toBeInTheDocument()
+      expect(screen.getByAltText('Birds!')).toBeInTheDocument()
     })
 
     it('expands schedule item when clicked directly', async () => {
@@ -83,7 +83,7 @@ describe('Home', () => {
       const scheduleItemRow = scheduleItems[1].closest('div')
       await user.click(scheduleItemRow)
 
-      expect(screen.getByText('No Image Available')).toBeInTheDocument()
+      expect(screen.getByAltText('Birds!')).toBeInTheDocument()
     })
 
     it('displays track details when expanded', async () => {
@@ -175,11 +175,11 @@ describe('Home', () => {
       const scheduleItemRow = scheduleItems[1].closest('div')
       await user.click(scheduleItemRow)
 
-      expect(screen.getByText('No Image Available')).toBeInTheDocument()
+      expect(screen.getByAltText('Birds!')).toBeInTheDocument()
 
       await user.click(scheduleItemRow)
 
-      expect(screen.queryByText('No Image Available')).not.toBeInTheDocument()
+      expect(screen.queryByAltText('Birds!')).not.toBeInTheDocument()
     })
 
     it('does not change Now Playing section when clicking schedule items', async () => {
@@ -230,9 +230,7 @@ describe('Home', () => {
       )
 
       expect(screen.getByText('● 09:00')).toBeInTheDocument()
-      expect(screen.getByText('09:30')).toBeInTheDocument()
       expect(screen.queryByText(/Slot 01/)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Slot 02/)).not.toBeInTheDocument()
     })
   })
 

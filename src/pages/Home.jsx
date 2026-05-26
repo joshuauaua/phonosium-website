@@ -61,7 +61,8 @@ export default function Home() {
             </h1>
             <p className={styles.lead}>
               Phonosium is a crowdsourced interactive sound installation
-              physically located in Stockholm and digitally connected to the world.
+              physically located in Stockholm and digitally connected to the
+              world.
             </p>
             <div className={styles.ctaRow}>
               <button
@@ -201,7 +202,15 @@ export default function Home() {
                   {isExpanded && (
                     <div className={styles.scheduleItemDetails}>
                       <div className={styles.trackImage}>
-                        <span>No Image Available</span>
+                        {inst.image ? (
+                          <img
+                            src={inst.image}
+                            alt={inst.title}
+                            className={styles.coverImg}
+                          />
+                        ) : (
+                          <span>No Image Available</span>
+                        )}
                       </div>
                       <div className={styles.trackDetails}>
                         <div className={styles.trackHeader}>
@@ -244,6 +253,16 @@ export default function Home() {
                             className={styles.trackLink}
                           >
                             Visit artist website →
+                          </a>
+                        )}
+                        {inst.artist.instagram && (
+                          <a
+                            href={inst.artist.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.trackLink}
+                          >
+                            Follow on Instagram →
                           </a>
                         )}
                       </div>
