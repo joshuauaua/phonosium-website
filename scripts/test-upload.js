@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* global process */
 import fs from 'fs'
 import path from 'path'
 
@@ -17,7 +17,7 @@ function getEnvUrl() {
         return match[1].trim()
       }
     }
-  } catch (err) {
+  } catch {
     // Ignore error
   }
   return null
