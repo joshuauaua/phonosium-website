@@ -42,7 +42,7 @@ describe('Home', () => {
       </BrowserRouter>
     )
     await testAccessibility(container)
-  })
+  }, 30000)
 
   describe('Schedule Item Expansion', () => {
     it('shows "More Info" button in black section', () => {

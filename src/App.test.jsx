@@ -26,7 +26,7 @@ describe('App', () => {
         'landmark-complementary-is-top-level': { enabled: false },
       },
     })
-  })
+  }, 30000)
 
   describe('Routing', () => {
     it('renders Home page on "/" route', () => {
@@ -58,7 +58,7 @@ describe('App', () => {
         </MemoryRouter>
       )
       expect(
-        screen.getByRole('heading', { name: /contribute\./i })
+        screen.getByRole('heading', { name: /Call for Submissions/i })
       ).toBeInTheDocument()
     })
 

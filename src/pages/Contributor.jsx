@@ -34,11 +34,13 @@ export default function Contributor() {
           <h2 className={styles.descriptionTitle}>How it Works</h2>
           <p className={styles.descriptionText}>
             Phonosium is a crowdsourced, interactive sound installation built
-            from PVC pipes wrapped around a shipping container. As a brain, it has the Bela IO Microcontroller to process audio,
-            playing a continuous loop while triggering samples on demand by public interaction. We invite sound
-            artists, music producers, and audio tinkerers worldwide to shape its
-            sonic landscape. Selected works will receive a dedicated, recurring
-            live slot on our seasonal schedule.
+            from PVC pipes wrapped around a shipping container. As a brain, it
+            has the Bela IO Microcontroller to process audio, playing a
+            continuous loop while triggering samples on demand by public
+            interaction. We invite sound artists, music producers, and audio
+            tinkerers worldwide to shape its sonic landscape. Selected works
+            will receive a dedicated, recurring live slot on our seasonal
+            schedule.
           </p>
 
           <div className={styles.howItWorksSection}>

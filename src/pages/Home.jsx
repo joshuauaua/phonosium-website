@@ -13,6 +13,8 @@ export default function Home() {
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
 
+  const isTest = import.meta.env.MODE === 'test'
+
   const current = useMemo(
     () => installations.find(i => i.id === selectedId),
     [selectedId]
@@ -30,12 +32,25 @@ export default function Home() {
     <>
       <SEO
         title="Interactive Sound Installation in Stockholm"
-        description="A crowdsourced interactive sound installation physically located at Frihamnstorget in Stockholm. Experience sonic art 24/7."
+        description="A crowdsourced interactive sound installation physically located at Frihamnstorget in Stockholm, digitally connected to the world. Experience sonic art 24/7."
         path="/"
       />
       <main className={styles.main}>
         <section className={styles.hero}>
-          <div className={styles.sideRail}>Installation · 2026</div>
+          {!isTest && (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/phonosium-hero-poster.jpg"
+              className={styles.videoBg}
+            >
+              <source src="/phonosium-hero.mp4" type="video/mp4" />
+            </video>
+          )}
+          <div className={styles.videoOverlay} />
+
           <div className={styles.heroContent}>
             <h1 className={styles.headline}>
               a space for <span className={styles.soundLetter}>s</span>

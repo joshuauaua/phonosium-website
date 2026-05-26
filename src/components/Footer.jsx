@@ -3,7 +3,7 @@ import styles from './Footer.module.css'
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <span className={styles.left}>&copy; Phonosium 2026 · Stockholm</span>
+      <span className={styles.left}>Phonosium 2026 · Stockholm</span>
       <span className={styles.right}>
         <a
           href="https://www.instagram.com/sonicassembly"
