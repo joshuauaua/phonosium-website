@@ -84,7 +84,8 @@ export default function About() {
         <section className={styles.quote}>
           <div className={styles.quoteInner}>
             <blockquote className={styles.blockquote}>
-              Interactive sounds, crowdsourced from around the world. Always looping.
+              Interactive sounds, crowdsourced from around the world. Always
+              looping.
             </blockquote>
           </div>
         </section>
