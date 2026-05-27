@@ -3,6 +3,15 @@ import styles from './About.module.css'
 import Gallery from '../components/Gallery/Gallery'
 
 export default function About() {
+  // Calculate days since project launch
+  const calculateDaysPlayed = () => {
+    const launchDate = new Date('2026-05-14')
+    const today = new Date()
+    const diffTime = Math.abs(today - launchDate)
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    return diffDays
+  }
+
   return (
     <>
       <SEO
@@ -75,7 +84,8 @@ export default function About() {
         <section className={styles.quote}>
           <div className={styles.quoteInner}>
             <blockquote className={styles.blockquote}>
-              24/7 global soundscapes, captured in a container.
+              Interactive sounds, crowdsourced from around the world. Always
+              looping.
             </blockquote>
           </div>
         </section>
@@ -128,11 +138,11 @@ export default function About() {
 
         <div className={styles.statRow}>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>12+</span>
+            <span className={styles.statNumber}>1+</span>
             <span className={styles.statLabel}>Artists</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>380</span>
+            <span className={styles.statNumber}>25</span>
             <span className={styles.statLabel}>Sound Files</span>
           </div>
           <div className={styles.stat}>
@@ -140,8 +150,8 @@ export default function About() {
             <span className={styles.statLabel}>Year Launched</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>14,400+</span>
-            <span className={styles.statLabel}>Minutes Played</span>
+            <span className={styles.statNumber}>{calculateDaysPlayed()}</span>
+            <span className={styles.statLabel}>Days Played</span>
           </div>
         </div>
       </main>
