@@ -14,7 +14,7 @@ describe('Footer', () => {
     render(<Footer />)
     const logo = screen.getByRole('img', { name: /Phonosium Logo/i })
     expect(logo).toBeInTheDocument()
-    expect(logo).toHaveAttribute('src', '/images/octopus-logo.png')
+    expect(logo).toHaveAttribute('src', '/octopus-logo.svg')
     expect(logo).toHaveAttribute('alt', 'Phonosium Logo')
   })
 
