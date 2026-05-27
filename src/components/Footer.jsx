@@ -6,7 +6,7 @@ export default function Footer() {
       <span className={styles.left}>Phonosium 2026 · Stockholm</span>
       <div className={styles.center}>
         <img
-          src="/images/octopus-logo.png"
+          src="/octopus-logo.svg"
           alt="Phonosium Logo"
           className={styles.logo}
         />
