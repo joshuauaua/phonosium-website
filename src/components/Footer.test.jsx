@@ -10,6 +10,14 @@ describe('Footer', () => {
     expect(footer).toBeInTheDocument()
   })
 
+  it('renders the Phonosium logo', () => {
+    render(<Footer />)
+    const logo = screen.getByRole('img', { name: /Phonosium Logo/i })
+    expect(logo).toBeInTheDocument()
+    expect(logo).toHaveAttribute('src', '/images/octopus-logo.png')
+    expect(logo).toHaveAttribute('alt', 'Phonosium Logo')
+  })
+
   it('displays copyright text', () => {
     render(<Footer />)
     expect(screen.getByText(/Phonosium 2026/)).toBeInTheDocument()

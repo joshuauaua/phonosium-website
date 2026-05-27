@@ -13,11 +13,33 @@
 
 .left {
   white-space: nowrap;
+  flex: 1;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 0 var(--ph-s-5);
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  opacity: 0.85;
+  transition: opacity var(--ph-dur-base) var(--ph-ease);
+}
+
+.logo:hover {
+  opacity: 1;
 }
 
 .right {
   display: flex;
   gap: var(--ph-s-5);
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .right a {
@@ -34,6 +56,16 @@
   .footer {
     flex-direction: column;
     gap: var(--ph-s-4);
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .left,
+  .right {
+    flex: none;
+  }
+
+  .center {
+    order: -1;
+    padding: 0 0 var(--ph-s-3);
   }
 }
