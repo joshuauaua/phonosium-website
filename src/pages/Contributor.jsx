@@ -129,14 +129,6 @@ export default function Contributor() {
           </button>
         </section>
 
-        <section className={styles.logoSection}>
-          <img
-            src="/images/octopus-logo.png"
-            alt="Phonosium Octopus Logo"
-            className={styles.octopusLogo}
-          />
-        </section>
-
         {showSubmissionForm && (
           <ContributionForm onClose={() => setShowSubmissionForm(false)} />
         )}

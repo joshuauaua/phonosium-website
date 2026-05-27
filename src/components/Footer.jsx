@@ -4,6 +4,13 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <span className={styles.left}>Phonosium 2026 · Stockholm</span>
+      <div className={styles.center}>
+        <img
+          src="/images/octopus-logo.png"
+          alt="Phonosium Logo"
+          className={styles.logo}
+        />
+      </div>
       <span className={styles.right}>
         <a
           href="https://www.instagram.com/sonicassembly"
