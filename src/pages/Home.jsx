@@ -31,7 +31,6 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Interactive Sound Installation in Stockholm"
         description="A crowdsourced interactive sound installation physically located at Frihamnstorget in Stockholm, digitally connected to the world. Experience sonic art 24/7."
         path="/"
       />
