@@ -20,14 +20,6 @@ export default function Home() {
     [selectedId]
   )
 
-  const START_TIME = 9 * 60 // 9:00 AM in minutes
-
-  const formatTime = minutes => {
-    const hours = Math.floor(minutes / 60)
-    const mins = minutes % 60
-    return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`
-  }
-
   return (
     <>
       <SEO
@@ -98,7 +90,7 @@ export default function Home() {
             </div>
             <div className={styles.metaItem}>
               <div className={styles.metaLabel}>Schedule</div>
-              <div className={styles.metaValue}>30-min timeslots</div>
+              <div className={styles.metaValue}>24-hour cycle</div>
             </div>
             <div className={styles.metaItem}>
               <div className={styles.metaLabel}>Location</div>
@@ -115,8 +107,7 @@ export default function Home() {
             </div>
             <div className={styles.liveTitle}>{current?.title}</div>
             <div className={styles.liveSub}>
-              {formatTime(START_TIME + (current?.id - 1) * 30)} ·{' '}
-              {current?.artist?.name}
+              {current?.timeSlot} · {current?.artist?.name}
             </div>
           </div>
           <div className={styles.waveContainer}>
@@ -190,7 +181,7 @@ export default function Home() {
                   >
                     <div className={styles.chNum}>
                       {inst.id === selectedId && '● '}
-                      {formatTime(START_TIME + (inst.id - 1) * 30)}
+                      {inst.timeSlot}
                     </div>
                     <div className={styles.chTitle}>{inst.title}</div>
                     <div className={styles.chMeta}>{inst.artist.name}</div>

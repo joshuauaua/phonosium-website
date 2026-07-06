@@ -70,9 +70,9 @@ export default function About() {
               Bela
             </a>
             , the installation uses three microphones to capture local
-            interactions while four speakers broadcast a continuous programme.
-            Each installation plays in 30-minute scheduled timeslots. Experience
-            it in person, or listen to recordings online.
+            interactions while four speakers broadcast a continuous 24-hour
+            programme. Each installation plays in scheduled timeslots throughout
+            the day. Experience it in person, or listen to recordings online.
           </p>
         </section>
 
@@ -95,7 +95,7 @@ export default function About() {
           <p className={styles.body}>
             Submissions are now open — contribute your sounds via our{' '}
             <a href="/contribute" className={styles.link}>
-              open call
+              submission form
             </a>
             , or contribute code to the{' '}
             <a

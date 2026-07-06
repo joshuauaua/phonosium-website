@@ -71,7 +71,7 @@ export default function Navbar() {
             }
             onClick={closeMenu}
           >
-            Open Call
+            Submit
           </NavLink>
         </div>
       </nav>
