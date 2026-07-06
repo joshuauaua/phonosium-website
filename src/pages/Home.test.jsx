@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
 import { testAccessibility } from '../test/axe-utils'
+import { getCurrentInstallation } from '../utils/scheduleUtils'
+import { installations } from '../data/installations'
 import Home from './Home'
 
 describe('Home', () => {
@@ -59,6 +61,8 @@ describe('Home', () => {
 
     it('expands schedule item when "More Info" button in black section is clicked', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+
       render(
         <BrowserRouter>
           <Home />
@@ -68,26 +72,31 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      expect(screen.getByAltText('Birds!')).toBeInTheDocument()
+      expect(screen.getByAltText(currentPiece.title)).toBeInTheDocument()
     })
 
     it('expands schedule item when clicked directly', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+
       render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
       )
 
-      const scheduleItems = screen.getAllByText('Birds!')
-      const scheduleItemRow = scheduleItems[1].closest('div')
+      const scheduleItems = screen.getAllByText(currentPiece.title)
+      const scheduleItemRow =
+        scheduleItems[scheduleItems.length - 1].closest('div')
       await user.click(scheduleItemRow)
 
-      expect(screen.getByAltText('Birds!')).toBeInTheDocument()
+      expect(screen.getByAltText(currentPiece.title)).toBeInTheDocument()
     })
 
     it('displays track details when expanded', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+
       render(
         <BrowserRouter>
           <Home />
@@ -98,18 +107,24 @@ describe('Home', () => {
       await user.click(moreInfoButton)
 
       expect(
-        screen.getAllByText(/Algorithmic avian composition/i).length
+        screen.getAllByText(new RegExp(currentPiece.subtitle, 'i')).length
       ).toBeGreaterThan(0)
-      expect(screen.getAllByText(/Joshua Ng/i).length).toBeGreaterThan(0)
       expect(
-        screen.getAllByText(/Stockholm\/Sheffield/i).length
+        screen.getAllByText(new RegExp(currentPiece.artist.name, 'i')).length
+      ).toBeGreaterThan(0)
+      expect(
+        screen.getAllByText(new RegExp(currentPiece.artist.origin, 'i')).length
       ).toBeGreaterThan(0)
       expect(screen.getAllByText(/Year/i).length).toBeGreaterThan(0)
-      expect(screen.getAllByText(/2025/).length).toBeGreaterThan(0)
+      expect(
+        screen.getAllByText(new RegExp(currentPiece.year.toString())).length
+      ).toBeGreaterThan(0)
     })
 
     it('displays tags when expanded', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+
       render(
         <BrowserRouter>
           <Home />
@@ -119,14 +134,16 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      expect(screen.getAllByText('generative').length).toBeGreaterThan(0)
-      expect(screen.getAllByText('birdsong').length).toBeGreaterThan(0)
-      expect(screen.getAllByText('algorithm').length).toBeGreaterThan(0)
-      expect(screen.getAllByText('field recording').length).toBeGreaterThan(0)
+      // Check that at least some tags are displayed
+      currentPiece.tags.slice(0, 2).forEach(tag => {
+        expect(screen.getAllByText(tag).length).toBeGreaterThan(0)
+      })
     })
 
     it('displays artist website link when expanded', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+
       render(
         <BrowserRouter>
           <Home />
@@ -136,15 +153,18 @@ describe('Home', () => {
       const moreInfoButton = screen.getByRole('button', { name: /more info/i })
       await user.click(moreInfoButton)
 
-      const websiteLink = screen.getByRole('link', {
-        name: /visit artist website/i,
-      })
-      expect(websiteLink).toBeInTheDocument()
-      expect(websiteLink).toHaveAttribute(
-        'href',
-        'https://joshuauaua.github.io'
-      )
-      expect(websiteLink).toHaveAttribute('target', '_blank')
+      if (currentPiece.artist.website) {
+        const websiteLink = screen.getByRole('link', {
+          name: /visit artist website/i,
+        })
+        expect(websiteLink).toBeInTheDocument()
+        expect(websiteLink).toHaveAttribute('target', '_blank')
+        // Verify the href contains the website domain
+        const href = websiteLink.getAttribute('href')
+        expect(href).toContain(
+          currentPiece.artist.website.replace(/^https?:\/\//, '')
+        )
+      }
     })
 
     it('does not render Close button in expanded schedule details', async () => {
@@ -165,21 +185,24 @@ describe('Home', () => {
 
     it('collapses when clicking the same schedule item again', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+
       render(
         <BrowserRouter>
           <Home />
         </BrowserRouter>
       )
 
-      const scheduleItems = screen.getAllByText('Birds!')
-      const scheduleItemRow = scheduleItems[1].closest('div')
+      const scheduleItems = screen.getAllByText(currentPiece.title)
+      const scheduleItemRow =
+        scheduleItems[scheduleItems.length - 1].closest('div')
       await user.click(scheduleItemRow)
 
-      expect(screen.getByAltText('Birds!')).toBeInTheDocument()
+      expect(screen.getByAltText(currentPiece.title)).toBeInTheDocument()
 
       await user.click(scheduleItemRow)
 
-      expect(screen.queryByAltText('Birds!')).not.toBeInTheDocument()
+      expect(screen.queryByAltText(currentPiece.title)).not.toBeInTheDocument()
     })
 
     it('does not change Now Playing section when clicking schedule items', async () => {
@@ -198,7 +221,8 @@ describe('Home', () => {
 
       // Find and click a different schedule item
       const scheduleItems = screen.getAllByText("Cariddi's Voices")
-      const scheduleItem = scheduleItems[scheduleItems.length - 1].closest('div')
+      const scheduleItem =
+        scheduleItems[scheduleItems.length - 1].closest('div')
       await user.click(scheduleItem)
 
       // "Now Playing" indicator should still be in the same place

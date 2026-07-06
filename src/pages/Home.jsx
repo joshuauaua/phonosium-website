@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
 import { getCurrentInstallation } from '../utils/scheduleUtils'
@@ -12,22 +12,21 @@ export default function Home() {
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [updateTrigger, setUpdateTrigger] = useState(0)
 
   const isTest = import.meta.env.MODE === 'test'
 
   // Update current time every minute
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(new Date())
+      setUpdateTrigger(n => n + 1)
     }, 60000) // Update every minute
     return () => clearInterval(interval)
   }, [])
 
-  const current = useMemo(
-    () => getCurrentInstallation(installations),
-    [currentTime]
-  )
+  // Recalculate current installation (updateTrigger forces re-render every minute)
+  const current =
+    updateTrigger >= 0 ? getCurrentInstallation(installations) : null
 
   const selectedId = current?.id
 

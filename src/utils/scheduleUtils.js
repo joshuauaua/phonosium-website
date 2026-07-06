@@ -4,7 +4,9 @@
  * Get the current time in Stockholm timezone
  */
 export function getStockholmTime() {
-  return new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Stockholm' }))
+  return new Date(
+    new Date().toLocaleString('en-US', { timeZone: 'Europe/Stockholm' })
+  )
 }
 
 /**
@@ -25,8 +27,8 @@ export function getCurrentInstallation(installations) {
   const currentMinutes = now.getHours() * 60 + now.getMinutes()
 
   // Sort installations by start time
-  const sorted = [...installations].sort((a, b) =>
-    timeToMinutes(a.startTime) - timeToMinutes(b.startTime)
+  const sorted = [...installations].sort(
+    (a, b) => timeToMinutes(a.startTime) - timeToMinutes(b.startTime)
   )
 
   // Find which piece should be playing

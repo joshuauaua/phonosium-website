@@ -21,8 +21,18 @@ export const installations = [
     },
     description:
       'On Standby is a 10-hour-40-minute ambient sound work designed to be played through the night while you sleep. It sonifies real household overnight energy consumption, captured by seven participants in Malmö who used smart plugs to monitor their devices across a single night in August 2024. Each unique sound represents half a watt-hour of energy - roughly enough to heat a teaspoon of water - and the piece plays back in real time, so one minute of listening equals one minute of the monitored night. A slow background drone provides a bed for the data signals layered over the top.',
-    medium: 'Generative · drone · ambient · electronics · slow listening · sonification · energy · data',
-    tags: ['generative', 'drone', 'ambient', 'electronics', 'slow listening', 'sonification', 'energy', 'data'],
+    medium:
+      'Generative · drone · ambient · electronics · slow listening · sonification · energy · data',
+    tags: [
+      'generative',
+      'drone',
+      'ambient',
+      'electronics',
+      'slow listening',
+      'sonification',
+      'energy',
+      'data',
+    ],
   },
   {
     id: 2,
@@ -66,8 +76,17 @@ export const installations = [
     },
     description:
       "The sea envelops you. It surrounds you. It can be home. It can be perdition. Are you ready to abandon yourself to the tide? Are you ready to follow Cariddi's Voices into a deep, cryptic and metamorphic ocean of sounds?",
-    medium: 'Field recording · drone · hydrophone · underwater · ambient · electronics · live',
-    tags: ['field recording', 'drone', 'hydrophone', 'underwater', 'ambient', 'electronics', 'live'],
+    medium:
+      'Field recording · drone · hydrophone · underwater · ambient · electronics · live',
+    tags: [
+      'field recording',
+      'drone',
+      'hydrophone',
+      'underwater',
+      'ambient',
+      'electronics',
+      'live',
+    ],
   },
   {
     id: 4,

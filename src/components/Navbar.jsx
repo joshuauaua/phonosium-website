@@ -24,7 +24,7 @@ export default function Navbar() {
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
-        hour12: false
+        hour12: false,
       })
       const parts = formatter.formatToParts(now)
       const year = parts.find(p => p.type === 'year').value
