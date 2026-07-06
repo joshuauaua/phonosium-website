@@ -1,12 +1,36 @@
-// Each installation represents a 30-minute timeslot in the daily broadcast schedule
+// Each installation represents a timeslot in the daily broadcast schedule
 export const installations = [
   {
     id: 1,
+    title: 'On Standby',
+    subtitle: 'A 10-hour ambient sound work',
+    year: 2026,
+    duration: '10h 40m',
+    isActive: true,
+    timeSlot: '20:00 - 06:40',
+    image: '/images/on-standby.png',
+    artist: {
+      name: 'Loud Numbers',
+      bio: 'Loud Numbers is a data sonification studio, turning datasets into music, founded in 2020 by Duncan Geere and Miriam Quick. The studio builds systems that map data - climate records, economic history, insect decline, solar storms - into compositions spanning ambient, dub, jungle, and electronic music, released across albums, a podcast, and installations worldwide.',
+      origin: 'Malmö, Sweden',
+      website: 'http://loudnumbers.net',
+      instagram: 'https://www.instagram.com/loudnumbers',
+      bandcamp: 'https://loudnumbers.bandcamp.com',
+      youtube: 'https://www.youtube.com/@loudnumbers',
+    },
+    description:
+      'On Standby is a 10-hour-40-minute ambient sound work designed to be played through the night while you sleep. It sonifies real household overnight energy consumption, captured by seven participants in Malmö who used smart plugs to monitor their devices across a single night in August 2024. Each unique sound represents half a watt-hour of energy - roughly enough to heat a teaspoon of water - and the piece plays back in real time, so one minute of listening equals one minute of the monitored night. A slow background drone provides a bed for the data signals layered over the top.',
+    medium: 'Generative · drone · ambient · electronics · slow listening · sonification · energy · data',
+    tags: ['generative', 'drone', 'ambient', 'electronics', 'slow listening', 'sonification', 'energy', 'data'],
+  },
+  {
+    id: 2,
     title: 'Birds!',
     subtitle: 'Algorithmic avian composition',
     year: 2025,
-    duration: '35′42″',
+    duration: '4h 20m',
     isActive: true,
+    timeSlot: '06:40 - 11:00',
     image: '/images/birds.jpg',
     artist: {
       name: 'Joshua Ng',
@@ -19,5 +43,48 @@ export const installations = [
       'Birds! is an algorithmic composition exploring the intersection of natural birdsong and generative audio processes. Ng combines field recordings of avian vocalizations with custom software that analyzes and reinterprets their sonic patterns, creating an evolving soundscape that sits between documentation and invention — nature observed, nature reimagined.',
     medium: 'Algorithmic composition · field recording',
     tags: ['generative', 'birdsong', 'algorithm', 'field recording'],
+  },
+  {
+    id: 3,
+    title: "Cariddi's Voices",
+    subtitle: 'Electroacoustic ocean sounds',
+    year: 2026,
+    duration: '5h',
+    isActive: true,
+    timeSlot: '11:00 - 16:00',
+    image: '/images/cariddis-voices.png',
+    artist: {
+      name: 'Mac Tire',
+      bio: "Mac Tire is a musician, performer, and researcher. His work focuses on sound design, live electronics and multidisciplinary performances, with a strong interest in using water and instruments of his own design. After obtaining a Bachelor of Arts in Music Performance and a Master's degree in Music and New Technologies, he enrolled in a PhD in Performing, Staging Arts, Music and Compositions at ABANA. His artistic research combines the sound and motion of water; starting from an observation of sea waves, his interest in using water as a sound source and core for his projects was born. Sampling and reshaping this natural element, mixed with a curiosity towards radical improvisation, led to the creation of Cariddi, an experimental electroacoustic instrument designed to create and samples whirlpools. This instrument is used to bring the unpredictability of the tide and its sounds in an artificial space.",
+      origin: 'Palermo, Italy',
+      website: 'https://www.mactiremusic.com/',
+      instagram: 'https://www.instagram.com/mactiremusic/',
+      bandcamp: 'https://mactiremusic.bandcamp.com/',
+    },
+    description:
+      "The sea envelops you. It surrounds you. It can be home. It can be perdition. Are you ready to abandon yourself to the tide? Are you ready to follow Cariddi's Voices into a deep, cryptic and metamorphic ocean of sounds?",
+    medium: 'Field recording · drone · hydrophone · underwater · ambient · electronics · live',
+    tags: ['field recording', 'drone', 'hydrophone', 'underwater', 'ambient', 'electronics', 'live'],
+  },
+  {
+    id: 4,
+    title: 'Encha(i)nted forest',
+    subtitle: 'Unchained instrumental exploration',
+    year: 2026,
+    duration: '4h',
+    isActive: true,
+    timeSlot: '16:00 - 20:00',
+    image: '/images/enchained-forest.jpg',
+    artist: {
+      name: 'Isle of Aila',
+      bio: 'Multimedia artist working with sounds, clay, oil paints, charcoal, words, and installations. Interested in exploring the unknown, and in tricking herself out of aiming for perfection.',
+      fullName: 'Aila Stefansdotter-Franck',
+      origin: 'Gävle, Sweden',
+      instagram: 'https://www.instagram.com/isleofaila/',
+    },
+    description:
+      'A sound piece based around the idea of letting go of the chains tied to being a trained instrumentalist to start playing your instruments as you like. Ugly, wrong, not perfectly. Sounds used are alto saxophone, whisk in clay, flutes, and mechanic sounds.',
+    medium: 'Field recording · instruments · ambient',
+    tags: ['field recording', 'instruments', 'ambient'],
   },
 ]
