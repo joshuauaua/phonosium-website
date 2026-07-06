@@ -213,11 +213,11 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      // Find the now playing indicator (● before a time)
-      const nowPlayingPattern = /● \d{2}:\d{2}/
-      const nowPlayingElements = screen.getAllByText(nowPlayingPattern)
-      expect(nowPlayingElements.length).toBeGreaterThan(0)
-      const initialNowPlayingText = nowPlayingElements[0].textContent
+      // Find the now playing indicator (● in the arrow column)
+      const nowPlayingArrows = screen.getAllByText('●')
+      expect(nowPlayingArrows.length).toBeGreaterThan(0)
+      const nowPlayingRow = nowPlayingArrows[0].closest('div[class*="chRow"]')
+      const initialNowPlayingTime = nowPlayingRow.querySelector('div[class*="chNum"]').textContent
 
       // Find and click a different schedule item
       const scheduleItems = screen.getAllByText("Cariddi's Voices")
@@ -226,8 +226,10 @@ describe('Home', () => {
       await user.click(scheduleItem)
 
       // "Now Playing" indicator should still be in the same place
-      const afterClickElements = screen.getAllByText(nowPlayingPattern)
-      expect(afterClickElements[0].textContent).toBe(initialNowPlayingText)
+      const afterClickArrows = screen.getAllByText('●')
+      const afterClickRow = afterClickArrows[0].closest('div[class*="chRow"]')
+      const afterClickTime = afterClickRow.querySelector('div[class*="chNum"]').textContent
+      expect(afterClickTime).toBe(initialNowPlayingTime)
     })
   })
 
@@ -255,9 +257,10 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      // Check that we have a now playing indicator with time format
-      const nowPlayingPattern = /● \d{2}:\d{2}/
-      expect(screen.getAllByText(nowPlayingPattern).length).toBeGreaterThan(0)
+      // Check that we have time format (without ● prefix in time slot)
+      const timePattern = /^\d{2}:\d{2}$/
+      const timeSlots = screen.getAllByText(timePattern)
+      expect(timeSlots.length).toBeGreaterThan(0)
       expect(screen.queryByText(/Slot 01/)).not.toBeInTheDocument()
     })
   })

@@ -503,7 +503,7 @@
 
 .chRow {
   display: grid;
-  grid-template-columns: 64px 1fr 200px 180px 140px;
+  grid-template-columns: 64px 1fr 200px auto;
   gap: var(--ph-s-6);
   padding: 28px var(--ph-s-6);
   align-items: center;

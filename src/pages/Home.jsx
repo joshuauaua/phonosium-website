@@ -189,10 +189,7 @@ export default function Home() {
                       setExpandedScheduleId(isExpanded ? null : inst.id)
                     }}
                   >
-                    <div className={styles.chNum}>
-                      {inst.id === selectedId && '● '}
-                      {inst.timeSlot}
-                    </div>
+                    <div className={styles.chNum}>{inst.timeSlot}</div>
                     <div className={styles.chTitle}>{inst.title}</div>
                     <div className={styles.chMeta}>{inst.artist.name}</div>
                     <div className={styles.chArrow}>
