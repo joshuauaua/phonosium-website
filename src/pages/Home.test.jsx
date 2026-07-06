@@ -190,18 +190,20 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      // Initially, first item should be "Now Playing" (has the ● indicator)
-      expect(screen.getByText('● 09:00')).toBeInTheDocument()
+      // Find the now playing indicator (● before a time)
+      const nowPlayingPattern = /● \d{2}:\d{2}/
+      const nowPlayingElements = screen.getAllByText(nowPlayingPattern)
+      expect(nowPlayingElements.length).toBeGreaterThan(0)
+      const initialNowPlayingText = nowPlayingElements[0].textContent
 
-      // Find and click the second schedule item (09:30)
-      const scheduleItems = screen.getAllByText('Birds!')
-      const secondScheduleItem = scheduleItems[1].closest('div')
-      await user.click(secondScheduleItem)
+      // Find and click a different schedule item
+      const scheduleItems = screen.getAllByText("Cariddi's Voices")
+      const scheduleItem = scheduleItems[scheduleItems.length - 1].closest('div')
+      await user.click(scheduleItem)
 
-      // "Now Playing" indicator should still be on first item
-      expect(screen.getByText('● 09:00')).toBeInTheDocument()
-      // The second item should NOT have the ● indicator in its time display
-      expect(screen.queryByText('● 09:30')).not.toBeInTheDocument()
+      // "Now Playing" indicator should still be in the same place
+      const afterClickElements = screen.getAllByText(nowPlayingPattern)
+      expect(afterClickElements[0].textContent).toBe(initialNowPlayingText)
     })
   })
 
@@ -229,7 +231,9 @@ describe('Home', () => {
         </BrowserRouter>
       )
 
-      expect(screen.getByText('● 09:00')).toBeInTheDocument()
+      // Check that we have a now playing indicator with time format
+      const nowPlayingPattern = /● \d{2}:\d{2}/
+      expect(screen.getAllByText(nowPlayingPattern).length).toBeGreaterThan(0)
       expect(screen.queryByText(/Slot 01/)).not.toBeInTheDocument()
     })
   })

@@ -7,7 +7,8 @@ export const installations = [
     year: 2026,
     duration: '10h 40m',
     isActive: true,
-    timeSlot: '20:00 - 06:40',
+    startTime: '20:00',
+    timeSlot: '20:00',
     image: '/images/on-standby.png',
     artist: {
       name: 'Loud Numbers',
@@ -30,7 +31,8 @@ export const installations = [
     year: 2025,
     duration: '4h 20m',
     isActive: true,
-    timeSlot: '06:40 - 11:00',
+    startTime: '06:40',
+    timeSlot: '06:40',
     image: '/images/birds.jpg',
     artist: {
       name: 'Joshua Ng',
@@ -51,7 +53,8 @@ export const installations = [
     year: 2026,
     duration: '5h',
     isActive: true,
-    timeSlot: '11:00 - 16:00',
+    startTime: '11:00',
+    timeSlot: '11:00',
     image: '/images/cariddis-voices.png',
     artist: {
       name: 'Mac Tire',
@@ -73,7 +76,8 @@ export const installations = [
     year: 2026,
     duration: '4h',
     isActive: true,
-    timeSlot: '16:00 - 20:00',
+    startTime: '16:00',
+    timeSlot: '16:00',
     image: '/images/enchained-forest.jpg',
     artist: {
       name: 'Isle of Aila',

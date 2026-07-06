@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
+import { getCurrentInstallation } from '../utils/scheduleUtils'
 import Waves from '../components/Waves/Waves'
 import ContributionForm from '../components/ContributionForm'
 import SEO from '../components/SEO'
@@ -8,17 +9,27 @@ import styles from './Home.module.css'
 
 export default function Home() {
   const navigate = useNavigate()
-  const [selectedId] = useState(installations[0].id)
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
   const [showSubmissionForm, setShowSubmissionForm] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date())
 
   const isTest = import.meta.env.MODE === 'test'
 
+  // Update current time every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 60000) // Update every minute
+    return () => clearInterval(interval)
+  }, [])
+
   const current = useMemo(
-    () => installations.find(i => i.id === selectedId),
-    [selectedId]
+    () => getCurrentInstallation(installations),
+    [currentTime]
   )
+
+  const selectedId = current?.id
 
   return (
     <>
