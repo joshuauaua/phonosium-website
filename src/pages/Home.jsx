@@ -190,7 +190,6 @@ export default function Home() {
                     }}
                   >
                     <div className={styles.chNum}>
-                      {inst.id === selectedId && '● '}
                       {inst.timeSlot}
                     </div>
                     <div className={styles.chTitle}>{inst.title}</div>
