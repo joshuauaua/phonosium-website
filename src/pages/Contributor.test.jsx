@@ -16,7 +16,7 @@ describe('Contributor', () => {
     expect(screen.getByText('Call for Submissions')).toBeInTheDocument()
   })
 
-  it('displays the subtitle with deadline information', () => {
+  it('displays the subtitle with ongoing submissions information', () => {
     render(
       <BrowserRouter>
         <Contributor />
@@ -25,7 +25,7 @@ describe('Contributor', () => {
 
     expect(
       screen.getByText(
-        /We are accepting submissions for the installation from anywhere in the world until June 15, 2026/
+        /We are accepting submissions for the installation from anywhere in the world on an ongoing basis/
       )
     ).toBeInTheDocument()
   })

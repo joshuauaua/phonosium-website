@@ -11,7 +11,7 @@ export default function Contributor() {
     <>
       <SEO
         title="Call for Submissions"
-        description="Submit your sound to Phonosium. We are accepting submissions for the installation from anywhere in the world until June 15, 2026."
+        description="Submit your sound to Phonosium. We are accepting submissions for the installation from anywhere in the world on an ongoing basis."
         path="/contribute"
       />
       <main className={styles.main}>
@@ -19,7 +19,7 @@ export default function Contributor() {
           <h1 className={styles.title}>Call for Submissions</h1>
           <p className={styles.subtitle}>
             We are accepting submissions for the installation from anywhere in
-            the world until June 15, 2026
+            the world on an ongoing basis
           </p>
           <p className={styles.contact}>
             Email{' '}

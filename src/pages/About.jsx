@@ -138,11 +138,11 @@ export default function About() {
 
         <div className={styles.statRow}>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>1+</span>
+            <span className={styles.statNumber}>4+</span>
             <span className={styles.statLabel}>Artists</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>25</span>
+            <span className={styles.statNumber}>48</span>
             <span className={styles.statLabel}>Sound Files</span>
           </div>
           <div className={styles.stat}>

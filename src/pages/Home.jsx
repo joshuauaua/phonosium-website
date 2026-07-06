@@ -278,7 +278,7 @@ export default function Home() {
           <h2 className={styles.callTitle}>Call for Submissions</h2>
           <p className={styles.callSubtitle}>
             We are accepting submissions for the installation from anywhere in
-            the world until June 15, 2026
+            the world on an ongoing basis
           </p>
 
           <button
