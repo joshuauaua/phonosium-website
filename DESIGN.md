@@ -17,21 +17,21 @@ All color tokens are defined in [`src/index.css`](./src/index.css).
 
 ### Color Palette
 
-| Token | Hex | Usage | WCAG Contrast on White |
-|-------|-----|-------|------------------------|
-| `--orange` | `#D65A00` | Primary brand color, CTAs, links | 4.51:1 (AA) |
-| `--orange-light` | `#E87020` | Hover states, highlights | 3.98:1 (AA Large) |
-| `--orange-dim` | `#B44A00` | Scrollbars, subdued accents | 5.91:1 (AA) |
-| `--white` | `#FFFFFF` | Primary background | — |
-| `--white-soft` | `#F9F9F9` | Subtle background variation | — |
-| `--white-mid` | `#F0F0F0` | Card backgrounds | — |
-| `--white-card` | `#FAFAFA` | Elevated surfaces | — |
-| `--black` | `#0A0A0A` | Primary text, headings | 19.36:1 (AAA) |
-| `--black-soft` | `#333333` | Secondary text | 12.63:1 (AAA) |
-| `--black-mid` | `#666666` | Muted text | 5.74:1 (AA) |
-| `--black-muted` | `#999999` | Disabled/placeholder text | 2.85:1 (AA Large only) |
-| `--border` | `rgba(214, 90, 0, 0.2)` | Default borders | — |
-| `--border-active` | `rgba(214, 90, 0, 0.6)` | Active/focus borders | — |
+| Token             | Hex                     | Usage                            | WCAG Contrast on White |
+| ----------------- | ----------------------- | -------------------------------- | ---------------------- |
+| `--orange`        | `#D65A00`               | Primary brand color, CTAs, links | 4.51:1 (AA)            |
+| `--orange-light`  | `#E87020`               | Hover states, highlights         | 3.98:1 (AA Large)      |
+| `--orange-dim`    | `#B44A00`               | Scrollbars, subdued accents      | 5.91:1 (AA)            |
+| `--white`         | `#FFFFFF`               | Primary background               | —                      |
+| `--white-soft`    | `#F9F9F9`               | Subtle background variation      | —                      |
+| `--white-mid`     | `#F0F0F0`               | Card backgrounds                 | —                      |
+| `--white-card`    | `#FAFAFA`               | Elevated surfaces                | —                      |
+| `--black`         | `#0A0A0A`               | Primary text, headings           | 19.36:1 (AAA)          |
+| `--black-soft`    | `#333333`               | Secondary text                   | 12.63:1 (AAA)          |
+| `--black-mid`     | `#666666`               | Muted text                       | 5.74:1 (AA)            |
+| `--black-muted`   | `#999999`               | Disabled/placeholder text        | 2.85:1 (AA Large only) |
+| `--border`        | `rgba(214, 90, 0, 0.2)` | Default borders                  | —                      |
+| `--border-active` | `rgba(214, 90, 0, 0.6)` | Active/focus borders             | —                      |
 
 ### WCAG Compliance Calculations
 
@@ -44,21 +44,22 @@ Contrast Ratio = (L1 + 0.05) / (L2 + 0.05)
 Where `L` is relative luminance calculated from sRGB color values.
 
 **WCAG Success Criteria:**
+
 - **AAA (7:1 for normal text, 4.5:1 for large text)**: Maximum accessibility
 - **AA (4.5:1 for normal text, 3:1 for large text)**: Minimum acceptable standard
 - **Large text**: 18pt regular or 14pt bold
 
 **Compliance Table:**
 
-| Foreground | Background | Contrast | Level | Use Cases |
-|------------|------------|----------|-------|-----------|
-| `--black` | `--white` | 19.36:1 | AAA | Body text, headings (all sizes) |
-| `--black-soft` | `--white` | 12.63:1 | AAA | Secondary text, captions |
-| `--black-mid` | `--white` | 5.74:1 | AA | Muted labels, metadata |
-| `--black-muted` | `--white` | 2.85:1 | — | Large text only (decorative) |
-| `--orange` | `--white` | 4.51:1 | AA | Links, CTAs (normal text) |
-| `--orange-light` | `--white` | 3.98:1 | AA Large | Hover states (large text only) |
-| `--orange-dim` | `--white` | 5.91:1 | AA | Emphasized elements (all sizes) |
+| Foreground       | Background | Contrast | Level    | Use Cases                       |
+| ---------------- | ---------- | -------- | -------- | ------------------------------- |
+| `--black`        | `--white`  | 19.36:1  | AAA      | Body text, headings (all sizes) |
+| `--black-soft`   | `--white`  | 12.63:1  | AAA      | Secondary text, captions        |
+| `--black-mid`    | `--white`  | 5.74:1   | AA       | Muted labels, metadata          |
+| `--black-muted`  | `--white`  | 2.85:1   | —        | Large text only (decorative)    |
+| `--orange`       | `--white`  | 4.51:1   | AA       | Links, CTAs (normal text)       |
+| `--orange-light` | `--white`  | 3.98:1   | AA Large | Hover states (large text only)  |
+| `--orange-dim`   | `--white`  | 5.91:1   | AA       | Emphasized elements (all sizes) |
 
 **Important:** `--black-muted` and `--orange-light` should only be used for large text (18pt+) or decorative elements that don't convey critical information.
 
@@ -66,17 +67,18 @@ Where `L` is relative luminance calculated from sRGB color values.
 
 The spacing system uses a base unit of **0.25rem (4px)** with consistent increments:
 
-| Token | Value | Pixels (16px base) | Usage |
-|-------|-------|-------------------|--------|
-| `--spacing-xs` | `0.25rem` | 4px | Tight inline spacing, icon gaps |
-| `--spacing-sm` | `0.5rem` | 8px | Component padding, list items |
-| `--spacing-md` | `1rem` | 16px | Default spacing, card padding |
-| `--spacing-lg` | `1.5rem` | 24px | Section gaps, form spacing |
-| `--spacing-xl` | `2rem` | 32px | Large content blocks |
-| `--spacing-2xl` | `3rem` | 48px | Major page sections |
-| `--spacing-3xl` | `4rem` | 64px | Hero sections, page divisions |
+| Token           | Value     | Pixels (16px base) | Usage                           |
+| --------------- | --------- | ------------------ | ------------------------------- |
+| `--spacing-xs`  | `0.25rem` | 4px                | Tight inline spacing, icon gaps |
+| `--spacing-sm`  | `0.5rem`  | 8px                | Component padding, list items   |
+| `--spacing-md`  | `1rem`    | 16px               | Default spacing, card padding   |
+| `--spacing-lg`  | `1.5rem`  | 24px               | Section gaps, form spacing      |
+| `--spacing-xl`  | `2rem`    | 32px               | Large content blocks            |
+| `--spacing-2xl` | `3rem`    | 48px               | Major page sections             |
+| `--spacing-3xl` | `4rem`    | 64px               | Hero sections, page divisions   |
 
 **Guidelines:**
+
 - Use `--spacing-md` as the default for most component spacing
 - Prefer consistent spacing values over arbitrary pixel values
 - Stack spacing tokens for larger gaps (e.g., `calc(var(--spacing-xl) + var(--spacing-lg))`)
@@ -90,6 +92,7 @@ Per WCAG 2.5.5 (Level AAA), all interactive elements meet a minimum touch target
 ```
 
 This ensures:
+
 - Buttons and links are at least 44×44 pixels
 - Adequate spacing between adjacent clickable elements
 - Improved usability on mobile devices
@@ -116,6 +119,7 @@ This ensures:
 ### Example Usage
 
 **Primary Button:**
+
 ```css
 .button-primary {
   background: var(--orange);
@@ -126,6 +130,7 @@ This ensures:
 ```
 
 **Body Text:**
+
 ```css
 .body-text {
   color: var(--black);
@@ -135,6 +140,7 @@ This ensures:
 ```
 
 **Secondary Text:**
+
 ```css
 .caption {
   color: var(--black-soft);

@@ -34,6 +34,7 @@ gh secret set AZURE_FUNCTIONAPP_PUBLISH_PROFILE < /tmp/phonosium-api-publish-pro
 6. Click **Add secret**
 
 To view the file contents:
+
 ```bash
 cat /tmp/phonosium-api-publish-profile.xml
 ```
@@ -79,6 +80,7 @@ Control upload retry behavior via environment variables:
 Retries use exponential backoff: delay = baseDelay × 2^attemptNumber, capped at maxDelay.
 
 Example for production (more resilient):
+
 ```bash
 VITE_UPLOAD_MAX_RETRIES=5
 VITE_UPLOAD_BASE_DELAY=2000
@@ -86,6 +88,7 @@ VITE_UPLOAD_MAX_DELAY=30000
 ```
 
 Example for local dev (fail fast):
+
 ```bash
 VITE_UPLOAD_MAX_RETRIES=1
 VITE_UPLOAD_BASE_DELAY=500
@@ -115,6 +118,7 @@ curl -X POST https://phonosium-api.azurewebsites.net/api/submissions/upload-url 
 Any changes pushed to the `api/` folder on the `main` branch will automatically trigger a new deployment.
 
 You can also manually trigger deployment:
+
 1. Go to: https://github.com/joshuauaua/phonosium-website/actions
 2. Click "Deploy Azure Functions"
 3. Click "Run workflow"
@@ -122,17 +126,20 @@ You can also manually trigger deployment:
 ## 🐛 Troubleshooting
 
 ### If deployment fails:
+
 - Check the GitHub Actions logs
 - Verify the secret is added correctly
 - Ensure the Azure Function App is running: `az functionapp show --name phonosium-api --resource-group DefaultResourceGroup-SEC --query state`
 
 ### If the function returns errors:
+
 - Check Azure logs: `az functionapp log tail --name phonosium-api --resource-group DefaultResourceGroup-SEC`
 - Verify environment variables in Azure Portal
 
 ## 📦 Azure Storage Containers
 
 Your backend automatically creates these containers:
+
 - `submissions-audio` - Audio files (WAV/MP3)
 - `submissions-images` - Image files (JPEG/PNG/WebP)
 - `submissions-metadata` - JSON metadata for submissions
