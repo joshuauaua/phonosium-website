@@ -207,6 +207,8 @@ describe('Home', () => {
 
     it('does not change Now Playing section when clicking schedule items', async () => {
       const user = userEvent.setup()
+      const currentPiece = getCurrentInstallation(installations)
+      const otherPiece = installations.find(inst => inst.id !== currentPiece.id)
       render(
         <BrowserRouter>
           <Home />
@@ -217,10 +219,12 @@ describe('Home', () => {
       const nowPlayingArrows = screen.getAllByText('●')
       expect(nowPlayingArrows.length).toBeGreaterThan(0)
       const nowPlayingRow = nowPlayingArrows[0].closest('div[class*="chRow"]')
-      const initialNowPlayingTime = nowPlayingRow.querySelector('div[class*="chNum"]').textContent
+      const initialNowPlayingTime = nowPlayingRow.querySelector(
+        'div[class*="chNum"]'
+      ).textContent
 
-      // Find and click a different schedule item
-      const scheduleItems = screen.getAllByText("Cariddi's Voices")
+      // Find and click a different (not currently playing) schedule item
+      const scheduleItems = screen.getAllByText(otherPiece.title)
       const scheduleItem =
         scheduleItems[scheduleItems.length - 1].closest('div')
       await user.click(scheduleItem)
@@ -228,7 +232,9 @@ describe('Home', () => {
       // "Now Playing" indicator should still be in the same place
       const afterClickArrows = screen.getAllByText('●')
       const afterClickRow = afterClickArrows[0].closest('div[class*="chRow"]')
-      const afterClickTime = afterClickRow.querySelector('div[class*="chNum"]').textContent
+      const afterClickTime = afterClickRow.querySelector(
+        'div[class*="chNum"]'
+      ).textContent
       expect(afterClickTime).toBe(initialNowPlayingTime)
     })
   })
@@ -276,7 +282,7 @@ describe('Home', () => {
       expect(screen.getByText('Call for Submissions')).toBeInTheDocument()
       expect(
         screen.getByText(
-          /We are accepting submissions for the installation from anywhere in the world until June 15, 2026/
+          /We are accepting submissions for the installation from anywhere in the world on an ongoing basis/
         )
       ).toBeInTheDocument()
     })
