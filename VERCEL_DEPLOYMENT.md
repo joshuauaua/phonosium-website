@@ -9,16 +9,17 @@ Your Azure Blob Storage backend has been converted to Vercel Serverless Function
 You need to add these environment variables to your Vercel project:
 
 ### 1. Go to Vercel Dashboard
+
 Visit: https://vercel.com/joshuauaua/phonosium-website/settings/environment-variables
 
 ### 2. Add the following variables:
 
-| Variable Name | Value | Environments |
-|--------------|-------|--------------|
-| `AZURE_STORAGE_CONNECTION_STRING` | Get from `api/local.settings.json` | Production, Preview |
-| `AZURE_STORAGE_ACCOUNT_NAME` | Get from `api/local.settings.json` | Production, Preview |
-| `AZURE_STORAGE_ACCOUNT_KEY` | Get from `api/local.settings.json` | Production, Preview |
-| `ALLOWED_ORIGINS` | `https://phonosium-website.vercel.app,http://localhost:5173` | Production, Preview |
+| Variable Name                     | Value                                                        | Environments        |
+| --------------------------------- | ------------------------------------------------------------ | ------------------- |
+| `AZURE_STORAGE_CONNECTION_STRING` | Get from `api/local.settings.json`                           | Production, Preview |
+| `AZURE_STORAGE_ACCOUNT_NAME`      | Get from `api/local.settings.json`                           | Production, Preview |
+| `AZURE_STORAGE_ACCOUNT_KEY`       | Get from `api/local.settings.json`                           | Production, Preview |
+| `ALLOWED_ORIGINS`                 | `https://phonosium-website.vercel.app,http://localhost:5173` | Production, Preview |
 
 **Note:** Copy the actual values from your local `api/local.settings.json` file (not committed to git).
 
@@ -44,11 +45,13 @@ After deployment, your endpoints will be:
 ## 🧪 Testing Locally with Vercel CLI
 
 Install Vercel CLI:
+
 ```bash
 npm i -g vercel
 ```
 
 Run locally:
+
 ```bash
 vercel dev
 ```
@@ -91,15 +94,18 @@ phonosium-website/
 ## 🐛 Troubleshooting
 
 ### If endpoints return 404:
+
 - Verify `vercel.json` is in the root directory
 - Check that API files are in the `/api` directory
 - Redeploy the project
 
 ### If you get CORS errors:
+
 - Verify `ALLOWED_ORIGINS` includes your domain
 - Check browser console for the exact error
 
 ### To view logs:
+
 ```bash
 vercel logs phonosium-website
 ```

@@ -120,7 +120,7 @@ export default async function handler(req, res) {
           expiresOn,
           contentType: fileType,
         },
-        credential,
+        credential
       ).toString()
 
       uploadUrl = `${blockBlobClient.url}?${sasToken}`

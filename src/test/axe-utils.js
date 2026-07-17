@@ -1,5 +1,5 @@
 import { axe } from 'vitest-axe'
-import { expect } from 'vitest'
+import { expect } from 'vite-plus/test'
 
 /**
  * Runs comprehensive axe accessibility tests on a rendered component

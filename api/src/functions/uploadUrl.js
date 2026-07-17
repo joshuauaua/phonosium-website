@@ -135,7 +135,7 @@ export async function uploadUrlHandler(request, context) {
           expiresOn,
           contentType: fileType,
         },
-        credential,
+        credential
       ).toString()
 
       uploadUrl = `${blockBlobClient.url}?${sasToken}`
