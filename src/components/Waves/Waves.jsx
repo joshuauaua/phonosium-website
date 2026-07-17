@@ -46,8 +46,8 @@ class Noise {
       184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254, 138, 236, 205, 93,
       222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180,
     ]
-    this.perm = new Array(512)
-    this.gradP = new Array(512)
+    this.perm = Array.from({ length: 512 })
+    this.gradP = Array.from({ length: 512 })
     this.seed(seed)
   }
   seed(seed) {
