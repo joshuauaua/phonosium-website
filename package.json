@@ -42,5 +42,10 @@
     "sharp": "^0.34.5",
     "vite-plus": "^0.2.5",
     "vitest-axe": "^0.1.0"
+  },
+  "allowScripts": {
+    "canvas@3.2.3": true,
+    "fsevents@2.3.3": true,
+    "sharp@0.34.5": true
   }
 }
