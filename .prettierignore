@@ -1,0 +1,3 @@
+# Vendored third-party skill content — keep byte-identical to upstream so
+# `npx impeccable update` diffs stay clean.
+.claude/skills/impeccable/

@@ -11,7 +11,7 @@
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",
-    "lint": "vp lint",
+    "lint": "vp lint --ignore-pattern='.claude/skills/impeccable/**'",
     "format": "vp fmt",
     "format:check": "vp fmt --check",
     "test": "vp test",
