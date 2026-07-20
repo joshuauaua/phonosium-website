@@ -156,24 +156,18 @@ A two-color system — vermillion orange plus warm neutrals anchored by a near-b
 
 Computed per the [WCAG 2.1 relative-luminance formula](https://www.w3.org/TR/WCAG21/#dfn-relative-luminance) for every color pairing actually used for text or interactive-state content in `colors_and_type.css`. AA requires 4.5:1 for normal text / 3:1 for large text (≥18px/14px bold) and non-text UI components (borders, focus indicators); AAA requires 7:1 / 4.5:1.
 
-| Foreground                | Background                | Usage                                                                        | Ratio                                       | AA                                                          | AAA  |
-| ------------------------- | ------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------- | ---- |
-| Ink `#14110e`             | Paper `#faf7f2`           | Body text, `.ph-btn--outline`, `.ph-chip`, `.ph-input`                       | 17.60:1                                     | Pass                                                        | Pass |
-| Ink Lead `#2a251f`        | Paper `#faf7f2`           | Lead paragraph text                                                          | 14.21:1                                     | Pass                                                        | Pass |
-| Stone Dark `#5a544c`      | Paper `#faf7f2`           | Metadata labels                                                              | 7.00:1                                      | Pass                                                        | Pass |
-| Paper `#faf7f2`           | Ink `#14110e`             | `.ph-btn` primary, `.ph-btn--outline:hover`, inverse sections                | 17.60:1                                     | Pass                                                        | Pass |
-| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn--accent` text                                                       | 6.03:1                                      | Pass (normal)                                               | Fail |
-| Paper `#faf7f2`           | Vermillion Deep `#c2410c` | `.ph-btn--accent:hover` text                                                 | 4.85:1                                      | Pass (normal)                                               | Fail |
-| Vermillion Deep `#c2410c` | Vermillion Tint `#fff1e6` | `.ph-chip--live` text                                                        | 4.68:1                                      | Pass (normal)                                               | Fail |
-| Stone `#8a847c`           | Paper `#faf7f2`           | Muted text, `.ph-input::placeholder`                                         | 3.46:1                                      | **Fail** (passes only at large-text/UI-component threshold) | Fail |
-| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn` (primary) `:hover` text                                            | 6.03:1                                      | Pass (normal)                                               | Fail |
-| Vermillion `#ff5a1f`      | Paper `#faf7f2`           | Focus underline (`.ph-input:focus`), accent borders — non-text UI, needs 3:1 | **2.92:1 — fails the 3:1 non-text minimum** | **Fail**                                                    | Fail |
-
-**Known gaps (tracked, not yet fixed):**
-
-- **Vermillion-on-Paper as a non-text indicator** (focus underline, accent borders) also falls short of the 3:1 minimum WCAG 1.4.11 requires for UI-component boundaries.
-
-The PRODUCT.md accessibility claim has been updated to reflect this — see its Accessibility & Inclusion section.
+| Foreground                | Background                | Usage                                                                        | Ratio   | AA                                                          | AAA  |
+| ------------------------- | ------------------------- | ---------------------------------------------------------------------------- | ------- | ----------------------------------------------------------- | ---- |
+| Ink `#14110e`             | Paper `#faf7f2`           | Body text, `.ph-btn--outline`, `.ph-chip`, `.ph-input`                       | 17.60:1 | Pass                                                        | Pass |
+| Ink Lead `#2a251f`        | Paper `#faf7f2`           | Lead paragraph text                                                          | 14.21:1 | Pass                                                        | Pass |
+| Stone Dark `#5a544c`      | Paper `#faf7f2`           | Metadata labels                                                              | 7.00:1  | Pass                                                        | Pass |
+| Paper `#faf7f2`           | Ink `#14110e`             | `.ph-btn` primary, `.ph-btn--outline:hover`, inverse sections                | 17.60:1 | Pass                                                        | Pass |
+| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn--accent` text                                                       | 6.03:1  | Pass (normal)                                               | Fail |
+| Paper `#faf7f2`           | Vermillion Deep `#c2410c` | `.ph-btn--accent:hover` text                                                 | 4.85:1  | Pass (normal)                                               | Fail |
+| Vermillion Deep `#c2410c` | Vermillion Tint `#fff1e6` | `.ph-chip--live` text                                                        | 4.68:1  | Pass (normal)                                               | Fail |
+| Stone `#8a847c`           | Paper `#faf7f2`           | Muted text, `.ph-input::placeholder`                                         | 3.46:1  | **Fail** (passes only at large-text/UI-component threshold) | Fail |
+| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn` (primary) `:hover` text                                            | 6.03:1  | Pass (normal)                                               | Fail |
+| Vermillion Deep `#c2410c` | Paper `#faf7f2`           | Focus underline (`.ph-input:focus`), accent borders — non-text UI, needs 3:1 | 4.85:1  | Pass                                                        | Fail |
 
 ### Named Rules
 
