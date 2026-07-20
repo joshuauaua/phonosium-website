@@ -1,6 +1,6 @@
 ---
 name: phonosium-design
-description: Use this skill to generate well-branded interfaces and assets for Phonosium, a sound installation. Contains colors, type, fonts, components, and a microsite UI kit for prototyping exhibition wayfinding, posters, programme materials, web, and signage.
+description: Use this skill to generate well-branded interfaces and assets for Phonosium, a sound installation. Contains color and type tokens (CSS custom properties), a brand brief covering voice and visual rules, and core design constraints for exhibition wayfinding, posters, programme materials, web, and signage.
 user-invocable: true
 ---
 
