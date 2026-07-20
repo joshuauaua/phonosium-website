@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-20T07:49:17Z",
+  "title": "Design System: Phonosium",
+  "extensions": {
+    "colorMeta": {
+      "vermillion": { "role": "primary", "displayName": "Vermillion", "canonical": "oklch(68.2% 0.211 37.7)", "tonalRamp": ["oklch(15% 0.211 37.7)", "oklch(27% 0.211 37.7)", "oklch(39% 0.211 37.7)", "oklch(51% 0.211 37.7)", "oklch(63% 0.211 37.7)", "oklch(75% 0.211 37.7)", "oklch(87% 0.211 37.7)", "oklch(95% 0.211 37.7)"] },
+      "paper": { "role": "neutral", "displayName": "Warm Paper", "canonical": "oklch(97.7% 0.007 80.7)", "tonalRamp": ["oklch(15% 0.007 80.7)", "oklch(27% 0.007 80.7)", "oklch(39% 0.007 80.7)", "oklch(51% 0.007 80.7)", "oklch(63% 0.007 80.7)", "oklch(75% 0.007 80.7)", "oklch(87% 0.007 80.7)", "oklch(95% 0.007 80.7)"] },
+      "ink": { "role": "neutral", "displayName": "Exhibition Ink", "canonical": "oklch(18% 0.008 67.3)", "tonalRamp": ["oklch(6% 0.008 67.3)", "oklch(12% 0.008 67.3)", "oklch(18% 0.008 67.3)", "oklch(30% 0.008 67.3)", "oklch(45% 0.008 67.3)", "oklch(60% 0.008 67.3)", "oklch(78% 0.008 67.3)", "oklch(92% 0.008 67.3)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero numerals and title-slide type only." },
+      "headline": { "displayName": "Headline / H1", "purpose": "The largest in-page heading." },
+      "title": { "displayName": "Title / H4", "purpose": "Card and panel titles." },
+      "body": { "displayName": "Body", "purpose": "Default copy." },
+      "label": { "displayName": "Label / Mono", "purpose": "Timecodes, frequencies, room numbers." }
+    },
+    "shadows": [
+      { "name": "overlay", "value": "0 12px 32px -8px rgba(20, 17, 14, 0.18), 0 2px 6px -2px rgba(20, 17, 14, 0.08)", "purpose": "Floating overlays only (menus, popovers). Never on resting surfaces." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.2, 0.7, 0.1, 1)", "purpose": "Standard easing — confident, no overshoot." },
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Deceleration." },
+      { "name": "ease-in", "value": "cubic-bezier(0.7, 0, 0.84, 0)", "purpose": "Acceleration." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.45, 0, 0.55, 1)", "purpose": "Smooth, symmetric transitions." },
+      { "name": "duration-fast", "value": "120ms", "purpose": "Hover/press feedback." },
+      { "name": "duration-base", "value": "180ms", "purpose": "Default state transitions." },
+      { "name": "duration-slow", "value": "420ms", "purpose": "Entries." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "640px" },
+      { "name": "desktop", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default call-to-action button; ink fill, paper text.",
+      "html": "<button class=\"ds-btn-primary\">Get Started</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid #14110e; background: #14110e; color: #faf7f2; border-radius: 2px; cursor: pointer; transition: background 180ms cubic-bezier(0.2, 0.7, 0.1, 1), color 180ms cubic-bezier(0.2, 0.7, 0.1, 1); } .ds-btn-primary:hover { background: #ff5a1f; border-color: #ff5a1f; } .ds-btn-primary:focus-visible { outline: 2px solid #ff5a1f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary button; transparent fill, ink border, inverts on hover.",
+      "html": "<button class=\"ds-btn-outline\">Learn More</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid #14110e; background: transparent; color: #14110e; border-radius: 2px; cursor: pointer; transition: background 180ms cubic-bezier(0.2, 0.7, 0.1, 1), color 180ms cubic-bezier(0.2, 0.7, 0.1, 1); } .ds-btn-outline:hover { background: #14110e; color: #faf7f2; } .ds-btn-outline:focus-visible { outline: 2px solid #ff5a1f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "High-emphasis button reserved for the single live/actionable element per view.",
+      "html": "<button class=\"ds-btn-accent\">Submit Work</button>",
+      "css": ".ds-btn-accent { display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid #ff5a1f; background: #ff5a1f; color: #14110e; border-radius: 2px; cursor: pointer; transition: background 180ms cubic-bezier(0.2, 0.7, 0.1, 1), color 180ms cubic-bezier(0.2, 0.7, 0.1, 1); } .ds-btn-accent:hover { background: #c2410c; border-color: #c2410c; color: #faf7f2; } .ds-btn-accent:focus-visible { outline: 2px solid #14110e; outline-offset: 2px; }"
+    },
+    {
+      "name": "Live Chip",
+      "kind": "chip",
+      "refersTo": "chip-live",
+      "description": "Status chip marking the current/live chapter or room.",
+      "html": "<span class=\"ds-chip-live\"><span class=\"ds-chip-live__dot\"></span>Live · Room 03</span>",
+      "css": ".ds-chip-live { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid #ff5a1f; border-radius: 999px; background: #fff1e6; color: #c2410c; } .ds-chip-live__dot { width: 6px; height: 6px; border-radius: 999px; background: #ff5a1f; animation: ds-pulse 1.6s cubic-bezier(0.2, 0.7, 0.1, 1) infinite; } @keyframes ds-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat, sharp-cornered content container with a hairline border.",
+      "html": "<div class=\"ds-card\"><p>Ch. 03 — Standing Waves — 14′02″</p></div>",
+      "css": ".ds-card { background: #faf7f2; border: 1px solid #14110e; border-radius: 0; padding: 32px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Underline-only field; no box, no fill.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Artist name\" />",
+      "css": ".ds-input { width: 100%; padding: 14px 16px; font-family: 'Archivo', sans-serif; font-size: 16px; background: transparent; border: none; border-bottom: 2px solid #14110e; border-radius: 0; color: #14110e; outline: none; transition: border-color 180ms cubic-bezier(0.2, 0.7, 0.1, 1); } .ds-input:focus { border-color: #ff5a1f; } .ds-input::placeholder { color: #8a847c; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sound Chamber",
+    "overview": "Phonosium is a sound installation — an immersive spatial work that treats acoustics as architecture. The site is its wayfinding layer: it reads like exhibition signage, not a marketing page. Large, confident architectural type sets the hierarchy; generous white space lets it breathe; a single vermillion accent does all the emphasis work, marking the one live element, current chapter, or call to action per screen. Monospaced technical metadata — timecodes, frequencies, room numbers, chapter indices — recurs as a structural motif, anchoring the work in something measurable. The voice is curatorial and third-person observational, like wall text in a gallery, never a pitch.",
+    "keyCharacteristics": [
+      "One accent color, used sparingly and only for the live/actionable element",
+      "Flat surfaces — hierarchy comes from hairline rules and weight, not shadows",
+      "Large, tight-tracked Archivo display type paired with uppercase JetBrains Mono metadata",
+      "Mobile-first: legible and tappable at arm's length, outdoors, in person at the installation site"
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Vermillion appears on one thing per view. Its rarity is the point — if more than one element on screen carries the accent, one of them is wrong.", "section": "colors" },
+      { "name": "The Mono-For-Metadata Rule", "body": "JetBrains Mono is reserved for the technical voice — timecodes, frequency labels, room numbers, captions. Never for body copy.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows appear only for elements floating above the page, never as a decorative lift on cards or buttons.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do reserve vermillion (#ff5a1f) for the one live/actionable element per view — the current chapter, the primary CTA, the live indicator.",
+      "Do use 1px hairline ink borders and weight contrast for hierarchy instead of shadows or elevation.",
+      "Do set technical metadata (timecodes, frequencies, room numbers) in uppercase JetBrains Mono, tracked 0.04em.",
+      "Do keep layouts mobile-first with tappable targets — visitors check the schedule outdoors, at arm's length.",
+      "Do use confident, no-overshoot easing (cubic-bezier(0.2, 0.7, 0.1, 1)) for state transitions."
+    ],
+    "donts": [
+      "Don't use gradient backgrounds.",
+      "Don't use glassmorphism.",
+      "Don't use rounded cards with heavy drop shadows — corners are sharp (0–2px) and surfaces are flat.",
+      "Don't use playful, bouncy animations — motion is restrained: 120–420ms, no overshoot.",
+      "Don't use emoji in UI copy or icons.",
+      "Don't use marketing superlatives (\"amazing\", \"revolutionary\") — the voice is curatorial, third-person, and observational."
+    ]
+  }
+}
