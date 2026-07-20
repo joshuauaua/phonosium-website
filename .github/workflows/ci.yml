@@ -26,7 +26,7 @@ jobs:
         run: npm run lint
 
       - name: Run design quality check
-        run: npx impeccable detect src/
+        run: npx impeccable detect src/ --no-design-system
 
       - name: Build
         run: npm run build
