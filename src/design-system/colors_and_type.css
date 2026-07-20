@@ -24,9 +24,7 @@
   /* ---- Color · Semantic ---- */
   --ph-fg: var(--ph-ink);
   --ph-fg-lead: #2a251f; /* darker for lead text, 14.2:1 contrast on paper */
-  --ph-fg-muted: var(
-    --ph-stone
-  ); /* 3.46:1 on paper — below AA, see DESIGN.md Contrast Ratios */
+  --ph-fg-muted: var(--ph-stone-dark); /* 7.0:1 on paper — AA compliant */
   --ph-fg-inverse: var(--ph-paper);
   --ph-bg: var(--ph-paper);
   --ph-bg-inverse: var(--ph-ink);
@@ -218,6 +216,7 @@ body {
 .ph-btn:hover {
   background: var(--ph-orange);
   border-color: var(--ph-orange);
+  color: var(--ph-ink); /* Paper→Ink: 6.03:1 on Vermillion — passes AA */
 }
 
 .ph-btn--outline {
