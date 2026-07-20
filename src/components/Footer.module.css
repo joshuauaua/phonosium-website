@@ -7,7 +7,7 @@
   font-size: var(--ph-fs-mono-xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
   border-top: 1px solid var(--ph-ink);
 }
 
