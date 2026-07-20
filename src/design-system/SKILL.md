@@ -4,7 +4,7 @@ description: Use this skill to generate well-branded interfaces and assets for P
 user-invocable: true
 ---
 
-Read `README.md` for the brand foundation: voice, visual rules, type system, color usage, motion. Tokens live in `colors_and_type.css` — link it from every HTML file you produce. Sample components are in `preview/`; a full microsite example is in `ui_kits/site/`.
+Read `DESIGN.md` for the brand foundation: voice, visual rules, type system, color usage, motion. Tokens live in `colors_and_type.css` — link it from every HTML file you produce.
 
 Core rules to honor:
 
