@@ -95,7 +95,7 @@
   color: var(--ph-graphite);
   padding-left: var(--ph-s-5);
   position: relative;
-  border-left: 2px solid var(--ph-orange);
+  border-left: 2px solid var(--ph-accent-border);
 }
 
 .criteria {
@@ -125,7 +125,7 @@
   color: var(--ph-graphite);
   padding-left: var(--ph-s-5);
   position: relative;
-  border-left: 2px solid var(--ph-orange);
+  border-left: 2px solid var(--ph-accent-border);
 }
 
 .requirementsContainer {
@@ -167,7 +167,7 @@
   color: var(--ph-graphite);
   padding-left: var(--ph-s-5);
   position: relative;
-  border-left: 2px solid var(--ph-orange);
+  border-left: 2px solid var(--ph-accent-border);
 }
 
 @media (max-width: 768px) {
