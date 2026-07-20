@@ -29,6 +29,9 @@
   --ph-bg: var(--ph-paper);
   --ph-bg-inverse: var(--ph-ink);
   --ph-accent: var(--ph-orange);
+  --ph-accent-border: var(
+    --ph-orange-deep
+  ); /* 4.85:1 on paper — passes 3:1 for WCAG 1.4.11 */
   --ph-rule: var(--ph-ink);
   --ph-rule-soft: var(--ph-mist);
   --ph-stone-dark: #5a544c; /* darker stone for labels, 7.0:1 contrast on paper */
@@ -255,7 +258,7 @@ body {
   color: var(--ph-ink);
 }
 .ph-chip--live {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
   color: var(--ph-orange-deep);
   background: var(--ph-orange-tint);
 }
@@ -308,7 +311,7 @@ body {
   transition: border-color var(--ph-dur-base) var(--ph-ease);
 }
 .ph-input:focus {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
 }
 .ph-input::placeholder {
   color: var(--ph-stone);

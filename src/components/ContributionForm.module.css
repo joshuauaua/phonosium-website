@@ -157,7 +157,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
 }
 
 .input::placeholder,
@@ -252,7 +252,7 @@
 }
 
 .fileInputWrapper:hover {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
 }
 
 .fileInput {
@@ -308,7 +308,7 @@
 
 .btnRemoveLink {
   background: transparent;
-  border: 1px solid var(--ph-orange);
+  border: 1px solid var(--ph-accent-border);
   color: var(--ph-orange);
   min-width: 40px;
 }
@@ -340,7 +340,7 @@
 }
 
 .tagButton:hover {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
 }
 
 .tagButtonActive {
@@ -356,7 +356,7 @@
 
 .tagButtonCustom.tagButtonActive {
   background: transparent;
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
   color: var(--ph-orange);
   border-style: dashed;
 }
@@ -382,7 +382,7 @@
 }
 
 .customTagInput:focus {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
 }
 
 .customTagInput::placeholder {
@@ -394,7 +394,7 @@
   font-family: var(--ph-font-sans);
   font-size: var(--ph-fs-body-sm);
   background: transparent;
-  border: 1px solid var(--ph-orange);
+  border: 1px solid var(--ph-accent-border);
   color: var(--ph-orange);
   border-radius: var(--ph-r-1);
   cursor: pointer;
@@ -584,7 +584,7 @@
 }
 
 .linkTypeSelect:focus {
-  border-color: var(--ph-orange);
+  border-color: var(--ph-accent-border);
 }
 
 .linkTypeSelect option {

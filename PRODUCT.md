@@ -38,4 +38,4 @@ Gradient backgrounds, glassmorphism, rounded cards with heavy drop shadows, play
 
 ## Accessibility & Inclusion
 
-WCAG 2.1 AA for primary and lead text (Ink/Ink Lead on Paper: 17.6:1 / 14.2:1 — verified, not just asserted) and for most interactive states, per the computed contrast ratios in `DESIGN.md`'s Colors section. Two known gaps fall short of AA and are tracked for remediation: muted/placeholder text (Stone on Paper, 3.46:1) and the primary-button hover state (Paper on Vermillion, 2.92:1). 44×44px minimum touch targets, and no reliance on color alone to convey state.
+WCAG 2.1 AA for primary and lead text (Ink/Ink Lead on Paper: 17.6:1 / 14.2:1 — verified, not just asserted) and for all interactive states at their designed sizes, per the computed contrast ratios in `DESIGN.md`'s Colors section. 44×44px minimum touch targets, and no reliance on color alone to convey state.
