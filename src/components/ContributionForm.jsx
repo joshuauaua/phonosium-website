@@ -941,7 +941,7 @@ export default function ContributionForm({ onClose }) {
                   <div className={styles.progressBar}>
                     <div
                       className={styles.progressFill}
-                      style={{ width: `${uploadProgress.loop}%` }}
+                      style={{ transform: `scaleX(${uploadProgress.loop / 100})` }}
                     />
                   </div>
                 </div>
@@ -954,7 +954,7 @@ export default function ContributionForm({ onClose }) {
                     <div className={styles.progressBar}>
                       <div
                         className={styles.progressFill}
-                        style={{ width: `${progress}%` }}
+                        style={{ transform: `scaleX(${progress / 100})` }}
                       />
                     </div>
                   </div>
@@ -965,7 +965,7 @@ export default function ContributionForm({ onClose }) {
                   <div className={styles.progressBar}>
                     <div
                       className={styles.progressFill}
-                      style={{ width: `${uploadProgress.cover}%` }}
+                      style={{ transform: `scaleX(${uploadProgress.cover / 100})` }}
                     />
                   </div>
                 </div>
