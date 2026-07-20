@@ -266,7 +266,7 @@
 }
 
 .fileHint {
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
   font-size: var(--ph-fs-body-sm);
 }
 
@@ -426,7 +426,7 @@
 }
 
 .fileListItem span {
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .btnRemoveFile {
@@ -508,13 +508,13 @@
   cursor: not-allowed;
   background: var(--ph-mist);
   border-color: var(--ph-mist);
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .btnNext:disabled:hover {
   background: var(--ph-mist);
   border-color: var(--ph-mist);
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .errorMessage {
@@ -537,7 +537,7 @@
   align-items: center;
   gap: var(--ph-s-4);
   font-size: var(--ph-fs-body-sm);
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .progressItem span {

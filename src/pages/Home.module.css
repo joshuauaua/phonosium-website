@@ -468,7 +468,7 @@
   font-size: var(--ph-fs-mono-xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .dayToggle {
@@ -548,7 +548,7 @@
   font-size: var(--ph-fs-mono-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ph-stone);
+  color: var(--ph-stone-dark);
 }
 
 .chTime {

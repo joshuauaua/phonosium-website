@@ -148,7 +148,7 @@ A two-color system — vermillion orange plus warm neutrals anchored by a near-b
 - **White** (`#ffffff`): true white, reserved for isolated needs distinct from the warm paper canvas.
 - **Chalk** (`#efebe3`): scrollbar track and the faintest background variation.
 - **Mist** (`#d9d4cc`): soft dividers (`.ph-rule--soft`).
-- **Stone** (`#8a847c`): muted text, placeholders (3.46:1 on paper — below AA; see Contrast Ratios below).
+- **Stone** (`#8a847c`): borders and placeholder text only (3.46:1 on paper — below AA for informational text; see Stone Dark for muted text, and Contrast Ratios below).
 - **Stone Dark** (`#5a544c`): labels and metadata needing stronger contrast than Stone (7.0:1 on paper).
 - **Graphite** (`#3a332d`): scrollbar-thumb hover state.
 
@@ -156,23 +156,21 @@ A two-color system — vermillion orange plus warm neutrals anchored by a near-b
 
 Computed per the [WCAG 2.1 relative-luminance formula](https://www.w3.org/TR/WCAG21/#dfn-relative-luminance) for every color pairing actually used for text or interactive-state content in `colors_and_type.css`. AA requires 4.5:1 for normal text / 3:1 for large text (≥18px/14px bold) and non-text UI components (borders, focus indicators); AAA requires 7:1 / 4.5:1.
 
-| Foreground                | Background                | Usage                                                                                                          | Ratio                                       | AA                                                          | AAA  |
-| ------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------- | ---- |
-| Ink `#14110e`             | Paper `#faf7f2`           | Body text, `.ph-btn--outline`, `.ph-chip`, `.ph-input`                                                         | 17.60:1                                     | Pass                                                        | Pass |
-| Ink Lead `#2a251f`        | Paper `#faf7f2`           | Lead paragraph text                                                                                            | 14.21:1                                     | Pass                                                        | Pass |
-| Stone Dark `#5a544c`      | Paper `#faf7f2`           | Metadata labels                                                                                                | 7.00:1                                      | Pass                                                        | Pass |
-| Paper `#faf7f2`           | Ink `#14110e`             | `.ph-btn` primary, `.ph-btn--outline:hover`, inverse sections                                                  | 17.60:1                                     | Pass                                                        | Pass |
-| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn--accent` text                                                                                         | 6.03:1                                      | Pass (normal)                                               | Fail |
-| Paper `#faf7f2`           | Vermillion Deep `#c2410c` | `.ph-btn--accent:hover` text                                                                                   | 4.85:1                                      | Pass (normal)                                               | Fail |
-| Vermillion Deep `#c2410c` | Vermillion Tint `#fff1e6` | `.ph-chip--live` text                                                                                          | 4.68:1                                      | Pass (normal)                                               | Fail |
-| Stone `#8a847c`           | Paper `#faf7f2`           | Muted text, `.ph-input::placeholder`                                                                           | 3.46:1                                      | **Fail** (passes only at large-text/UI-component threshold) | Fail |
-| Paper `#faf7f2`           | Vermillion `#ff5a1f`      | `.ph-btn` (primary) `:hover` text — background switches to Vermillion but the inherited text color stays Paper | 2.92:1                                      | **Fail**                                                    | Fail |
-| Vermillion `#ff5a1f`      | Paper `#faf7f2`           | Focus underline (`.ph-input:focus`), accent borders — non-text UI, needs 3:1                                   | **2.92:1 — fails the 3:1 non-text minimum** | **Fail**                                                    | Fail |
+| Foreground                | Background                | Usage                                                                        | Ratio                                       | AA                                                          | AAA  |
+| ------------------------- | ------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------- | ---- |
+| Ink `#14110e`             | Paper `#faf7f2`           | Body text, `.ph-btn--outline`, `.ph-chip`, `.ph-input`                       | 17.60:1                                     | Pass                                                        | Pass |
+| Ink Lead `#2a251f`        | Paper `#faf7f2`           | Lead paragraph text                                                          | 14.21:1                                     | Pass                                                        | Pass |
+| Stone Dark `#5a544c`      | Paper `#faf7f2`           | Metadata labels                                                              | 7.00:1                                      | Pass                                                        | Pass |
+| Paper `#faf7f2`           | Ink `#14110e`             | `.ph-btn` primary, `.ph-btn--outline:hover`, inverse sections                | 17.60:1                                     | Pass                                                        | Pass |
+| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn--accent` text                                                       | 6.03:1                                      | Pass (normal)                                               | Fail |
+| Paper `#faf7f2`           | Vermillion Deep `#c2410c` | `.ph-btn--accent:hover` text                                                 | 4.85:1                                      | Pass (normal)                                               | Fail |
+| Vermillion Deep `#c2410c` | Vermillion Tint `#fff1e6` | `.ph-chip--live` text                                                        | 4.68:1                                      | Pass (normal)                                               | Fail |
+| Stone `#8a847c`           | Paper `#faf7f2`           | Muted text, `.ph-input::placeholder`                                         | 3.46:1                                      | **Fail** (passes only at large-text/UI-component threshold) | Fail |
+| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn` (primary) `:hover` text                                            | 6.03:1                                      | Pass (normal)                                               | Fail |
+| Vermillion `#ff5a1f`      | Paper `#faf7f2`           | Focus underline (`.ph-input:focus`), accent borders — non-text UI, needs 3:1 | **2.92:1 — fails the 3:1 non-text minimum** | **Fail**                                                    | Fail |
 
 **Known gaps (tracked, not yet fixed):**
 
-- **Stone-on-Paper** (3.46:1) is used for real muted body copy across the site (captions, meta labels, footer text — see `InstallationDetail.module.css`, `ContributionForm.module.css`, `Footer.module.css`), not only placeholders. It fails the 4.5:1 AA minimum for normal-size text.
-- **Primary-button hover state** (Paper-on-Vermillion, 2.92:1): `.ph-btn:hover` changes the background to Vermillion without also switching the text color to Ink, so hovered primary-button text fails AA.
 - **Vermillion-on-Paper as a non-text indicator** (focus underline, accent borders) also falls short of the 3:1 minimum WCAG 1.4.11 requires for UI-component boundaries.
 
 The PRODUCT.md accessibility claim has been updated to reflect this — see its Accessibility & Inclusion section.

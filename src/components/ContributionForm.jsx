@@ -458,7 +458,7 @@ export default function ContributionForm({ onClose }) {
             <div className={styles.successMessage}>
               <div className={styles.successIcon}>✓</div>
               <h2 className={styles.stepTitle}>Submission Received</h2>
-              <p style={{ color: 'var(--ph-stone)' }}>
+              <p style={{ color: 'var(--ph-stone-dark)' }}>
                 Thank you for submitting to Phonosium. Our curators will review
                 your work and contact you via email.
               </p>
@@ -839,7 +839,12 @@ export default function ContributionForm({ onClose }) {
                 <h2 className={styles.stepTitle} ref={step3Ref} tabIndex={-1}>
                   Review and Terms
                 </h2>
-                <p style={{ color: 'var(--ph-stone)', marginBottom: '2rem' }}>
+                <p
+                  style={{
+                    color: 'var(--ph-stone-dark)',
+                    marginBottom: '2rem',
+                  }}
+                >
                   Please review your submission details before submitting.
                 </p>
                 <div className={styles.reviewBox}>
@@ -941,7 +946,9 @@ export default function ContributionForm({ onClose }) {
                   <div className={styles.progressBar}>
                     <div
                       className={styles.progressFill}
-                      style={{ transform: `scaleX(${uploadProgress.loop / 100})` }}
+                      style={{
+                        transform: `scaleX(${uploadProgress.loop / 100})`,
+                      }}
                     />
                   </div>
                 </div>
@@ -965,7 +972,9 @@ export default function ContributionForm({ onClose }) {
                   <div className={styles.progressBar}>
                     <div
                       className={styles.progressFill}
-                      style={{ transform: `scaleX(${uploadProgress.cover / 100})` }}
+                      style={{
+                        transform: `scaleX(${uploadProgress.cover / 100})`,
+                      }}
                     />
                   </div>
                 </div>
