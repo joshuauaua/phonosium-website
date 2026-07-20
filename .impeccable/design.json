@@ -4,27 +4,109 @@
   "title": "Design System: Phonosium",
   "extensions": {
     "colorMeta": {
-      "vermillion": { "role": "primary", "displayName": "Vermillion", "canonical": "oklch(68.2% 0.211 37.7)", "tonalRamp": ["oklch(15% 0.211 37.7)", "oklch(27% 0.211 37.7)", "oklch(39% 0.211 37.7)", "oklch(51% 0.211 37.7)", "oklch(63% 0.211 37.7)", "oklch(75% 0.211 37.7)", "oklch(87% 0.211 37.7)", "oklch(95% 0.211 37.7)"] },
-      "paper": { "role": "neutral", "displayName": "Warm Paper", "canonical": "oklch(97.7% 0.007 80.7)", "tonalRamp": ["oklch(15% 0.007 80.7)", "oklch(27% 0.007 80.7)", "oklch(39% 0.007 80.7)", "oklch(51% 0.007 80.7)", "oklch(63% 0.007 80.7)", "oklch(75% 0.007 80.7)", "oklch(87% 0.007 80.7)", "oklch(95% 0.007 80.7)"] },
-      "ink": { "role": "neutral", "displayName": "Exhibition Ink", "canonical": "oklch(18% 0.008 67.3)", "tonalRamp": ["oklch(6% 0.008 67.3)", "oklch(12% 0.008 67.3)", "oklch(18% 0.008 67.3)", "oklch(30% 0.008 67.3)", "oklch(45% 0.008 67.3)", "oklch(60% 0.008 67.3)", "oklch(78% 0.008 67.3)", "oklch(92% 0.008 67.3)"] }
+      "vermillion": {
+        "role": "primary",
+        "displayName": "Vermillion",
+        "canonical": "oklch(68.2% 0.211 37.7)",
+        "tonalRamp": [
+          "oklch(15% 0.211 37.7)",
+          "oklch(27% 0.211 37.7)",
+          "oklch(39% 0.211 37.7)",
+          "oklch(51% 0.211 37.7)",
+          "oklch(63% 0.211 37.7)",
+          "oklch(75% 0.211 37.7)",
+          "oklch(87% 0.211 37.7)",
+          "oklch(95% 0.211 37.7)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(97.7% 0.007 80.7)",
+        "tonalRamp": [
+          "oklch(15% 0.007 80.7)",
+          "oklch(27% 0.007 80.7)",
+          "oklch(39% 0.007 80.7)",
+          "oklch(51% 0.007 80.7)",
+          "oklch(63% 0.007 80.7)",
+          "oklch(75% 0.007 80.7)",
+          "oklch(87% 0.007 80.7)",
+          "oklch(95% 0.007 80.7)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Exhibition Ink",
+        "canonical": "oklch(18% 0.008 67.3)",
+        "tonalRamp": [
+          "oklch(6% 0.008 67.3)",
+          "oklch(12% 0.008 67.3)",
+          "oklch(18% 0.008 67.3)",
+          "oklch(30% 0.008 67.3)",
+          "oklch(45% 0.008 67.3)",
+          "oklch(60% 0.008 67.3)",
+          "oklch(78% 0.008 67.3)",
+          "oklch(92% 0.008 67.3)"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Hero numerals and title-slide type only." },
-      "headline": { "displayName": "Headline / H1", "purpose": "The largest in-page heading." },
-      "title": { "displayName": "Title / H4", "purpose": "Card and panel titles." },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero numerals and title-slide type only."
+      },
+      "headline": {
+        "displayName": "Headline / H1",
+        "purpose": "The largest in-page heading."
+      },
+      "title": {
+        "displayName": "Title / H4",
+        "purpose": "Card and panel titles."
+      },
       "body": { "displayName": "Body", "purpose": "Default copy." },
-      "label": { "displayName": "Label / Mono", "purpose": "Timecodes, frequencies, room numbers." }
+      "label": {
+        "displayName": "Label / Mono",
+        "purpose": "Timecodes, frequencies, room numbers."
+      }
     },
     "shadows": [
-      { "name": "overlay", "value": "0 12px 32px -8px rgba(20, 17, 14, 0.18), 0 2px 6px -2px rgba(20, 17, 14, 0.08)", "purpose": "Floating overlays only (menus, popovers). Never on resting surfaces." }
+      {
+        "name": "overlay",
+        "value": "0 12px 32px -8px rgba(20, 17, 14, 0.18), 0 2px 6px -2px rgba(20, 17, 14, 0.08)",
+        "purpose": "Floating overlays only (menus, popovers). Never on resting surfaces."
+      }
     ],
     "motion": [
-      { "name": "ease", "value": "cubic-bezier(0.2, 0.7, 0.1, 1)", "purpose": "Standard easing — confident, no overshoot." },
-      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Deceleration." },
-      { "name": "ease-in", "value": "cubic-bezier(0.7, 0, 0.84, 0)", "purpose": "Acceleration." },
-      { "name": "ease-in-out", "value": "cubic-bezier(0.45, 0, 0.55, 1)", "purpose": "Smooth, symmetric transitions." },
-      { "name": "duration-fast", "value": "120ms", "purpose": "Hover/press feedback." },
-      { "name": "duration-base", "value": "180ms", "purpose": "Default state transitions." },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.2, 0.7, 0.1, 1)",
+        "purpose": "Standard easing — confident, no overshoot."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Deceleration."
+      },
+      {
+        "name": "ease-in",
+        "value": "cubic-bezier(0.7, 0, 0.84, 0)",
+        "purpose": "Acceleration."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.45, 0, 0.55, 1)",
+        "purpose": "Smooth, symmetric transitions."
+      },
+      {
+        "name": "duration-fast",
+        "value": "120ms",
+        "purpose": "Hover/press feedback."
+      },
+      {
+        "name": "duration-base",
+        "value": "180ms",
+        "purpose": "Default state transitions."
+      },
       { "name": "duration-slow", "value": "420ms", "purpose": "Entries." }
     ],
     "breakpoints": [
@@ -92,9 +174,21 @@
       "Mobile-first: legible and tappable at arm's length, outdoors, in person at the installation site"
     ],
     "rules": [
-      { "name": "The One Accent Rule", "body": "Vermillion appears on one thing per view. Its rarity is the point — if more than one element on screen carries the accent, one of them is wrong.", "section": "colors" },
-      { "name": "The Mono-For-Metadata Rule", "body": "JetBrains Mono is reserved for the technical voice — timecodes, frequency labels, room numbers, captions. Never for body copy.", "section": "typography" },
-      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows appear only for elements floating above the page, never as a decorative lift on cards or buttons.", "section": "elevation" }
+      {
+        "name": "The One Accent Rule",
+        "body": "Vermillion appears on one thing per view. Its rarity is the point — if more than one element on screen carries the accent, one of them is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono-For-Metadata Rule",
+        "body": "JetBrains Mono is reserved for the technical voice — timecodes, frequency labels, room numbers, captions. Never for body copy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. Shadows appear only for elements floating above the page, never as a decorative lift on cards or buttons.",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do reserve vermillion (#ff5a1f) for the one live/actionable element per view — the current chapter, the primary CTA, the live indicator.",
