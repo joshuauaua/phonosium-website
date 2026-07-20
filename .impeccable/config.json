@@ -1,0 +1,11 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "src/components/ContributionForm.module.css",
+      "src/components/ExpandableSection.module.css",
+      "src/components/Toast.module.css"
+    ],
+    "ignoreValues": []
+  }
+}
