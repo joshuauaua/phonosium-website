@@ -23,15 +23,17 @@
 
   /* ---- Color · Semantic ---- */
   --ph-fg: var(--ph-ink);
-  --ph-fg-lead: #2a251f; /* darker for lead text, 5.2:1 contrast */
-  --ph-fg-muted: var(--ph-stone);
+  --ph-fg-lead: #2a251f; /* darker for lead text, 14.2:1 contrast on paper */
+  --ph-fg-muted: var(
+    --ph-stone
+  ); /* 3.46:1 on paper — below AA, see DESIGN.md Contrast Ratios */
   --ph-fg-inverse: var(--ph-paper);
   --ph-bg: var(--ph-paper);
   --ph-bg-inverse: var(--ph-ink);
   --ph-accent: var(--ph-orange);
   --ph-rule: var(--ph-ink);
   --ph-rule-soft: var(--ph-mist);
-  --ph-stone-dark: #5a544c; /* darker stone for labels, 4.6:1 contrast */
+  --ph-stone-dark: #5a544c; /* darker stone for labels, 7.0:1 contrast on paper */
 
   /* ---- Type · Families ---- */
   --ph-font-sans: 'Archivo', 'Inter', system-ui, sans-serif;

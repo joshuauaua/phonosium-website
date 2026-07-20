@@ -1,4 +1,6 @@
-# Phonosium — Design System
+# Phonosium — Brand Brief
+
+Internal brand brief covering copy voice, iconography, and logo — content the six-section [`DESIGN.md`](../../DESIGN.md) spec has no section for. For color, typography, elevation, and component tokens, see the root `DESIGN.md`; it is the single source of truth.
 
 **Phonosium** is a sound installation — an immersive spatial work that treats acoustics as architecture. The name fuses _phono_ (sound) with the _-sium_ suffix of _auditorium_, _planetarium_, _atrium_: a space for sound.
 
@@ -38,34 +40,14 @@ Example copy:
 
 ## Visual foundations
 
-### Color
-
-A two-color system: **vermillion orange** + **warm white**, anchored by a near-black ink. Color is functional, never decorative. Orange marks one thing per view — the live element, the current chapter, the call to action. Backgrounds are paper-white or ink-black; orange is never the background of a large area except in deliberate full-bleed posters.
-
-### Type
-
-**Archivo** (variable, 100–900) for everything text. The display register lives at 800–900 weight, often very tight tracking (`-0.04em`), with line-height crushed to `0.9` for big numerals and titles. Body sits at 400–500, generous line-height (`1.55`). **JetBrains Mono** is the technical voice: timecodes, frequency labels, room numbers, captions. Never use mono for body copy.
+Tokens, colors, typography, elevation, and component specs are documented normatively in the root [`DESIGN.md`](../../DESIGN.md) — that file is the single source of truth for the visual system. This section covers only what the six-section DESIGN.md spec has no room for: layout rhythm and motion choreography.
 
 ### Spacing
 
 A 4-px base scale: `4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192`. Layouts breathe — single columns of content on wide canvases, with metadata in narrow side rails.
 
-### Backgrounds
-
-Almost always solid paper (`--ph-paper`) or solid ink (`--ph-ink`). No gradients. No textures. The only "image" element is sound diagrams — waveforms, frequency bars, radial speaker maps — rendered as flat geometry in orange-on-paper or paper-on-ink.
-
-### Borders and corners
-
-Hairline (`1px`) ink borders. Radii are minimal: most surfaces are sharp 90° rectangles; small interactive elements use `2px`; pills use `999px` only when shape carries meaning (status chips).
-
-### Shadows
-
-Almost none. The system relies on hairline rules and weight contrast for hierarchy, not elevation. One subtle shadow exists for floating overlays only.
-
 ### Motion
 
-- **Easing**: `cubic-bezier(0.2, 0.7, 0.1, 1)` — confident, no overshoot.
-- **Duration**: `180ms` for hover/press; `420ms` for entries.
 - Hover state: orange underline slides in from left, or ink fill replaces outline.
 - Press state: 2% scale-down, no color shift.
 - Sound-related elements may animate continuously (waveform sweeps, frequency pulses) at the room's actual tempo.

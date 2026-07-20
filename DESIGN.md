@@ -1,187 +1,266 @@
-# Phonosium Design System
+---
+name: Phonosium
+description: Exhibition-wayfinding design system for a sound installation — one vermillion accent, Archivo display type, JetBrains Mono metadata, flat hairline-ruled surfaces.
+colors:
+  vermillion: '#ff5a1f'
+  vermillion-deep: '#c2410c'
+  vermillion-soft: '#ffd9c2'
+  vermillion-tint: '#fff1e6'
+  paper: '#faf7f2'
+  white: '#ffffff'
+  chalk: '#efebe3'
+  mist: '#d9d4cc'
+  stone: '#8a847c'
+  stone-dark: '#5a544c'
+  graphite: '#3a332d'
+  ink: '#14110e'
+  ink-lead: '#2a251f'
+typography:
+  display:
+    fontFamily: 'Archivo, Inter, system-ui, sans-serif'
+    fontSize: '192px'
+    fontWeight: 900
+    lineHeight: 0.88
+    letterSpacing: '-0.04em'
+  headline:
+    fontFamily: 'Archivo, Inter, system-ui, sans-serif'
+    fontSize: '128px'
+    fontWeight: 900
+    lineHeight: 0.92
+    letterSpacing: '-0.04em'
+  title:
+    fontFamily: 'Archivo, Inter, system-ui, sans-serif'
+    fontSize: '40px'
+    fontWeight: 600
+    lineHeight: 1.1
+    letterSpacing: '-0.02em'
+  body:
+    fontFamily: 'Archivo, Inter, system-ui, sans-serif'
+    fontSize: '16px'
+    fontWeight: 400
+    lineHeight: 1.55
+    letterSpacing: '0'
+  label:
+    fontFamily: 'JetBrains Mono, ui-monospace, SF Mono, Menlo, monospace'
+    fontSize: '12px'
+    fontWeight: 500
+    lineHeight: 1.6
+    letterSpacing: '0.04em'
+rounded:
+  none: '0px'
+  sm: '2px'
+  md: '4px'
+  pill: '999px'
+spacing:
+  s-1: '4px'
+  s-2: '8px'
+  s-3: '12px'
+  s-4: '16px'
+  s-5: '24px'
+  s-6: '32px'
+  s-7: '48px'
+  s-8: '64px'
+  s-9: '96px'
+  s-10: '128px'
+  s-11: '192px'
+components:
+  button-primary:
+    backgroundColor: '{colors.ink}'
+    textColor: '{colors.paper}'
+    typography: '{typography.label}'
+    rounded: '{rounded.sm}'
+    padding: '14px 22px'
+  button-primary-hover:
+    backgroundColor: '{colors.vermillion}'
+    textColor: '{colors.paper}'
+  button-outline:
+    backgroundColor: 'transparent'
+    textColor: '{colors.ink}'
+    typography: '{typography.label}'
+    rounded: '{rounded.sm}'
+    padding: '14px 22px'
+  button-outline-hover:
+    backgroundColor: '{colors.ink}'
+    textColor: '{colors.paper}'
+  button-accent:
+    backgroundColor: '{colors.vermillion}'
+    textColor: '{colors.ink}'
+    typography: '{typography.label}'
+    rounded: '{rounded.sm}'
+    padding: '14px 22px'
+  button-accent-hover:
+    backgroundColor: '{colors.vermillion-deep}'
+    textColor: '{colors.paper}'
+  chip:
+    backgroundColor: 'transparent'
+    textColor: '{colors.ink}'
+    typography: '{typography.label}'
+    rounded: '{rounded.pill}'
+    padding: '4px 10px'
+  chip-live:
+    backgroundColor: '{colors.vermillion-tint}'
+    textColor: '{colors.vermillion-deep}'
+    rounded: '{rounded.pill}'
+  card:
+    backgroundColor: '{colors.paper}'
+    rounded: '{rounded.none}'
+    padding: '{spacing.s-6}'
+  input:
+    backgroundColor: 'transparent'
+    textColor: '{colors.ink}'
+    typography: '{typography.body}'
+    rounded: '{rounded.none}'
+    padding: '14px 16px'
+---
 
-This document outlines the design tokens, color system, and accessibility guidelines for the Phonosium website.
+# Design System: Phonosium
 
-## Design Philosophy
+## 1. Overview
 
-Phonosium's design system emphasizes **minimalism, clarity, and accessibility**. The aesthetic is clean and modern with a warm orange accent color against a white background. The system prioritizes:
+**Creative North Star: "The Sound Chamber"**
 
-- **High contrast ratios** meeting WCAG 2.1 AA/AAA standards
-- **Touch-friendly targets** for mobile accessibility
-- **Consistent spacing** using a systematic scale
-- **Semantic token naming** for maintainability
+Phonosium is a sound installation — an immersive spatial work that treats acoustics as architecture. The site is its wayfinding layer: it reads like exhibition signage, not a marketing page. Large, confident architectural type sets the hierarchy; generous white space lets it breathe; a single vermillion accent (`#ff5a1f`) does all the emphasis work, marking the one live element, current chapter, or call to action per screen. Monospaced technical metadata — timecodes, frequencies, room numbers, chapter indices — recurs as a structural motif, anchoring the work in something measurable.
 
-## Color System
+The voice is curatorial and third-person observational, like wall text in a gallery ("the room breathes at 47 Hz"), never a pitch. This system explicitly rejects gradient backgrounds, glassmorphism, rounded cards with heavy drop shadows, playful bouncy animations, emoji in UI copy or icons, and marketing superlatives — the site gets out of the way of the installation itself.
 
-All color tokens are defined in [`src/index.css`](./src/index.css).
+**Key Characteristics:**
 
-### Color Palette
+- One accent color, used sparingly and only for the live/actionable element
+- Flat surfaces — hierarchy comes from hairline rules and weight, not shadows
+- Large, tight-tracked Archivo display type paired with uppercase JetBrains Mono metadata
+- Mobile-first: legible and tappable at arm's length, outdoors, in person at the installation site
 
-| Token             | Hex                     | Usage                            | WCAG Contrast on White |
-| ----------------- | ----------------------- | -------------------------------- | ---------------------- |
-| `--orange`        | `#D65A00`               | Primary brand color, CTAs, links | 4.51:1 (AA)            |
-| `--orange-light`  | `#E87020`               | Hover states, highlights         | 3.98:1 (AA Large)      |
-| `--orange-dim`    | `#B44A00`               | Scrollbars, subdued accents      | 5.91:1 (AA)            |
-| `--white`         | `#FFFFFF`               | Primary background               | —                      |
-| `--white-soft`    | `#F9F9F9`               | Subtle background variation      | —                      |
-| `--white-mid`     | `#F0F0F0`               | Card backgrounds                 | —                      |
-| `--white-card`    | `#FAFAFA`               | Elevated surfaces                | —                      |
-| `--black`         | `#0A0A0A`               | Primary text, headings           | 19.36:1 (AAA)          |
-| `--black-soft`    | `#333333`               | Secondary text                   | 12.63:1 (AAA)          |
-| `--black-mid`     | `#666666`               | Muted text                       | 5.74:1 (AA)            |
-| `--black-muted`   | `#999999`               | Disabled/placeholder text        | 2.85:1 (AA Large only) |
-| `--border`        | `rgba(214, 90, 0, 0.2)` | Default borders                  | —                      |
-| `--border-active` | `rgba(214, 90, 0, 0.6)` | Active/focus borders             | —                      |
+## 2. Colors
 
-### WCAG Compliance Calculations
+A two-color system — vermillion orange plus warm neutrals anchored by a near-black ink — where color is functional, never decorative.
 
-Contrast ratios are calculated using the WCAG 2.1 formula:
+### Primary
 
-```
-Contrast Ratio = (L1 + 0.05) / (L2 + 0.05)
-```
+- **Vermillion** (`#ff5a1f`): the single accent. Marks the live element, the current chapter, or the call to action — never a large background except a deliberate full-bleed poster.
+- **Vermillion Deep** (`#c2410c`): pressed/hover states on accent surfaces, and the on-paper text color for the "live" chip variant.
+- **Vermillion Soft** (`#ffd9c2`) / **Vermillion Tint** (`#fff1e6`): selection fills and page tints — the only places the accent is allowed to sit under body content.
 
-Where `L` is relative luminance calculated from sRGB color values.
+### Neutral
 
-**WCAG Success Criteria:**
+- **Exhibition Ink** (`#14110e`): primary text, primary borders, and the inverse background for full-bleed dark sections.
+- **Ink Lead** (`#2a251f`): lead paragraph text where slightly softer than pure ink is needed (14.2:1 contrast on paper).
+- **Warm Paper** (`#faf7f2`): the primary canvas. Almost every surface is solid paper or solid ink — no gradients, no textures.
+- **White** (`#ffffff`): true white, reserved for isolated needs distinct from the warm paper canvas.
+- **Chalk** (`#efebe3`): scrollbar track and the faintest background variation.
+- **Mist** (`#d9d4cc`): soft dividers (`.ph-rule--soft`).
+- **Stone** (`#8a847c`): muted text, placeholders (3.46:1 on paper — below AA; see Contrast Ratios below).
+- **Stone Dark** (`#5a544c`): labels and metadata needing stronger contrast than Stone (7.0:1 on paper).
+- **Graphite** (`#3a332d`): scrollbar-thumb hover state.
 
-- **AAA (7:1 for normal text, 4.5:1 for large text)**: Maximum accessibility
-- **AA (4.5:1 for normal text, 3:1 for large text)**: Minimum acceptable standard
-- **Large text**: 18pt regular or 14pt bold
+### Contrast Ratios
 
-**Compliance Table:**
+Computed per the [WCAG 2.1 relative-luminance formula](https://www.w3.org/TR/WCAG21/#dfn-relative-luminance) for every color pairing actually used for text or interactive-state content in `colors_and_type.css`. AA requires 4.5:1 for normal text / 3:1 for large text (≥18px/14px bold) and non-text UI components (borders, focus indicators); AAA requires 7:1 / 4.5:1.
 
-| Foreground       | Background | Contrast | Level    | Use Cases                       |
-| ---------------- | ---------- | -------- | -------- | ------------------------------- |
-| `--black`        | `--white`  | 19.36:1  | AAA      | Body text, headings (all sizes) |
-| `--black-soft`   | `--white`  | 12.63:1  | AAA      | Secondary text, captions        |
-| `--black-mid`    | `--white`  | 5.74:1   | AA       | Muted labels, metadata          |
-| `--black-muted`  | `--white`  | 2.85:1   | —        | Large text only (decorative)    |
-| `--orange`       | `--white`  | 4.51:1   | AA       | Links, CTAs (normal text)       |
-| `--orange-light` | `--white`  | 3.98:1   | AA Large | Hover states (large text only)  |
-| `--orange-dim`   | `--white`  | 5.91:1   | AA       | Emphasized elements (all sizes) |
+| Foreground                | Background                | Usage                                                                                                          | Ratio                                       | AA                                                          | AAA  |
+| ------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------- | ---- |
+| Ink `#14110e`             | Paper `#faf7f2`           | Body text, `.ph-btn--outline`, `.ph-chip`, `.ph-input`                                                         | 17.60:1                                     | Pass                                                        | Pass |
+| Ink Lead `#2a251f`        | Paper `#faf7f2`           | Lead paragraph text                                                                                            | 14.21:1                                     | Pass                                                        | Pass |
+| Stone Dark `#5a544c`      | Paper `#faf7f2`           | Metadata labels                                                                                                | 7.00:1                                      | Pass                                                        | Pass |
+| Paper `#faf7f2`           | Ink `#14110e`             | `.ph-btn` primary, `.ph-btn--outline:hover`, inverse sections                                                  | 17.60:1                                     | Pass                                                        | Pass |
+| Ink `#14110e`             | Vermillion `#ff5a1f`      | `.ph-btn--accent` text                                                                                         | 6.03:1                                      | Pass (normal)                                               | Fail |
+| Paper `#faf7f2`           | Vermillion Deep `#c2410c` | `.ph-btn--accent:hover` text                                                                                   | 4.85:1                                      | Pass (normal)                                               | Fail |
+| Vermillion Deep `#c2410c` | Vermillion Tint `#fff1e6` | `.ph-chip--live` text                                                                                          | 4.68:1                                      | Pass (normal)                                               | Fail |
+| Stone `#8a847c`           | Paper `#faf7f2`           | Muted text, `.ph-input::placeholder`                                                                           | 3.46:1                                      | **Fail** (passes only at large-text/UI-component threshold) | Fail |
+| Paper `#faf7f2`           | Vermillion `#ff5a1f`      | `.ph-btn` (primary) `:hover` text — background switches to Vermillion but the inherited text color stays Paper | 2.92:1                                      | **Fail**                                                    | Fail |
+| Vermillion `#ff5a1f`      | Paper `#faf7f2`           | Focus underline (`.ph-input:focus`), accent borders — non-text UI, needs 3:1                                   | **2.92:1 — fails the 3:1 non-text minimum** | **Fail**                                                    | Fail |
 
-**Important:** `--black-muted` and `--orange-light` should only be used for large text (18pt+) or decorative elements that don't convey critical information.
+**Known gaps (tracked, not yet fixed):**
 
-## Spacing Scale
+- **Stone-on-Paper** (3.46:1) is used for real muted body copy across the site (captions, meta labels, footer text — see `InstallationDetail.module.css`, `ContributionForm.module.css`, `Footer.module.css`), not only placeholders. It fails the 4.5:1 AA minimum for normal-size text.
+- **Primary-button hover state** (Paper-on-Vermillion, 2.92:1): `.ph-btn:hover` changes the background to Vermillion without also switching the text color to Ink, so hovered primary-button text fails AA.
+- **Vermillion-on-Paper as a non-text indicator** (focus underline, accent borders) also falls short of the 3:1 minimum WCAG 1.4.11 requires for UI-component boundaries.
 
-The spacing system uses a base unit of **0.25rem (4px)** with consistent increments:
+The PRODUCT.md accessibility claim has been updated to reflect this — see its Accessibility & Inclusion section.
 
-| Token           | Value     | Pixels (16px base) | Usage                           |
-| --------------- | --------- | ------------------ | ------------------------------- |
-| `--spacing-xs`  | `0.25rem` | 4px                | Tight inline spacing, icon gaps |
-| `--spacing-sm`  | `0.5rem`  | 8px                | Component padding, list items   |
-| `--spacing-md`  | `1rem`    | 16px               | Default spacing, card padding   |
-| `--spacing-lg`  | `1.5rem`  | 24px               | Section gaps, form spacing      |
-| `--spacing-xl`  | `2rem`    | 32px               | Large content blocks            |
-| `--spacing-2xl` | `3rem`    | 48px               | Major page sections             |
-| `--spacing-3xl` | `4rem`    | 64px               | Hero sections, page divisions   |
+### Named Rules
 
-**Guidelines:**
+**The One Accent Rule.** Vermillion appears on one thing per view. Its rarity is the point — if more than one element on screen carries the accent, one of them is wrong.
 
-- Use `--spacing-md` as the default for most component spacing
-- Prefer consistent spacing values over arbitrary pixel values
-- Stack spacing tokens for larger gaps (e.g., `calc(var(--spacing-xl) + var(--spacing-lg))`)
+## 3. Typography
 
-## Touch Targets
+**Display Font:** Archivo (with Inter, system-ui fallback)
+**Label/Mono Font:** JetBrains Mono (with ui-monospace, SF Mono, Menlo fallback)
 
-Per WCAG 2.5.5 (Level AAA), all interactive elements meet a minimum touch target size:
+**Character:** Archivo carries every text role — display numerals crushed to a 0.88 line-height with tight (`-0.04em`) tracking at 800–900 weight, body settling to a relaxed 1.55 line-height at 400–500 weight. JetBrains Mono is the technical register: uppercase, tracked, reserved strictly for timecodes, frequencies, room numbers, and captions.
 
-```css
---touch-target-min: 44px;
-```
+### Hierarchy
 
-This ensures:
+- **Display** (900, 192px, line-height 0.88, `-0.04em`): hero numerals and title-slide type only.
+- **Headline / H1** (900, 128px, line-height 0.92, `-0.04em`): the largest in-page heading.
+- **H2** (700, 84px, line-height 0.95, `-0.02em`): major section headers.
+- **H3** (700, 56px, line-height 1, `-0.02em`): sub-section headers.
+- **Title / H4** (600, 40px, line-height 1.1, `-0.02em`): card and panel titles.
+- **H5** (600, 28px, line-height 1.2): minor headings.
+- **Lead** (400, 22px, line-height 1.45): intro paragraphs.
+- **Body** (400, 16px, line-height 1.55): default copy, 65–75ch max line length.
+- **Small** (400, 14px, line-height 1.6): captions, fine print.
+- **Label / Mono** (500, 12px, uppercase, `0.04em` tracking): timecodes, frequencies, room numbers.
+- **Caps** (700, 12px, Archivo, uppercase, `0.12em` tracking): editorial labels set in the sans, not mono.
 
-- Buttons and links are at least 44×44 pixels
-- Adequate spacing between adjacent clickable elements
-- Improved usability on mobile devices
+### Named Rules
 
-## Usage Guidelines
+**The Mono-For-Metadata Rule.** JetBrains Mono is reserved for the technical voice — timecodes, frequency labels, room numbers, captions. Never for body copy.
 
-### ✅ Do
+## 4. Elevation
 
-- **Use `--orange` for primary CTAs and links** — meets AA contrast for normal text
-- **Use `--black` for body text** — meets AAA contrast for all text sizes
-- **Use `--black-soft` for secondary content** — maintains AAA contrast
-- **Use `--black-mid` for labels and metadata** — meets AA contrast
-- **Apply hover states with `--orange-light`** — on large buttons/text only
-- **Maintain 44px minimum touch targets** — for all interactive elements
+Phonosium is flat by default. Depth comes from hairline (1px) ink rules and weight contrast, not shadows — this reads as exhibition signage, not a SaaS dashboard. Exactly one shadow exists, for floating overlays.
 
-### ❌ Don't
+### Shadow Vocabulary
 
-- **Don't use `--black-muted` for small text** — insufficient contrast (2.85:1)
-- **Don't use `--orange-light` for body text** — fails AA for normal text
-- **Don't use orange variants for small icons or fine details** — may fail contrast
-- **Don't create arbitrary spacing values** — use the scale tokens
-- **Don't reduce touch target sizes below 44px** — breaks accessibility
+- **Overlay** (`box-shadow: 0 12px 32px -8px rgba(20,17,14,0.18), 0 2px 6px -2px rgba(20,17,14,0.08)`): floating overlays only (menus, popovers). Not used on cards, buttons, or any resting surface.
 
-### Example Usage
+### Named Rules
 
-**Primary Button:**
+**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only for elements floating above the page, never as a decorative lift on cards or buttons.
 
-```css
-.button-primary {
-  background: var(--orange);
-  color: var(--white);
-  padding: var(--spacing-md) var(--spacing-xl);
-  min-height: var(--touch-target-min);
-}
-```
+## 5. Components
 
-**Body Text:**
+### Buttons
 
-```css
-.body-text {
-  color: var(--black);
-  line-height: 1.6;
-  margin-bottom: var(--spacing-md);
-}
-```
+- **Shape:** sharp rectangle, minimal radius (2px).
+- **Primary:** ink fill, paper text, uppercase label type, 14px/22px padding. Hover fills vermillion.
+- **Outline:** transparent fill, ink border and text. Hover inverts to an ink fill with paper text.
+- **Accent:** vermillion fill, ink text (for contrast on the bright fill). Hover deepens to Vermillion Deep with paper text.
 
-**Secondary Text:**
+### Chips
 
-```css
-.caption {
-  color: var(--black-soft);
-  font-size: 0.875rem;
-}
-```
+- **Style:** pill shape (999px radius), transparent background, 1px ink border, ink text, mono label type.
+- **Live variant:** Vermillion Tint background, Vermillion Deep text and border, plus a small pulsing vermillion dot — the one chip state allowed to carry the accent as a fill.
 
-## Adding New Tokens
+### Cards / Containers
 
-When proposing new design tokens:
+- **Corner Style:** 0px — sharp rectangles, no exceptions.
+- **Background:** Warm Paper.
+- **Shadow Strategy:** none (see Elevation) — the 1px ink border does the separating work.
+- **Border:** 1px solid ink.
+- **Internal Padding:** 32px (`spacing.s-6`).
 
-1. **Calculate WCAG contrast ratios** using a tool like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
-2. **Ensure semantic naming** — describe purpose, not appearance (e.g., `--text-error` not `--color-red`)
-3. **Follow the existing scale** — for spacing, use increments that align with the 4px base
-4. **Update this documentation** — add the new token to the relevant table with usage guidelines
-5. **Test on real devices** — verify readability and usability across different screen sizes
+### Inputs / Fields
 
-## Testing Accessibility
+- **Style:** no box or side borders — a single 2px ink underline (`border-bottom`), transparent background, 0 radius.
+- **Focus:** the underline shifts to vermillion.
+- **Placeholder:** Stone.
 
-Use these tools to verify WCAG compliance:
+## 6. Do's and Don'ts
 
-- **Chrome DevTools** — Lighthouse audit (Accessibility score)
-- **WebAIM Contrast Checker** — https://webaim.org/resources/contrastchecker/
-- **axe DevTools** — Browser extension for automated accessibility testing
-- **WAVE** — Web Accessibility Evaluation Tool
-- **Manual testing** — Test with screen readers (VoiceOver, NVDA, JAWS)
+### Do:
 
-### Contrast Ratio Testing
+- **Do** reserve vermillion (`#ff5a1f`) for the one live/actionable element per view — the current chapter, the primary CTA, the live indicator.
+- **Do** use 1px hairline ink borders and weight contrast for hierarchy instead of shadows or elevation.
+- **Do** set technical metadata (timecodes, frequencies, room numbers) in uppercase JetBrains Mono, tracked `0.04em`.
+- **Do** keep layouts mobile-first with tappable targets — visitors check the schedule outdoors, at arm's length.
+- **Do** use confident, no-overshoot easing (`cubic-bezier(0.2, 0.7, 0.1, 1)`) for state transitions.
 
-To verify a color combination:
+### Don't:
 
-1. Open [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
-2. Enter the foreground and background hex values
-3. Check the contrast ratio against WCAG requirements:
-   - **4.5:1** for normal text (AA)
-   - **3:1** for large text (AA Large)
-   - **7:1** for normal text (AAA)
-   - **4.5:1** for large text (AAA)
-
-## Further Reading
-
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Understanding WCAG Contrast Requirements](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
-- [Touch Target Size Guidelines](https://www.w3.org/WAI/WCAG21/Understanding/target-size.html)
+- **Don't** use gradient backgrounds.
+- **Don't** use glassmorphism.
+- **Don't** use rounded cards with heavy drop shadows — corners are sharp (0–2px) and surfaces are flat.
+- **Don't** use playful, bouncy animations — motion is restrained: 120–420ms, no overshoot.
+- **Don't** use emoji in UI copy or icons.
+- **Don't** use marketing superlatives ("amazing", "revolutionary") — the voice is curatorial, third-person, and observational.
