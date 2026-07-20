@@ -11,10 +11,6 @@ The visual identity reads like contemporary exhibition wayfinding: large, confid
 ## Index
 
 - `colors_and_type.css` — all design tokens (colors, type ramp, spacing, radius, shadow)
-- `fonts/` — webfont files (Archivo + JetBrains Mono)
-- `assets/` — logo lockup, sound diagrams, marks
-- `preview/` — design system specimen cards (typography, color, components)
-- `ui_kits/site/` — Phonosium installation microsite — homepage, program, room view
 - `SKILL.md` — agent skill manifest
 
 ---
