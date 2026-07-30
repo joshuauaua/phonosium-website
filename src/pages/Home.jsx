@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
-import { getCurrentInstallation } from '../utils/scheduleUtils'
+import { getCurrentInstallation, timeToMinutes } from '../utils/scheduleUtils'
 import Waves from '../components/Waves/Waves'
 import ContributionForm from '../components/ContributionForm'
 import SEO from '../components/SEO'
@@ -29,6 +29,11 @@ export default function Home() {
     updateTrigger >= 0 ? getCurrentInstallation(installations) : null
 
   const selectedId = current?.id
+
+  // Schedule lists pieces chronologically, so the day's last start sits at the bottom
+  const scheduled = [...installations].sort(
+    (a, b) => timeToMinutes(a.startTime) - timeToMinutes(b.startTime)
+  )
 
   return (
     <>
@@ -176,7 +181,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.chList}>
-            {installations.map(inst => {
+            {scheduled.map(inst => {
               const isExpanded = expandedScheduleId === inst.id
               return (
                 <div
