@@ -14,7 +14,7 @@ export const installations = [
       name: 'Loud Numbers',
       bio: 'Loud Numbers is a data sonification studio, turning datasets into music, founded in 2020 by Duncan Geere and Miriam Quick. The studio builds systems that map data - climate records, economic history, insect decline, solar storms - into compositions spanning ambient, dub, jungle, and electronic music, released across albums, a podcast, and installations worldwide.',
       origin: 'Malmö, Sweden',
-      website: 'http://loudnumbers.net',
+      website: 'https://www.loudnumbers.net',
       instagram: 'https://www.instagram.com/loudnumbers',
       bandcamp: 'https://loudnumbers.bandcamp.com',
       youtube: 'https://www.youtube.com/@loudnumbers',
@@ -48,7 +48,7 @@ export const installations = [
       name: 'Joshua Ng',
       bio: 'Joshua Ng is a creative technologist and technical creative with a focus on sound and software.',
       origin: 'Stockholm/Sheffield',
-      website: 'joshuauaua.github.io',
+      website: 'https://joshuauaua.github.io',
       instagram: 'https://www.instagram.com/joshuauaua',
     },
     description:

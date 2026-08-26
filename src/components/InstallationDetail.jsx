@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { toExternalHref, toDisplayUrl } from '../utils/urlUtils'
 import styles from './InstallationDetail.module.css'
 
 export default function InstallationDetail({ installation }) {
@@ -73,14 +74,16 @@ export default function InstallationDetail({ installation }) {
           </div>
         </div>
         <p className={styles.artistBio}>{artist.bio}</p>
-        <a
-          href={`https://${artist.website}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.artistLink}
-        >
-          {artist.website} &#8599;
-        </a>
+        {artist.website && (
+          <a
+            href={toExternalHref(artist.website)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.artistLink}
+          >
+            {toDisplayUrl(artist.website)} &#8599;
+          </a>
+        )}
       </section>
     </article>
   )

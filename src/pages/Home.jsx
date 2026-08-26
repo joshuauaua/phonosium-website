@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
 import { getCurrentInstallation, timeToMinutes } from '../utils/scheduleUtils'
+import { toExternalHref } from '../utils/urlUtils'
 import Waves from '../components/Waves/Waves'
 import ContributionForm from '../components/ContributionForm'
 import SEO from '../components/SEO'
@@ -249,7 +250,7 @@ export default function Home() {
                         </div>
                         {inst.artist.website && (
                           <a
-                            href={`https://${inst.artist.website}`}
+                            href={toExternalHref(inst.artist.website)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={styles.trackLink}
