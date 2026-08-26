@@ -139,7 +139,7 @@
   height: 52px;
   background: var(--ph-chalk);
   border: 1px solid var(--ph-ink);
-  border-radius: 0;
+  border-radius: var(--ph-r-2);
   display: flex;
   align-items: center;
   justify-content: center;

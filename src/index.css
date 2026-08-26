@@ -51,7 +51,7 @@ button {
 
 ::-webkit-scrollbar-thumb {
   background: var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-pill);
 }
 
 ::-webkit-scrollbar-thumb:hover {

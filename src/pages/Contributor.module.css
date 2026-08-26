@@ -142,7 +142,7 @@
 .requirementCard {
   padding: var(--ph-s-7);
   border: 1px solid var(--ph-ink);
-  border-radius: var(--ph-r-1);
+  border-radius: var(--ph-r-2);
 }
 
 .cardTitle {

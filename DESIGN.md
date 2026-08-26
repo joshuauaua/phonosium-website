@@ -214,7 +214,7 @@ Phonosium is flat by default. Depth comes from hairline (1px) ink rules and weig
 
 ### Buttons
 
-- **Shape:** sharp rectangle, minimal radius (2px).
+- **Shape:** rectangle with softened corners — `radius.r-1` (4px).
 - **Primary:** ink fill, paper text, uppercase label type, 14px/22px padding. Hover fills vermillion.
 - **Outline:** transparent fill, ink border and text. Hover inverts to an ink fill with paper text.
 - **Accent:** vermillion fill, ink text (for contrast on the bright fill). Hover deepens to Vermillion Deep with paper text.
@@ -226,7 +226,7 @@ Phonosium is flat by default. Depth comes from hairline (1px) ink rules and weig
 
 ### Cards / Containers
 
-- **Corner Style:** 0px — sharp rectangles, no exceptions.
+- **Corner Style:** `radius.r-2` (6px) — softened, never pillowy. The one exception is full-bleed content whose corners meet the viewport edge (edge-to-edge media, flush hairline list rows), which stays at `radius.r-0`.
 - **Background:** Warm Paper.
 - **Shadow Strategy:** none (see Elevation) — the 1px ink border does the separating work.
 - **Border:** 1px solid ink.
