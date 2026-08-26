@@ -238,7 +238,7 @@
   display: inline-block;
   width: 8px;
   height: 8px;
-  border-radius: 999px;
+  border-radius: var(--ph-r-pill);
   background: var(--ph-orange);
   animation: pulse 1.6s var(--ph-ease-out) infinite;
 }

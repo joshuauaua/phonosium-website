@@ -40,7 +40,8 @@
 .heroImage {
   width: 100%;
   display: block;
-  border-radius: var(--ph-r-0); /* full-bleed — corners meet the viewport edge */
+  /* full-bleed — corners meet the viewport edge */
+  border-radius: var(--ph-r-0);
 }
 
 .section {
