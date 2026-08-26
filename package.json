@@ -16,7 +16,8 @@
     "format:check": "vp fmt --check",
     "test": "vp test",
     "test:run": "vp test run",
-    "test:coverage": "vp test run --coverage"
+    "test:coverage": "vp test run --coverage",
+    "images": "node scripts/optimize-schedule-images.mjs"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.26.0",

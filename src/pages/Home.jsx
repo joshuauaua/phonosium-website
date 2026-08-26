@@ -8,6 +8,15 @@ import ContributionForm from '../components/ContributionForm'
 import SEO from '../components/SEO'
 import styles from './Home.module.css'
 
+// Covers only mount once a row is expanded, so the fetch would otherwise start
+// on click. Warming the cache first makes the image appear with the row.
+function warmCover(inst) {
+  if (!inst?.image) return
+  const img = new Image()
+  if (inst.imageSrcSet) img.srcset = inst.imageSrcSet
+  img.src = inst.image
+}
+
 export default function Home() {
   const navigate = useNavigate()
   const [expandedScheduleId, setExpandedScheduleId] = useState(null)
@@ -30,6 +39,11 @@ export default function Home() {
     updateTrigger >= 0 ? getCurrentInstallation(installations) : null
 
   const selectedId = current?.id
+
+  // The now-playing cover is what "More Info" opens, so fetch it up front
+  useEffect(() => {
+    warmCover(current)
+  }, [current?.id])
 
   // Schedule lists pieces chronologically, so the day's last start sits at the bottom
   const scheduled = [...installations].sort(
@@ -191,6 +205,7 @@ export default function Home() {
                 >
                   <div
                     className={styles.chRow}
+                    onPointerEnter={() => warmCover(inst)}
                     onClick={() => {
                       setExpandedScheduleId(isExpanded ? null : inst.id)
                     }}
@@ -208,6 +223,10 @@ export default function Home() {
                         {inst.image ? (
                           <img
                             src={inst.image}
+                            srcSet={inst.imageSrcSet}
+                            width={300}
+                            height={300}
+                            decoding="async"
                             alt={inst.title}
                             className={styles.coverImg}
                           />

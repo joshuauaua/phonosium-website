@@ -1,4 +1,8 @@
 // Each installation represents a timeslot in the daily broadcast schedule
+//
+// imageSource is the hi-res master; image/imageSrcSet are the 300px square
+// covers the schedule actually ships. Regenerate them with `npm run images`
+// after changing a master.
 export const installations = [
   {
     id: 1,
@@ -9,7 +13,10 @@ export const installations = [
     isActive: true,
     startTime: '20:00',
     timeSlot: '20:00',
-    image: '/images/on-standby.png',
+    imageSource: '/images/on-standby.png',
+    image: '/images/schedule/on-standby-300.webp',
+    imageSrcSet:
+      '/images/schedule/on-standby-300.webp 1x, /images/schedule/on-standby-600.webp 2x',
     artist: {
       name: 'Loud Numbers',
       bio: 'Loud Numbers is a data sonification studio, turning datasets into music, founded in 2020 by Duncan Geere and Miriam Quick. The studio builds systems that map data - climate records, economic history, insect decline, solar storms - into compositions spanning ambient, dub, jungle, and electronic music, released across albums, a podcast, and installations worldwide.',
@@ -43,7 +50,10 @@ export const installations = [
     isActive: true,
     startTime: '06:40',
     timeSlot: '06:40',
-    image: '/images/birds.jpg',
+    imageSource: '/images/birds.jpg',
+    image: '/images/schedule/birds-300.webp',
+    imageSrcSet:
+      '/images/schedule/birds-300.webp 1x, /images/schedule/birds-600.webp 2x',
     artist: {
       name: 'Joshua Ng',
       bio: 'Joshua Ng is a creative technologist and technical creative with a focus on sound and software.',
@@ -65,7 +75,10 @@ export const installations = [
     isActive: true,
     startTime: '11:00',
     timeSlot: '11:00',
-    image: '/images/cariddis-voices.png',
+    imageSource: '/images/cariddis-voices.png',
+    image: '/images/schedule/cariddis-voices-300.webp',
+    imageSrcSet:
+      '/images/schedule/cariddis-voices-300.webp 1x, /images/schedule/cariddis-voices-600.webp 2x',
     artist: {
       name: 'Mac Tire',
       bio: "Mac Tire is a musician, performer, and researcher. His work focuses on sound design, live electronics and multidisciplinary performances, with a strong interest in using water and instruments of his own design. After obtaining a Bachelor of Arts in Music Performance and a Master's degree in Music and New Technologies, he enrolled in a PhD in Performing, Staging Arts, Music and Compositions at ABANA. His artistic research combines the sound and motion of water; starting from an observation of sea waves, his interest in using water as a sound source and core for his projects was born. Sampling and reshaping this natural element, mixed with a curiosity towards radical improvisation, led to the creation of Cariddi, an experimental electroacoustic instrument designed to create and samples whirlpools. This instrument is used to bring the unpredictability of the tide and its sounds in an artificial space.",
@@ -97,7 +110,10 @@ export const installations = [
     isActive: true,
     startTime: '16:00',
     timeSlot: '16:00',
-    image: '/images/enchained-forest.jpg',
+    imageSource: '/images/enchained-forest.jpg',
+    image: '/images/schedule/enchained-forest-300.webp',
+    imageSrcSet:
+      '/images/schedule/enchained-forest-300.webp 1x, /images/schedule/enchained-forest-600.webp 2x',
     artist: {
       name: 'Isle of Aila',
       bio: 'Multimedia artist working with sounds, clay, oil paints, charcoal, words, and installations. Interested in exploring the unknown, and in tricking herself out of aiming for perfection.',
