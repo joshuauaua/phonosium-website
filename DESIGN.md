@@ -234,7 +234,7 @@ Phonosium is flat by default. Depth comes from hairline (1px) ink rules and weig
 
 ### Inputs / Fields
 
-- **Style:** no box or side borders — a single 2px ink underline (`border-bottom`), transparent background, 0 radius.
+- **Style:** no box or side borders — a single 2px ink underline (`border-bottom`), transparent background. Radius stays at `radius.r-0`: there is no box to round, and a radius would curl the ends of the underline. Bordered fields (the custom-tag input) take `radius.r-1` like any other control.
 - **Focus:** the underline shifts to vermillion.
 - **Placeholder:** Stone.
 
@@ -252,7 +252,7 @@ Phonosium is flat by default. Depth comes from hairline (1px) ink rules and weig
 
 - **Don't** use gradient backgrounds.
 - **Don't** use glassmorphism.
-- **Don't** use rounded cards with heavy drop shadows — corners are sharp (0–2px) and surfaces are flat.
+- **Don't** use heavily rounded cards or drop shadows — corners are softened (4–6px), not pillowy, and surfaces are flat.
 - **Don't** use playful, bouncy animations — motion is restrained: 120–420ms, no overshoot.
 - **Don't** use emoji in UI copy or icons.
 - **Don't** use marketing superlatives ("amazing", "revolutionary") — the voice is curatorial, third-person, and observational.
