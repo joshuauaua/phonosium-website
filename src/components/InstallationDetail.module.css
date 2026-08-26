@@ -19,7 +19,7 @@
   width: 8px;
   height: 8px;
   background: var(--ph-orange);
-  border-radius: 999px;
+  border-radius: var(--ph-r-pill);
   animation: pulse 1.6s var(--ph-ease) infinite;
 }
 

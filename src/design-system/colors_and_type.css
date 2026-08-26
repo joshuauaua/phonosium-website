@@ -271,7 +271,7 @@ body {
   content: '';
   width: 6px;
   height: 6px;
-  border-radius: 999px;
+  border-radius: var(--ph-r-pill);
   background: var(--ph-orange);
   animation: ph-pulse 1.6s var(--ph-ease) infinite;
 }
