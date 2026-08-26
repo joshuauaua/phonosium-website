@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { installations } from '../data/installations'
-import { getCurrentInstallation } from '../utils/scheduleUtils'
+import { getCurrentInstallation, timeToMinutes } from '../utils/scheduleUtils'
+import { toExternalHref } from '../utils/urlUtils'
 import Waves from '../components/Waves/Waves'
 import ContributionForm from '../components/ContributionForm'
 import SEO from '../components/SEO'
 import styles from './Home.module.css'
+
+// Covers only mount once a row is expanded, so the fetch would otherwise start
+// on click. Warming the cache first makes the image appear with the row.
+function warmCover(inst) {
+  if (!inst?.image) return
+  const img = new Image()
+  if (inst.imageSrcSet) img.srcset = inst.imageSrcSet
+  img.src = inst.image
+}
 
 export default function Home() {
   const navigate = useNavigate()
@@ -29,6 +39,16 @@ export default function Home() {
     updateTrigger >= 0 ? getCurrentInstallation(installations) : null
 
   const selectedId = current?.id
+
+  // The now-playing cover is what "More Info" opens, so fetch it up front
+  useEffect(() => {
+    warmCover(current)
+  }, [current?.id])
+
+  // Schedule lists pieces chronologically, so the day's last start sits at the bottom
+  const scheduled = [...installations].sort(
+    (a, b) => timeToMinutes(a.startTime) - timeToMinutes(b.startTime)
+  )
 
   return (
     <>
@@ -176,7 +196,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.chList}>
-            {installations.map(inst => {
+            {scheduled.map(inst => {
               const isExpanded = expandedScheduleId === inst.id
               return (
                 <div
@@ -185,6 +205,7 @@ export default function Home() {
                 >
                   <div
                     className={styles.chRow}
+                    onPointerEnter={() => warmCover(inst)}
                     onClick={() => {
                       setExpandedScheduleId(isExpanded ? null : inst.id)
                     }}
@@ -202,6 +223,10 @@ export default function Home() {
                         {inst.image ? (
                           <img
                             src={inst.image}
+                            srcSet={inst.imageSrcSet}
+                            width={300}
+                            height={300}
+                            decoding="async"
                             alt={inst.title}
                             className={styles.coverImg}
                           />
@@ -244,7 +269,7 @@ export default function Home() {
                         </div>
                         {inst.artist.website && (
                           <a
-                            href={`https://${inst.artist.website}`}
+                            href={toExternalHref(inst.artist.website)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={styles.trackLink}

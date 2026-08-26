@@ -10,6 +10,7 @@
   justify-content: center;
   overflow: hidden;
   border: 1px solid var(--ph-ink);
+  border-radius: var(--ph-r-2);
 }
 
 .imageContainer {
@@ -44,6 +45,7 @@
   justify-content: center;
   cursor: pointer;
   z-index: 10;
+  border-radius: var(--ph-r-1);
   transition: background var(--ph-dur-base) var(--ph-ease);
   padding: 0;
   line-height: 1;
@@ -75,7 +77,7 @@
 .indicator {
   width: 8px;
   height: 8px;
-  border-radius: 0;
+  border-radius: var(--ph-r-pill);
   background: rgba(250, 247, 242, 0.4);
   border: none;
   cursor: pointer;

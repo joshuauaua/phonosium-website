@@ -12,7 +12,7 @@ export function getStockholmTime() {
 /**
  * Parse a time string (HH:MM) into minutes since midnight
  */
-function timeToMinutes(timeStr) {
+export function timeToMinutes(timeStr) {
   const [hours, minutes] = timeStr.split(':').map(Number)
   return hours * 60 + minutes
 }

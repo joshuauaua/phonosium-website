@@ -82,10 +82,15 @@
   --ph-s-10: 128px;
   --ph-s-11: 192px;
 
-  /* ---- Radius ---- */
+  /* ---- Radius ----
+     Corners are softened, not rounded. Keep to this scale:
+       r-0    full-bleed only — edge-to-edge media, hairline rules, flush list rows
+       r-1    controls — buttons, tags, small boxes, bordered inputs
+       r-2    surfaces — cards, panels, modals, media containers
+       r-pill dots, indicators, progress tracks, chips */
   --ph-r-0: 0px;
-  --ph-r-1: 2px;
-  --ph-r-2: 4px;
+  --ph-r-1: 4px;
+  --ph-r-2: 6px;
   --ph-r-pill: 999px;
 
   /* ---- Border ---- */
@@ -283,7 +288,7 @@ body {
 .ph-card {
   background: var(--ph-paper);
   border: var(--ph-bw) solid var(--ph-ink);
-  border-radius: var(--ph-r-0);
+  border-radius: var(--ph-r-2);
   padding: var(--ph-s-6);
 }
 
@@ -305,7 +310,7 @@ body {
   background: transparent;
   border: 0;
   border-bottom: var(--ph-bw-strong) solid var(--ph-ink);
-  border-radius: 0;
+  border-radius: var(--ph-r-0); /* underline field — no box to round */
   color: var(--ph-ink);
   outline: none;
   transition: border-color var(--ph-dur-base) var(--ph-ease);

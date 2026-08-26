@@ -39,7 +39,7 @@
 .formWrapper {
   background: var(--ph-ink);
   border: 1px solid var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-2);
   overflow: hidden;
   width: 100%;
   max-width: 1000px;
@@ -149,7 +149,7 @@
   background: transparent;
   border: 0;
   border-bottom: 2px solid var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-0); /* underline field — no box to round */
   color: var(--ph-paper);
   outline: none;
   transition: border-color var(--ph-dur-base) var(--ph-ease-out);
@@ -244,7 +244,7 @@
 .fileInputWrapper {
   position: relative;
   border: 2px dashed var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-2);
   padding: var(--ph-s-6) var(--ph-s-5);
   text-align: center;
   transition: border-color var(--ph-dur-base) var(--ph-ease-out);
@@ -446,7 +446,7 @@
   background: rgba(255, 255, 255, 0.05);
   padding: var(--ph-s-6);
   border: 1px solid var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-2);
   margin-bottom: var(--ph-s-6);
 }
 
@@ -478,7 +478,7 @@
   padding: var(--ph-s-6);
   background: rgba(255, 90, 31, 0.1);
   border: 1px solid var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-2);
 }
 
 .checkboxLabel {
@@ -521,6 +521,7 @@
   padding: var(--ph-s-4) var(--ph-s-6);
   background: rgba(220, 38, 38, 0.1);
   border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: var(--ph-r-1);
   color: #dc2626;
   font-size: var(--ph-fs-body-sm);
 }
@@ -548,7 +549,7 @@
   flex: 1;
   height: 4px;
   background: var(--ph-ink);
-  border-radius: 0;
+  border-radius: var(--ph-r-pill);
   overflow: hidden;
 }
 
@@ -575,7 +576,7 @@
   background: transparent;
   border: 0;
   border-bottom: 2px solid var(--ph-stone);
-  border-radius: 0;
+  border-radius: var(--ph-r-0); /* underline field — no box to round */
   color: var(--ph-paper);
   outline: none;
   transition: border-color var(--ph-dur-base) var(--ph-ease);
